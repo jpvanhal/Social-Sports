@@ -24,6 +24,11 @@ Rectangle {
     Button {
         id: "send"
         label: "send"
+        anchors.margins: 10
         anchors.top: input.bottom
+        anchors.horizontalCenter: input.horizontalCenter
+        onButtonClick: {
+            console.log(input.text.substring(0,5))
+        }
     }
 }
