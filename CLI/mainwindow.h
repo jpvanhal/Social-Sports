@@ -20,6 +20,7 @@ protected:
 
 private:
     Ui::MainWindow *ui;
+    QString doHelp(QStringList args);
 
 private slots:
     void sendCommand();
