@@ -7,7 +7,7 @@ Rectangle {
 
     property color buttonColor: "lightblue"
     property color onHoverColor: "gold"
-    property color borderColor: "white"
+    property color borderColor: "black"
     property string label: "button"
 
     Text {
