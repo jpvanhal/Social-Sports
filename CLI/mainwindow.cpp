@@ -16,14 +16,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->buttonSend, SIGNAL(clicked()), SLOT(sendCommand()));
     connect(ui->lineEditCommand, SIGNAL(returnPressed()), SLOT(sendCommand()));
 
-    this->races.insert("LVJL11", Race(QString::fromUtf8("Länsiväyläjuoksu (long)"), "Espoo", 17400, QDate(2011, 4, 17)));
-    this->races.insert("LVJS11", Race(QString::fromUtf8("Länsiväyläjuoksu (short)"), "Espoo", 6500, QDate(2011, 4, 17)));
-    this->races.insert("LVJW11", Race(QString::fromUtf8("Länsiväyläjuoksu (walk)"), "Espoo", 6200, QDate(2011, 4, 17)));
-    this->races.insert("HCR11", Race("Helsinki City Run", "Helsinki", 21098, QDate(2011, 5, 7)));
-    this->races.insert("NK11", Race("Naisten kymppi", "Helsinki", 10000, QDate(2011, 5, 22)));
-    this->races.insert("NAKU11", Race("Nakukymppi", "Padasjoki", 10000, QDate(2011, 6, 17)));
-    this->races.insert("PNM11", Race("Paavo Nurmi Marathon", "Turku", 42195, QDate(2011, 7, 2)));
-    this->races.insert("HKM11", Race("Helsinki City Marathon", "Helsinki", 42195, QDate(2011, 8, 20)));
+    this->races.append(Race("LVJL11", QString::fromUtf8("Länsiväyläjuoksu (long)"), "Espoo", 17400, QDate(2011, 4, 17)));
+    this->races.append(Race("LVJS11", QString::fromUtf8("Länsiväyläjuoksu (short)"), "Espoo", 6500, QDate(2011, 4, 17)));
+    this->races.append(Race("LVJW11", QString::fromUtf8("Länsiväyläjuoksu (walk)"), "Espoo", 6200, QDate(2011, 4, 17)));
+    this->races.append(Race("HCR11", "Helsinki City Run", "Helsinki", 21098, QDate(2011, 5, 7)));
+    this->races.append(Race("NK11", "Naisten kymppi", "Helsinki", 10000, QDate(2011, 5, 22)));
+    this->races.append(Race("NAKU11", "Nakukymppi", "Padasjoki", 10000, QDate(2011, 6, 17)));
+    this->races.append(Race("PNM11", "Paavo Nurmi Marathon", "Turku", 42195, QDate(2011, 7, 2)));
+    this->races.append(Race("HKM11", "Helsinki City Marathon", "Helsinki", 42195, QDate(2011, 8, 20)));
+
+    foreach (Race race, this->races) {
+        this->raceLookup.insert(race.id(), race);
+    }
 }
 
 MainWindow::~MainWindow()
@@ -64,14 +68,10 @@ QString MainWindow::doHelp(QStringList args)
 QString MainWindow::doRaceList()
 {
     QStringList response;
-    QMapIterator<QString, Race> i(this->races);
-     while (i.hasNext()) {
-         i.next();
-         QString id = i.key();
-         Race race = i.value();
-         response.append(QString("%1: %2 (%3 m) on %4 at %5").arg(id, race.name(), QString::number(race.distance()), race.date().toString("dd.MM.yyyy"), race.location()));
-     }
-     return response.join(";\n");
+    foreach (Race race, this->races) {
+        response.append(QString("%1: %2 (%3 m) on %4 at %5").arg(race.id(), race.name(), QString::number(race.distance()), race.date().toString("dd.MM.yyyy"), race.location()));
+    }
+    return response.join(";\n");
 }
 
 QString MainWindow::doRace(QStringList args)

@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QMap>
+#include <QHash>
+#include <QList>
 
 #include "race.h"
 
@@ -22,7 +23,8 @@ protected:
     void changeEvent(QEvent *e);
 
 private:
-    QMap<QString, Race> races;
+    QHash<QString, Race> raceLookup;
+    QList<Race> races;
     Ui::MainWindow *ui;
     QString doHelp(QStringList args);
     QString doRace(QStringList args);

@@ -7,13 +7,15 @@
 class Race
 {
 public:
-    Race(QString name, QString location, int distance, QDate date);
+    Race(QString id, QString name, QString location, int distance, QDate date);
+    QString id();
     QString name();
     QString location();
     int distance();
     QDate date();
 
 private:
+    QString _id;
     QString _name;
     QString _location;
     int _distance;

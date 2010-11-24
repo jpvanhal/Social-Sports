@@ -1,11 +1,16 @@
 #include "race.h"
 
-Race::Race(QString name, QString location, int distance, QDate date)
+Race::Race(QString id, QString name, QString location, int distance, QDate date)
 {
+    this->_id = id;
     this->_name = name;
     this->_location = location;
     this->_distance = distance;
     this->_date = date;
+}
+
+QString Race::id(){
+    return this->_id;
 }
 
 QString Race::name()
