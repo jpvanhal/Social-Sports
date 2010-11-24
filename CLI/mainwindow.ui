@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>418</width>
+    <height>178</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Message history:</string>
+         <string>Response:</string>
         </property>
        </widget>
       </item>
@@ -63,6 +63,11 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>lineEditCommand</tabstop>
+  <tabstop>textEditMessageHistory</tabstop>
+  <tabstop>buttonSend</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
