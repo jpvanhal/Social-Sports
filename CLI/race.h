@@ -7,6 +7,7 @@
 class Race
 {
 public:
+    Race();
     Race(QString id, QString name, QString location, int distance, QDate date);
     QString id();
     QString name();

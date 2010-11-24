@@ -3,6 +3,7 @@
 #include <QRegExp>
 #include <QMapIterator>
 
+#include <QDebug>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -16,6 +17,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->buttonSend, SIGNAL(clicked()), SLOT(sendCommand()));
     connect(ui->lineEditCommand, SIGNAL(returnPressed()), SLOT(sendCommand()));
 
+    this->initRaces();
+    this->initHelp();
+}
+
+void MainWindow::initRaces()
+{
     this->races.append(Race("LVJL11", QString::fromUtf8("Länsiväyläjuoksu (long)"), "Espoo", 17400, QDate(2011, 4, 17)));
     this->races.append(Race("LVJS11", QString::fromUtf8("Länsiväyläjuoksu (short)"), "Espoo", 6500, QDate(2011, 4, 17)));
     this->races.append(Race("LVJW11", QString::fromUtf8("Länsiväyläjuoksu (walk)"), "Espoo", 6200, QDate(2011, 4, 17)));
@@ -28,6 +35,13 @@ MainWindow::MainWindow(QWidget *parent) :
     foreach (Race race, this->races) {
         this->raceLookup.insert(race.id(), race);
     }
+}
+
+void MainWindow::initHelp()
+{
+    this->help.insert("HELP", "HELP -- Returns a list of available commands.\nHELP <command> -- Returns help on the specified command.");
+    this->help.insert("RACE LIST", "RACE LIST -- Returns a list of upcoming foot races, most recent first.");
+    this->help.insert("RACE INFO", "RACE INFO <id> -- Returns detailed information about the race with the given id.");
 }
 
 MainWindow::~MainWindow()
@@ -47,21 +61,15 @@ void MainWindow::changeEvent(QEvent *e)
     }
 }
 
-QString MainWindow::doHelp(QStringList args)
+QString MainWindow::doHelp(QString command)
 {
-    if (args.length() == 0) {
-        return "Available commands: HELP, RACE LIST";
+    QString commandUpper = command.toUpper();
+    if (command == "") {
+        return "Available commands: " + QStringList(this->help.keys()).join(", ");
+    } else if (this->help.contains(commandUpper)) {
+        return this->help[commandUpper];
     } else {
-        QString command1 = args[0].toUpper();
-        if (command1 == "HELP" && args.length() == 1) {
-            return "HELP -- Returns a list of available commands.\nHELP <command> -- Returns help on the specified command.";
-        } else if (command1 == "RACE" && args.length() == 2) {
-            QString command2 = args[1].toUpper();
-            if (command2 == "LIST") {
-                return "RACE LIST -- Returns a list of upcoming foot races, most recent first.";
-            }
-        }
-        return "No help available on '" + args.join(" ") + "'.";
+        return "No help available on '" + command + "'.";
     }
 }
 
@@ -69,9 +77,22 @@ QString MainWindow::doRaceList()
 {
     QStringList response;
     foreach (Race race, this->races) {
-        response.append(QString("%1: %2 (%3 m) on %4 at %5").arg(race.id(), race.name(), QString::number(race.distance()), race.date().toString("dd.MM.yyyy"), race.location()));
+        response.append(QString("%1: %2").arg(race.id(), race.name()));
     }
-    return response.join(";\n");
+    return response.join("\n");
+}
+
+QString MainWindow::doRaceInfo(QString id)
+{
+    QString idUpper = id.toUpper();
+    if (this->raceLookup.contains(idUpper)) {
+        Race race = this->raceLookup[idUpper];
+        return QString("%1 (%2) is %3 m long race organized in %4 on %5.").arg(
+                race.name(), race.id(), QString::number(race.distance()),
+                race.location(), race.date().toString("dd.MM.yyyy"));
+    } else {
+        return QString("There is no race with the id '%1'").arg(id);
+    }
 }
 
 QString MainWindow::doRace(QStringList args)
@@ -80,6 +101,12 @@ QString MainWindow::doRace(QStringList args)
         QString command = args.takeFirst().toUpper();
         if (command == "LIST") {
             return this->doRaceList();
+        } else if (command == "INFO") {
+            if (args.length() == 1) {
+                return this->doRaceInfo(args[0]);
+            } else {
+                return this->doHelp("RACE INFO");
+            }
         }
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;
@@ -95,7 +122,7 @@ void MainWindow::sendCommand()
 
     QString response;
     if (command == "HELP") {
-        response = doHelp(args);
+        response = doHelp(args.join(" "));
     } else if (command == "RACE") {
         response = doRace(args);
     } else {

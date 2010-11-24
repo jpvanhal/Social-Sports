@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QHash>
+#include <QMap>
 #include <QList>
 
 #include "race.h"
@@ -23,11 +24,15 @@ protected:
     void changeEvent(QEvent *e);
 
 private:
-    QHash<QString, Race> raceLookup;
+    QMap<QString, Race> raceLookup;
     QList<Race> races;
+    QMap<QString, QString> help;
     Ui::MainWindow *ui;
-    QString doHelp(QStringList args);
+    void initRaces();
+    void initHelp();
+    QString doHelp(QString command);
     QString doRace(QStringList args);
+    QString doRaceInfo(QString id);
     QString doRaceList();
 
     static const QString MSG_COMMAND_NOT_RECOGNIZED;

@@ -1,5 +1,10 @@
 #include "race.h"
 
+Race::Race()
+{
+
+}
+
 Race::Race(QString id, QString name, QString location, int distance, QDate date)
 {
     this->_id = id;
