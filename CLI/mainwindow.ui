@@ -32,6 +32,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="buttonSend">
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
         <property name="text">
          <string>Send SMS</string>
         </property>
@@ -57,7 +60,10 @@
       <item>
        <widget class="QPushButton" name="btnSimulateInvitation">
         <property name="enabled">
-         <bool>false</bool>
+         <bool>true</bool>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
         </property>
         <property name="text">
          <string>Simulate group invitation</string>
@@ -101,6 +107,14 @@
   <action name="actionSend_Command">
    <property name="text">
     <string>Send Command</string>
+   </property>
+  </action>
+  <action name="actionSimulateInvitation">
+   <property name="text">
+    <string>simulateInvitation</string>
+   </property>
+   <property name="toolTip">
+    <string>Simulate a group invitation</string>
    </property>
   </action>
  </widget>

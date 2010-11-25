@@ -200,7 +200,7 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
 
 QString MainWindow::doGroupJoin(QString groupName)
 {
-    if (!this->groups.contains(groupName))
+    if (groupName != "NakedJoggers")
     {
         return QString("There is no group called '%0'.").arg(groupName);
     }
@@ -265,7 +265,7 @@ QString MainWindow::doUnregister()
 
 void MainWindow::simulateInvitation() {
     this->receiveMessage("Mark has invited you to join a group called 'NakedJoggers'. Send 'GROUP JOIN NakedJoggers' to accept this invitation.");
-    this->ui->btnSimulateInvitation->setEnabled(false);
+    this->ui->btnSimulateInvitation->setEnabled(true);
 }
 
 QString MainWindow::doMyFitness()
@@ -290,7 +290,7 @@ void MainWindow::sendCommand()
     command = args.takeFirst().toUpper();
 
     QString response;
-    if (command == "HELP") {
+    if (command == "HELP" || command == "HLP") {
         response = doHelp(args.join(" "));
     } else if (command == "RACE") {
         response = doRace(args);
