@@ -3,7 +3,6 @@
 #include <QRegExp>
 #include <QMapIterator>
 
-#include <QDebug>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -19,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->initRaces();
     this->initHelp();
+
+    this->theUser = 0;
 }
 
 void MainWindow::initRaces()
@@ -42,6 +43,7 @@ void MainWindow::initHelp()
     this->help.insert("HELP", "HELP -- Returns a list of available commands.\nHELP <command> -- Returns help on the specified command.");
     this->help.insert("RACE LIST", "RACE LIST -- Returns a list of upcoming foot races, most recent first.");
     this->help.insert("RACE INFO", "RACE INFO <id> -- Returns detailed information about the race with the given id.");
+    this->help.insert("REGISTER", "REGISTER <username> -- Register to the service with the given username.");
 }
 
 MainWindow::~MainWindow()
@@ -112,6 +114,16 @@ QString MainWindow::doRace(QStringList args)
     return this->MSG_COMMAND_NOT_RECOGNIZED;
 }
 
+QString MainWindow::doRegister(QString username)
+{
+    if (this->theUser) {
+        return QString("You have already registered to the service with username '%0'.").arg(this->theUser->username());
+    } else {
+        this->theUser = new User(username);
+        return QString("You have succesfully registered to the service with username '%0'.").arg(username);
+    }
+}
+
 void MainWindow::sendCommand()
 {
     QString command = this->ui->lineEditCommand->text();
@@ -125,6 +137,12 @@ void MainWindow::sendCommand()
         response = doHelp(args.join(" "));
     } else if (command == "RACE") {
         response = doRace(args);
+    } else if (command == "REGISTER") {
+        if (args.length() == 1) {
+            response = doRegister(args[0]);
+        } else {
+            response = doHelp("REGISTER");
+        }
     } else {
         response = this->MSG_COMMAND_NOT_RECOGNIZED;
     }

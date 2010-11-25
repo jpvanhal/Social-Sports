@@ -7,6 +7,7 @@
 #include <QList>
 
 #include "race.h"
+#include "user.h"
 
 namespace Ui {
     class MainWindow;
@@ -27,13 +28,17 @@ private:
     QMap<QString, Race> raceLookup;
     QList<Race> races;
     QMap<QString, QString> help;
+    User *theUser;
+
     Ui::MainWindow *ui;
+
     void initRaces();
     void initHelp();
     QString doHelp(QString command);
     QString doRace(QStringList args);
     QString doRaceInfo(QString id);
     QString doRaceList();
+    QString doRegister(QString username);
 
     static const QString MSG_COMMAND_NOT_RECOGNIZED;
 
