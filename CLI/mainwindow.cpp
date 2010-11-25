@@ -44,6 +44,7 @@ void MainWindow::initHelp()
     this->help.insert("RACE LIST", "RACE LIST -- Returns a list of upcoming foot races, most recent first.");
     this->help.insert("RACE INFO", "RACE INFO <id> -- Returns detailed information about the race with the given id.");
     this->help.insert("REGISTER", "REGISTER <username> -- Register to the service with the given username.");
+    this->help.insert("UNREGISTER", "UNREGISTER -- Unregister from the service.");
 }
 
 MainWindow::~MainWindow()
@@ -124,6 +125,17 @@ QString MainWindow::doRegister(QString username)
     }
 }
 
+QString MainWindow::doUnregister()
+{
+    if (this->theUser) {
+        delete this->theUser;
+        this->theUser = 0;
+        return QString("You have succesfully unregistered from the service.");
+    } else {
+        return QString("Cannot unregister you from the service, because you have not registered to the service.");
+    }
+}
+
 void MainWindow::sendCommand()
 {
     QString command = this->ui->lineEditCommand->text();
@@ -142,6 +154,12 @@ void MainWindow::sendCommand()
             response = doRegister(args[0]);
         } else {
             response = doHelp("REGISTER");
+        }
+    } else if (command == "UNREGISTER") {
+        if (args.length() == 0) {
+            response = doUnregister();
+        } else {
+            response = doHelp("UNREGISTER");
         }
     } else {
         response = this->MSG_COMMAND_NOT_RECOGNIZED;

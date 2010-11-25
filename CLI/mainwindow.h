@@ -39,6 +39,7 @@ private:
     QString doRaceInfo(QString id);
     QString doRaceList();
     QString doRegister(QString username);
+    QString doUnregister();
 
     static const QString MSG_COMMAND_NOT_RECOGNIZED;
 
