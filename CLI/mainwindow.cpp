@@ -18,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     connect(ui->buttonSend, SIGNAL(clicked()), SLOT(sendCommand()));
     connect(ui->lineEditCommand, SIGNAL(returnPressed()), SLOT(sendCommand()));
+    connect(ui->btnSimulateInvitation, SIGNAL(clicked()), SLOT(simulateInvitation()));
 
     this->initRaces();
     this->initHelp();
@@ -28,10 +29,10 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::initGroupsAndUsers()
 {
-    Group *group = createGroup("Naked Joggers");
-    group->addMember(createUser("mark"));
-    group->addMember(createUser("jane"));
-    group->addMember(createUser("peter"));
+    Group *group = createGroup("NakedJoggers");
+    createUser("Mark")->joinGroup(group);
+    createUser("Jane")->joinGroup(group);
+    createUser("Peter")->joinGroup(group);
 }
 
 User* MainWindow::createUser(QString username)
@@ -71,7 +72,7 @@ void MainWindow::initHelp()
     this->help.insert("RACE INFO", "RACE INFO &lt;id&gt; -- Returns detailed information about the race with the given id.");
     this->help.insert("REGISTER", "REGISTER &lt;username&gt; -- Register to the service with the given username.");
     this->help.insert("UNREGISTER", "UNREGISTER -- Unregister from the service.");
-    this->help.insert("PERSONAL FITNESS", "PERSONAL FITNESS -- Returns your current personal fitness values and feedback about your training.");
+    this->help.insert("MY FITNESS", "MY FITNESS -- Returns your current personal fitness values and feedback about your training.");
     this->help.insert("GROUP MEMBERS", "GROUP MEMBERS &lt;group name&gt; -- Returns a list of members in the given group.");
     this->help.insert("GROUP CREATE", "GROUP CREATE &lt;group name&gt; [&lt;username&gt;, ...] -- Creates a group with the given name, and sends invitations to the users given.");
 }
@@ -177,7 +178,7 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
             if (this->users.contains(username)) {
                 User *user = this->users[username];
                 usersInvited.append(user->username());
-                group->invite(user);
+                theUser->invite(user, group);
             } else {
                 usersNotFound.append(username);
             }
@@ -197,6 +198,21 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
     }
 }
 
+QString MainWindow::doGroupJoin(QString groupName)
+{
+    if (!this->groups.contains(groupName))
+    {
+        return QString("There is no group called '%0'.").arg(groupName);
+    }
+    Group *group = this->groups[groupName];
+    if (!this->theUser->hasInvitation(group))
+    {
+        return QString("You need an invitation to join this group.");
+    }
+    this->theUser->acceptInvitation(group);
+    return QString("You have joined the group called '%0'.").arg(groupName);
+}
+
 QString MainWindow::doGroup(QStringList args)
 {
     if (args.length() > 0) {
@@ -208,8 +224,12 @@ QString MainWindow::doGroup(QStringList args)
                 return this->doHelp("GROUP CREATE");
             }
             QString groupName = args.takeFirst();
-            qDebug() << args;
             return this->doGroupCreate(groupName, args);
+        } else if (command == "JOIN") {
+            if (args.length() != 1) {
+                return this->doHelp("GROUP JOIN");
+            }
+            return this->doGroupJoin(args[0]);
         }
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;
@@ -225,6 +245,7 @@ QString MainWindow::doRegister(QString username)
         }
         this->theUser = new User(username);
         this->users.insert(username, this->theUser);
+        this->ui->btnSimulateInvitation->setEnabled(true);
         return QString("You have succesfully registered to the service with username '%0'.").arg(username);
     }
 }
@@ -235,13 +256,19 @@ QString MainWindow::doUnregister()
         this->users.remove(this->theUser->username());
         delete this->theUser;
         this->theUser = 0;
+        this->ui->btnSimulateInvitation->setEnabled(false);
         return QString("You have succesfully unregistered from the service.");
     } else {
         return QString("Cannot unregister you from the service, because you have not registered to the service.");
     }
 }
 
-QString MainWindow::doPersonalFitness()
+void MainWindow::simulateInvitation() {
+    this->receiveMessage("Mark has invited you to join a group called 'NakedJoggers'. Send 'GROUP JOIN NakedJoggers' to accept this invitation.");
+    this->ui->btnSimulateInvitation->setEnabled(false);
+}
+
+QString MainWindow::doMyFitness()
 {
     if (!this->theUser) {
         return MSG_REGISTRATION_REQUIRED;
@@ -249,20 +276,14 @@ QString MainWindow::doPersonalFitness()
     return "Your endurance is 68/100, strength 45/100 and flexibility 89/100. You have been training hard lately. Maybe you should rest for a change?";
 }
 
-void MainWindow::sendMessage(QString message)
-{
-    this->ui->textEditMessageHistory->append("<b>You:</b> " + message);
-}
-
 void MainWindow::receiveMessage(QString message)
 {
-    this->ui->textEditMessageHistory->append("<b>Service:</b> " + message);
+    this->ui->textEditResponse->setPlainText(message);
 }
 
 void MainWindow::sendCommand()
 {
     QString command = this->ui->lineEditCommand->text();
-    this->sendMessage(command);
     this->ui->lineEditCommand->clear();
 
     QStringList args = command.trimmed().split(QRegExp("\\s+"));
@@ -287,8 +308,8 @@ void MainWindow::sendCommand()
         } else {
             response = doHelp("UNREGISTER");
         }
-    } else if (command == "PERSONAL" && args.length() == 1 && args[0].toUpper() == "FITNESS") {
-        response = doPersonalFitness();
+    } else if (command == "MY" && args.length() == 1 && args[0].toUpper() == "FITNESS") {
+        response = doMyFitness();
     } else {
         response = this->MSG_COMMAND_NOT_RECOGNIZED;
     }

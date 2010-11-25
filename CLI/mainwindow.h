@@ -43,14 +43,14 @@ private:
     QString doHelp(QString command);
     QString doGroup(QStringList args);
     QString doGroupMembers(QString groupName);
+    QString doGroupJoin(QString groupName);
     QString doGroupCreate(QString groupName, QStringList usernames);
     QString doRace(QStringList args);
     QString doRaceInfo(QString id);
     QString doRaceList();
     QString doRegister(QString username);
     QString doUnregister();
-    QString doPersonalFitness();
-    void sendMessage(QString message);
+    QString doMyFitness();
     void receiveMessage(QString message);
 
     static const QString MSG_COMMAND_NOT_RECOGNIZED;
@@ -58,6 +58,7 @@ private:
 
 private slots:
     void sendCommand();
+    void simulateInvitation();
 };
 
 #endif // MAINWINDOW_H

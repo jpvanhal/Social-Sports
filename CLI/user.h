@@ -12,10 +12,16 @@ public:
     User();
     User(QString username);
     QString username();
-    void addGroup(Group *group);
+    void joinGroup(Group *group);
+    void invite(User *user, Group *group);
+    bool hasInvitation(Group *group);
+    User *getInviter(Group *group);
+    void acceptInvitation(Group *group);
+
 private:
     QString _username;
     QMap<QString, Group*> _groups;
+    QMap<QString, User*> invitations;
 };
 
 #endif // USER_H

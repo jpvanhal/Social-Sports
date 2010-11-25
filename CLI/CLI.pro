@@ -14,11 +14,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     race.cpp \
     user.cpp \
-    group.cpp
+    group.cpp \
+    invitation.cpp
 
 HEADERS  += mainwindow.h \
     race.h \
     user.h \
-    group.h
+    group.h \
+    invitation.h
 
 FORMS    += mainwindow.ui

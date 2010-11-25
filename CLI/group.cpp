@@ -17,15 +17,9 @@ QString Group::name()
 void Group::addMember(User* user)
 {
     this->_members.insert(user->username(), user);
-    user->addGroup(this);
 }
 
 QList<User *> Group::getMembers()
 {
     return this->_members.values();
-}
-
-void Group::invite(User *user)
-{
-
 }
