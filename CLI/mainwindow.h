@@ -40,8 +40,10 @@ private:
     QString doRaceList();
     QString doRegister(QString username);
     QString doUnregister();
+    QString doPersonalFitness();
 
     static const QString MSG_COMMAND_NOT_RECOGNIZED;
+    static const QString MSG_REGISTRATION_REQUIRED;
 
 private slots:
     void sendCommand();

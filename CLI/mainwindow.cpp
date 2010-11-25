@@ -7,6 +7,7 @@
 #include "ui_mainwindow.h"
 
 const QString MainWindow::MSG_COMMAND_NOT_RECOGNIZED = QString("Your command was not recognized. Use 'HELP' command to get a list of available commands.");
+const QString MainWindow::MSG_REGISTRATION_REQUIRED = QString("You have to register to the service before using this function.");
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -45,6 +46,7 @@ void MainWindow::initHelp()
     this->help.insert("RACE INFO", "RACE INFO <id> -- Returns detailed information about the race with the given id.");
     this->help.insert("REGISTER", "REGISTER <username> -- Register to the service with the given username.");
     this->help.insert("UNREGISTER", "UNREGISTER -- Unregister from the service.");
+    this->help.insert("PERSONAL FITNESS", "PERSONAL FITNESS -- Returns your current personal fitness values and feedback about your training.");
 }
 
 MainWindow::~MainWindow()
@@ -136,6 +138,14 @@ QString MainWindow::doUnregister()
     }
 }
 
+QString MainWindow::doPersonalFitness()
+{
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
+    return "Your endurance is 68/100, strength 45/100 and flexibility 89/100. You have been training hard lately. Maybe you should rest for a change?";
+}
+
 void MainWindow::sendCommand()
 {
     QString command = this->ui->lineEditCommand->text();
@@ -161,6 +171,8 @@ void MainWindow::sendCommand()
         } else {
             response = doHelp("UNREGISTER");
         }
+    } else if (command == "PERSONAL" && args.length() == 1 && args[0].toUpper() == "FITNESS") {
+        response = doPersonalFitness();
     } else {
         response = this->MSG_COMMAND_NOT_RECOGNIZED;
     }
