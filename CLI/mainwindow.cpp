@@ -19,8 +19,31 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->initRaces();
     this->initHelp();
+    this->initGroupsAndUsers();
 
     this->theUser = 0;
+}
+
+void MainWindow::initGroupsAndUsers()
+{
+    Group *group = createGroup("Naked Joggers");
+    group->addMember(createUser("mark"));
+    group->addMember(createUser("jane"));
+    group->addMember(createUser("peter"));
+}
+
+User* MainWindow::createUser(QString username)
+{
+    User *user = new User(username);
+    this->users.insert(username, user);
+    return user;
+}
+
+Group* MainWindow::createGroup(QString name)
+{
+    Group *group = new Group(name);
+    this->groups.insert(name, group);
+    return group;
 }
 
 void MainWindow::initRaces()
@@ -47,6 +70,7 @@ void MainWindow::initHelp()
     this->help.insert("REGISTER", "REGISTER <username> -- Register to the service with the given username.");
     this->help.insert("UNREGISTER", "UNREGISTER -- Unregister from the service.");
     this->help.insert("PERSONAL FITNESS", "PERSONAL FITNESS -- Returns your current personal fitness values and feedback about your training.");
+    this->help.insert("GROUP MEMBERS", "GROUP MEMBERS <group name> -- Returns a list of members in the given group.");
 }
 
 MainWindow::~MainWindow()
@@ -117,12 +141,43 @@ QString MainWindow::doRace(QStringList args)
     return this->MSG_COMMAND_NOT_RECOGNIZED;
 }
 
+QString MainWindow::doGroupMembers(QString groupName)
+{
+    if (this->groups.contains(groupName)) {
+        Group *group = this->groups[groupName];
+        QString response = QString("Members of group '%0': ").arg(groupName);
+        QStringList usernames;
+        foreach (User *user, group->getMembers()) {
+            usernames.append(user->username());
+        }
+        response += usernames.join(", ");
+        return response;
+    } else {
+        return QString("There is no group called '%0'.").arg(groupName);
+    }
+}
+
+QString MainWindow::doGroup(QStringList args)
+{
+    if (args.length() > 0) {
+        QString command = args.takeFirst().toUpper();
+        if (command == "MEMBERS") {
+            return this->doGroupMembers(args.join(" "));
+        }
+    }
+    return this->MSG_COMMAND_NOT_RECOGNIZED;
+}
+
 QString MainWindow::doRegister(QString username)
 {
     if (this->theUser) {
         return QString("You have already registered to the service with username '%0'.").arg(this->theUser->username());
     } else {
+        if (this->users.contains(username)) {
+            return QString("Registration failed. The username '%0' is already taken. Please try some other username.").arg(username);
+        }
         this->theUser = new User(username);
+        this->users.insert(username, this->theUser);
         return QString("You have succesfully registered to the service with username '%0'.").arg(username);
     }
 }
@@ -130,6 +185,7 @@ QString MainWindow::doRegister(QString username)
 QString MainWindow::doUnregister()
 {
     if (this->theUser) {
+        this->users.remove(this->theUser->username());
         delete this->theUser;
         this->theUser = 0;
         return QString("You have succesfully unregistered from the service.");
@@ -146,9 +202,20 @@ QString MainWindow::doPersonalFitness()
     return "Your endurance is 68/100, strength 45/100 and flexibility 89/100. You have been training hard lately. Maybe you should rest for a change?";
 }
 
+void MainWindow::sendMessage(QString message)
+{
+    this->ui->textEditMessageHistory->append("<b>You:</b> " + message);
+}
+
+void MainWindow::receiveMessage(QString message)
+{
+    this->ui->textEditMessageHistory->append("<b>Service:</b> " + message);
+}
+
 void MainWindow::sendCommand()
 {
     QString command = this->ui->lineEditCommand->text();
+    this->sendMessage(command);
     this->ui->lineEditCommand->clear();
 
     QStringList args = command.trimmed().split(QRegExp("\\s+"));
@@ -159,6 +226,8 @@ void MainWindow::sendCommand()
         response = doHelp(args.join(" "));
     } else if (command == "RACE") {
         response = doRace(args);
+    } else if (command == "GROUP") {
+        response = doGroup(args);
     } else if (command == "REGISTER") {
         if (args.length() == 1) {
             response = doRegister(args[0]);
@@ -177,5 +246,5 @@ void MainWindow::sendCommand()
         response = this->MSG_COMMAND_NOT_RECOGNIZED;
     }
 
-    this->ui->textEditMessageHistory->setPlainText(response);
+    this->receiveMessage(response);
 }
