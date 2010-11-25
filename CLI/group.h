@@ -14,7 +14,7 @@ public:
     QString name();
     void addMember(User *user);
     void removeMember(User user);
-    void invite(User user);
+    void invite(User *user);
     QList<User *> getMembers();
 private:
     QString _name;

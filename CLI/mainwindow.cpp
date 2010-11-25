@@ -3,6 +3,8 @@
 #include <QRegExp>
 #include <QMapIterator>
 
+#include <QDebug>
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -64,13 +66,14 @@ void MainWindow::initRaces()
 
 void MainWindow::initHelp()
 {
-    this->help.insert("HELP", "HELP -- Returns a list of available commands.\nHELP <command> -- Returns help on the specified command.");
+    this->help.insert("HELP", "HELP -- Returns a list of available commands.\nHELP &lt;command&gt; -- Returns help on the specified command.");
     this->help.insert("RACE LIST", "RACE LIST -- Returns a list of upcoming foot races, most recent first.");
-    this->help.insert("RACE INFO", "RACE INFO <id> -- Returns detailed information about the race with the given id.");
-    this->help.insert("REGISTER", "REGISTER <username> -- Register to the service with the given username.");
+    this->help.insert("RACE INFO", "RACE INFO &lt;id&gt; -- Returns detailed information about the race with the given id.");
+    this->help.insert("REGISTER", "REGISTER &lt;username&gt; -- Register to the service with the given username.");
     this->help.insert("UNREGISTER", "UNREGISTER -- Unregister from the service.");
     this->help.insert("PERSONAL FITNESS", "PERSONAL FITNESS -- Returns your current personal fitness values and feedback about your training.");
-    this->help.insert("GROUP MEMBERS", "GROUP MEMBERS <group name> -- Returns a list of members in the given group.");
+    this->help.insert("GROUP MEMBERS", "GROUP MEMBERS &lt;group name&gt; -- Returns a list of members in the given group.");
+    this->help.insert("GROUP CREATE", "GROUP CREATE &lt;group name&gt; [&lt;username&gt;, ...] -- Creates a group with the given name, and sends invitations to the users given.");
 }
 
 MainWindow::~MainWindow()
@@ -157,12 +160,56 @@ QString MainWindow::doGroupMembers(QString groupName)
     }
 }
 
+QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
+{
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
+    if (this->groups.contains(groupName)) {
+        return QString("Group name '%0' is already taken. Please choose another name.");
+    } else {
+        QStringList usersNotFound;
+        QStringList usersInvited;
+        Group *group = this->createGroup(groupName);
+        group->addMember(this->theUser);
+        qDebug() << usernames;
+        foreach (QString username, usernames) {
+            if (this->users.contains(username)) {
+                User *user = this->users[username];
+                usersInvited.append(user->username());
+                group->invite(user);
+            } else {
+                usersNotFound.append(username);
+            }
+        }
+        QString response = QString("You created a group called '%0'.").arg(groupName);
+        if (usersInvited.length() > 0) {
+            response += "The following users were invited to join the group: ";
+            response += usersInvited.join(", ");
+            response += ". ";
+        }
+        if (usersNotFound.length() > 0) {
+            response += "The following users were not found: ";
+            response += usersNotFound.join(", ");
+            response += ". ";
+        }
+        return response;
+    }
+}
+
 QString MainWindow::doGroup(QStringList args)
 {
     if (args.length() > 0) {
         QString command = args.takeFirst().toUpper();
         if (command == "MEMBERS") {
             return this->doGroupMembers(args.join(" "));
+        } else if (command == "CREATE") {
+            if (args.length() < 1) {
+                return this->doHelp("GROUP CREATE");
+            }
+            QString groupName = args.takeFirst();
+            qDebug() << args;
+            return this->doGroupCreate(groupName, args);
         }
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;

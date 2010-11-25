@@ -24,3 +24,8 @@ QList<User *> Group::getMembers()
 {
     return this->_members.values();
 }
+
+void Group::invite(User *user)
+{
+
+}

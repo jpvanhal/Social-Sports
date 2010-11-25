@@ -20,7 +20,10 @@
       <item>
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Response:</string>
+         <string>Message history:</string>
+        </property>
+        <property name="buddy">
+         <cstring>textEditMessageHistory</cstring>
         </property>
        </widget>
       </item>
@@ -39,6 +42,9 @@
        <widget class="QLabel" name="label">
         <property name="text">
          <string>Command:</string>
+        </property>
+        <property name="buddy">
+         <cstring>lineEditCommand</cstring>
         </property>
        </widget>
       </item>
