@@ -73,27 +73,27 @@ void MainWindow::initRaces()
 
 void MainWindow::initHelp()
 {
-    this->addHelp("HELP", "H", "%0 -- Returns a list of available commands.\n%0 <command> -- Returns help on the specified command.");
-    this->addHelp("RACE", "RA", "%0  -- Is the command used before all GROUP commands: RACE LIST, RACE INFO, RACE JOIN, RACE LEAVE, RACE PRERANK");
-    this->addHelp("RACE LIST", "RA LI", "%0  -- Returns a list of upcoming foot races, most recent first.");
-    this->addHelp("RACE INFO", "RA INF", "%0 <id>  -- Returns detailed information about the race with the given id.");
-    this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname>  -- Enroll a group to a race.");
-    this->addHelp("RACE LEAVE", "RA LE", "%0 <raceid> <groupname> -- Cancel the group enrollment to a race.");
-    this->addHelp("RACE PRERANK", "RA P", "%0 <raceid> <groupname>  -- Get group's current ranking among other groups participating to a race.");
-    this->addHelp("REGISTER", "RE", "%0 <username>  -- Register to the service with the given username.");
-    this->addHelp("UNREGISTER", "U", "%0  -- Unregister from the service.");
-    this->addHelp("MY", "MY", "%0  -- Is the command used before all commands related to yourself: MY FITNESS, MY INVITATIONS, MY GROUPS");
-    this->addHelp("MY FITNESS", "MY F", "%0  -- Returns your current personal fitness values and feedback about your training.");
-    this->addHelp("MY INVITATIONS", "MY INV", "%0  -- Returns your pending group invitations.");
-    this->addHelp("MY GROUPS", "MY G", "%0  -- Returns a list of the group you belong to");
-    this->addHelp("GROUP", "G", "%0 -- Is the command used before all commands related to groups: GROUP MEMBERS, GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE");
-    this->addHelp("GROUP MEMBERS", "G ME", "%0 <group name>  -- Returns a list of members in the given group.");
-    this->addHelp("GROUP CREATE", "G C", "%0 <group name> [<username>, ...]  -- Creates a group with the given name, and sends invitations to the users given.");
-    this->addHelp("GROUP FITNESS", "G F", "%0 <group name>  -- Returns the average fitness values of a group.");
-    this->addHelp("GROUP INVITE", "G INV", "%0 <group name> [<username>, ...]  -- Invites users to a group with the given name.");
-    this->addHelp("GROUP JOIN", "G J", "%0 <group name>  -- Join the group with the given name. You need an invitation to join the group.");
-    this->addHelp("GROUP LEAVE", "G LE", "%0 <group name>  -- Leave the group with the given name.");
-    this->addHelp("NEWS", "N", "%0  -- Returns a list of recent activity in your groups.");
+    this->addHelp("HELP", "H", "%0 (%1)-- Returns a list of available commands.\n%0 <command> -- Returns help on the specified command.");
+    this->addHelp("RACE", "RA", "%0 (%1) -- Is the command used before all GROUP commands: RACE LIST, RACE INFO, RACE JOIN, RACE LEAVE, RACE PRERANK");
+    this->addHelp("RACE LIST", "RA LI", "%0 (%1) -- Returns a list of upcoming foot races, most recent first.");
+    this->addHelp("RACE INFO", "RA INF", "%0 <id> (%1) -- Returns detailed information about the race with the given id.");
+    this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname> (%1) -- Enroll a group to a race.");
+    this->addHelp("RACE LEAVE", "RA LE", "%0 <raceid> <groupname> (%1) -- Cancel the group enrollment to a race.");
+    this->addHelp("RACE PRERANK", "RA P", "%0 <raceid> <groupname> (%1) -- Get group's current ranking among other groups participating to a race.");
+    this->addHelp("REGISTER", "RE", "%0 <username> (%1) -- Register to the service with the given username.");
+    this->addHelp("UNREGISTER", "U", "%0 (%1) -- Unregister from the service.");
+    this->addHelp("MY", "MY", "%0 (%1) -- Is the command used before all commands related to yourself: MY FITNESS, MY INVITATIONS, MY GROUPS");
+    this->addHelp("MY FITNESS", "MY F", "%0 (%1) -- Returns your current personal fitness values and feedback about your training.");
+    this->addHelp("MY INVITATIONS", "MY INV", "%0 (%1) -- Returns your pending group invitations.");
+    this->addHelp("MY GROUPS", "MY G", "%0 (%1) -- Returns a list of the group you belong to");
+    this->addHelp("GROUP", "G", "%0 (%1) -- Is the command used before all commands related to groups: GROUP MEMBERS, GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE");
+    this->addHelp("GROUP MEMBERS", "G ME", "%0 <group name> (%1) -- Returns a list of members in the given group.");
+    this->addHelp("GROUP CREATE", "G C", "%0 <group name> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given.");
+    this->addHelp("GROUP FITNESS", "G F", "%0 <group name> (%1) -- Returns the average fitness values of a group.");
+    this->addHelp("GROUP INVITE", "G INV", "%0 <group name> [<username>, ...] (%1) -- Invites users to a group with the given name.");
+    this->addHelp("GROUP JOIN", "G J", "%0 <group name> (%1) -- Join the group with the given name. You need an invitation to join the group.");
+    this->addHelp("GROUP LEAVE", "G LE", "%0 <group name> (%1) -- Leave the group with the given name.");
+    this->addHelp("NEWS", "N", "%0 (%1) -- Returns a list of recent activity in your groups.");
 }
 
 void MainWindow::addHelp(QString command, QString abbr, QString help)
@@ -125,9 +125,9 @@ QString MainWindow::doHelp(QString command)
     if (command == "") {
         return "Available commands: " + QStringList(this->help.keys()).join(", ");
     } else if (this->help.contains(commandUpper)) {
-        return this->help[commandUpper];
+        return this->help[commandUpper].arg(this->abbrevation[commandUpper]);
     } else if (this->help.contains(this->abbrevation.keys(commandUpper)[0])) {
-        return this->help[this->abbrevation.keys(commandUpper)[0]];
+        return this->help[this->abbrevation.keys(commandUpper)[0]].arg(this->abbrevation[this->abbrevation.keys(commandUpper)[0]]);
     } else {
         return "No help available on '" + command + "'.";
     }
