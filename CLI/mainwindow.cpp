@@ -87,12 +87,12 @@ void MainWindow::initHelp()
     this->addHelp("MY INVITATIONS", "MY INV", "%0 (%1) -- Returns your pending group invitations.");
     this->addHelp("MY GROUPS", "MY G", "%0 (%1) -- Returns a list of the group you belong to");
     this->addHelp("GROUP", "G", "%0 (%1) -- Is the command used before all commands related to groups: GROUP MEMBERS, GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE");
-    this->addHelp("GROUP MEMBERS", "G ME", "%0 <group name> (%1) -- Returns a list of members in the given group.");
-    this->addHelp("GROUP CREATE", "G C", "%0 <group name> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given.");
-    this->addHelp("GROUP FITNESS", "G F", "%0 <group name> (%1) -- Returns the average fitness values of a group.");
-    this->addHelp("GROUP INVITE", "G INV", "%0 <group name> [<username>, ...] (%1) -- Invites users to a group with the given name.");
-    this->addHelp("GROUP JOIN", "G J", "%0 <group name> (%1) -- Join the group with the given name. You need an invitation to join the group.");
-    this->addHelp("GROUP LEAVE", "G LE", "%0 <group name> (%1) -- Leave the group with the given name.");
+    this->addHelp("GROUP MEMBERS", "G ME", "%0 <groupname> (%1) -- Returns a list of members in the given group.");
+    this->addHelp("GROUP CREATE", "G C", "%0 <groupname> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given.");
+    this->addHelp("GROUP FITNESS", "G F", "%0 <groupname> (%1) -- Returns the average fitness values of a group.");
+    this->addHelp("GROUP INVITE", "G INV", "%0 <groupname> [<username>, ...] (%1) -- Invites users to a group with the given name.");
+    this->addHelp("GROUP JOIN", "G J", "%0 <groupname> (%1) -- Join the group with the given name. You need an invitation to join the group.");
+    this->addHelp("GROUP LEAVE", "G LE", "%0 <groupname> (%1) -- Leave the group with the given name.");
     this->addHelp("NEWS", "N", "%0 (%1) -- Returns a list of recent activity in your groups.");
 }
 
@@ -523,10 +523,12 @@ QString MainWindow::doMy(QStringList args)
     }
     if (args.length() > 0) {
         QString command = args.takeFirst().toUpper();
-        if (command == "FITNESS") {
+        if (command == "FITNESS" || command == "F") {
             return this->doMyFitness();
-        } else if (command == "INVITATIONS") {
+        } else if (command == "INVITATIONS" || command == "INV") {
             return this->doMyInvitations();
+        } else if (command == "GROUPS" || command == "G") {
+            return QString("NOT IMPLEMENTED YET");
         }
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;
