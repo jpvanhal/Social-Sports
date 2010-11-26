@@ -15,10 +15,21 @@ QString User::username()
     return this->_username;
 }
 
-void User::joinGroup(Group *group)
+void User::join(Group *group)
 {
     this->_groups.insert(group->name(), group);
     group->addMember(this);
+}
+
+void User::leave(Group *group)
+{
+    this->_groups.remove(group->name());
+    group->removeMember(this);
+}
+
+bool User::isMemberOf(Group *group)
+{
+    return this->_groups.contains(group->name());
 }
 
 void User::invite(User *user, Group *group)
@@ -46,6 +57,6 @@ void User::acceptInvitation(Group *group)
     if (this->hasInvitation(group))
     {
         this->invitations.remove(group->name());
-        this->joinGroup(group);
+        this->join(group);
     }
 }

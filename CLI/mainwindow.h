@@ -44,6 +44,7 @@ private:
     QString doGroup(QStringList args);
     QString doGroupMembers(QString groupName);
     QString doGroupJoin(QString groupName);
+    QString doGroupLeave(QString groupName);
     QString doGroupCreate(QString groupName, QStringList usernames);
     QString doRace(QStringList args);
     QString doRaceInfo(QString id);

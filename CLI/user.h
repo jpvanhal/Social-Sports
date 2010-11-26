@@ -12,7 +12,9 @@ public:
     User();
     User(QString username);
     QString username();
-    void joinGroup(Group *group);
+    void join(Group *group);
+    void leave(Group *group);
+    bool isMemberOf(Group *group);
     void invite(User *user, Group *group);
     bool hasInvitation(Group *group);
     User *getInviter(Group *group);

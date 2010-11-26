@@ -30,9 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::initGroupsAndUsers()
 {
     Group *group = createGroup("NakedJoggers");
-    createUser("Mark")->joinGroup(group);
-    createUser("Jane")->joinGroup(group);
-    createUser("Peter")->joinGroup(group);
+    createUser("Mark")->join(group);
+    createUser("Jane")->join(group);
+    createUser("Peter")->join(group);
 }
 
 User* MainWindow::createUser(QString username)
@@ -67,16 +67,17 @@ void MainWindow::initRaces()
 
 void MainWindow::initHelp()
 {
-    this->help.insert("HELP", "HELP -- Returns a list of available commands.\nHELP &lt;command&gt; -- Returns help on the specified command.");
+    this->help.insert("HELP", "HELP -- Returns a list of available commands.\nHELP <command> -- Returns help on the specified command.");
     this->help.insert("RACE LIST", "RACE LIST -- Returns a list of upcoming foot races, most recent first.");
-    this->help.insert("RACE INFO", "RACE INFO &lt;id&gt; -- Returns detailed information about the race with the given id.");
-    this->help.insert("REGISTER", "REGISTER &lt;username&gt; -- Register to the service with the given username.");
+    this->help.insert("RACE INFO", "RACE INFO <id> -- Returns detailed information about the race with the given id.");
+    this->help.insert("REGISTER", "REGISTER <username> -- Register to the service with the given username.");
     this->help.insert("UNREGISTER", "UNREGISTER -- Unregister from the service.");
     this->help.insert("MY FITNESS", "MY FITNESS -- Returns your current personal fitness values and feedback about your training.");
     this->help.insert("MY INVITATIONS", "MY INVITATIONS -- Returns your pending group invitations.");
-    this->help.insert("GROUP MEMBERS", "GROUP MEMBERS &lt;group name&gt; -- Returns a list of members in the given group.");
-    this->help.insert("GROUP CREATE", "GROUP CREATE &lt;group name&gt; [&lt;username&gt;, ...] -- Creates a group with the given name, and sends invitations to the users given.");
-    this->help.insert("GROUP JOIN", "GROUP JOIN &lt;group name&gt; -- Join a group with the given name. You need an invitation to join a group.");
+    this->help.insert("GROUP MEMBERS", "GROUP MEMBERS <group name> -- Returns a list of members in the given group.");
+    this->help.insert("GROUP CREATE", "GROUP CREATE <group name> [<username>, ...] -- Creates a group with the given name, and sends invitations to the users given.");
+    this->help.insert("GROUP JOIN", "GROUP JOIN <group name> -- Join the group with the given name. You need an invitation to join the group.");
+    this->help.insert("GROUP LEAVE", "GROUP LEAVE <group name> -- Leave the group with the given name.");
 }
 
 MainWindow::~MainWindow()
@@ -215,6 +216,21 @@ QString MainWindow::doGroupJoin(QString groupName)
     return QString("You have joined the group called '%0'.").arg(groupName);
 }
 
+QString MainWindow::doGroupLeave(QString groupName)
+{
+    if (!this->groups.contains(groupName))
+    {
+        return QString("There is no group called '%0'.").arg(groupName);
+    }
+    Group *group = this->groups[groupName];
+    if (!this->theUser->isMemberOf(group))
+    {
+        return QString("You are not a member of this group.");
+    }
+    this->theUser->leave(group);
+    return QString("You have left the group called '%0'.").arg(groupName);
+}
+
 QString MainWindow::doGroup(QStringList args)
 {
     if (args.length() > 0) {
@@ -232,6 +248,11 @@ QString MainWindow::doGroup(QStringList args)
                 return this->doHelp("GROUP JOIN");
             }
             return this->doGroupJoin(args[0]);
+        } else if (command == "LEAVE") {
+            if (args.length() != 1) {
+                return this->doHelp("GROUP LEAVE");
+            }
+            return this->doGroupLeave(args[0]);
         }
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;

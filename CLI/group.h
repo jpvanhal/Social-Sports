@@ -13,7 +13,7 @@ public:
     Group(QString name);
     QString name();
     void addMember(User *user);
-    void removeMember(User user);
+    void removeMember(User *user);
     QList<User *> getMembers();
 private:
     QString _name;
