@@ -561,17 +561,17 @@ void MainWindow::sendCommand()
     QString response;
     if (command == "HELP" || command == "H") {
         response = doHelp(args.join(" "));
-    } else if (command == "RACE" || command == "RC") {
+    } else if (command == "RACE" || command == "RA") {
         response = doRace(args);
-    } else if (command == "GROUP" || command == "GRP") {
+    } else if (command == "GROUP" || command == "G") {
         response = doGroup(args);
-    } else if (command == "REGISTER" || command == "RGS") {
+    } else if (command == "REGISTER" || command == "RE") {
         if (args.length() == 1) {
             response = doRegister(args[0]);
         } else {
             response = doHelp("REGISTER");
         }
-    } else if (command == "UNREGISTER" || command == "URGS") {
+    } else if (command == "UNREGISTER" || command == "U") {
         if (args.length() == 0) {
             response = doUnregister();
         } else {
@@ -579,7 +579,7 @@ void MainWindow::sendCommand()
         }
     } else if (command == "MY") {
         response = doMy(args);
-    } else if (command == "NEWS" || command == "NWS") {
+    } else if (command == "NEWS" || command == "N") {
         response = doNews();
     } else {
         response = this->MSG_COMMAND_NOT_RECOGNIZED;
