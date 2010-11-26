@@ -76,6 +76,7 @@ void MainWindow::initHelp()
     this->help.insert("MY INVITATIONS", "MY INVITATIONS -- Returns your pending group invitations.");
     this->help.insert("GROUP MEMBERS", "GROUP MEMBERS <group name> -- Returns a list of members in the given group.");
     this->help.insert("GROUP CREATE", "GROUP CREATE <group name> [<username>, ...] -- Creates a group with the given name, and sends invitations to the users given.");
+    this->help.insert("GROUP INVITE", "GROUP INVITE <group name> [<username>, ...] -- Invites users to a group with the given name.");
     this->help.insert("GROUP JOIN", "GROUP JOIN <group name> -- Join the group with the given name. You need an invitation to join the group.");
     this->help.insert("GROUP LEAVE", "GROUP LEAVE <group name> -- Leave the group with the given name.");
 }
@@ -175,8 +176,7 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
         QStringList usersNotFound;
         QStringList usersInvited;
         Group *group = this->createGroup(groupName);
-        group->addMember(this->theUser);
-        qDebug() << usernames;
+        this->theUser->join(group);
         foreach (QString username, usernames) {
             if (this->users.contains(username)) {
                 User *user = this->users[username];
@@ -201,8 +201,67 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
     }
 }
 
+QString MainWindow::doGroupInvite(QString groupName, QStringList usernames)
+{
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
+    if (!this->groups.contains(groupName)) {
+        return QString("The group '%0' does not exist.");
+    } else {
+        Group *group = this->groups[groupName];
+        if (!this->theUser->isMemberOf(group)) {
+            return QString("You must be a member of the group in order to invite people to join it.");
+        }
+        QStringList usersNotFound;
+        QStringList usersInvited;
+        QStringList usersAlreadyMember;
+        QStringList usersAlreadyInvited;
+        foreach (QString username, usernames) {
+            if (this->users.contains(username)) {
+                User *user = this->users[username];
+                if (user->isMemberOf(group)) {
+                    usersAlreadyMember.append(username);
+                } else if (user->hasInvitation(group)) {
+                    usersAlreadyInvited.append(username);
+                } else {
+                    usersInvited.append(user->username());
+                    theUser->invite(user, group);
+                }
+            } else {
+                usersNotFound.append(username);
+            }
+        }
+        QString response;
+        if (usersInvited.length() > 0) {
+            response += "You have invited the following users to group " + groupName + ": ";
+            response += usersInvited.join(", ");
+            response += ". ";
+        }
+        if (usersNotFound.length() > 0) {
+            response += "The following users were not found: ";
+            response += usersNotFound.join(", ");
+            response += ". ";
+        }
+        if (usersAlreadyMember.length() > 0) {
+            response += "The following users were already member of the group: ";
+            response += usersAlreadyMember.join(", ");
+            response += ". ";
+        }
+        if (usersAlreadyInvited.length() > 0) {
+            response += "The following users were already invited to the group: ";
+            response += usersAlreadyInvited.join(", ");
+            response += ". ";
+        }
+        return response;
+    }
+}
+
 QString MainWindow::doGroupJoin(QString groupName)
 {
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
     if (!this->groups.contains(groupName))
     {
         return QString("There is no group called '%0'.").arg(groupName);
@@ -218,6 +277,9 @@ QString MainWindow::doGroupJoin(QString groupName)
 
 QString MainWindow::doGroupLeave(QString groupName)
 {
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
     if (!this->groups.contains(groupName))
     {
         return QString("There is no group called '%0'.").arg(groupName);
@@ -243,6 +305,12 @@ QString MainWindow::doGroup(QStringList args)
             }
             QString groupName = args.takeFirst();
             return this->doGroupCreate(groupName, args);
+        } else if (command == "INVITE") {
+            if (args.length() < 1) {
+                return this->doHelp("GROUP INVITE");
+            }
+            QString groupName = args.takeFirst();
+            return this->doGroupInvite(groupName, args);
         } else if (command == "JOIN") {
             if (args.length() != 1) {
                 return this->doHelp("GROUP JOIN");
