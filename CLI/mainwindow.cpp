@@ -445,31 +445,31 @@ QString MainWindow::doGroup(QStringList args)
 {
     if (args.length() > 0) {
         QString command = args.takeFirst().toUpper();
-        if (command == "MEMBERS") {
+        if (command == "MEMBERS" || command == "ME") {
             return this->doGroupMembers(args.join(" "));
-        } else if (command == "CREATE") {
+        } else if (command == "CREATE" || command == "C") {
             if (args.length() < 1) {
                 return this->doHelp("GROUP CREATE");
             }
             QString groupName = args.takeFirst();
             return this->doGroupCreate(groupName, args);
-        } else if (command == "INVITE") {
+        } else if (command == "INVITE" || command == "INV") {
             if (args.length() < 1) {
                 return this->doHelp("GROUP INVITE");
             }
             QString groupName = args.takeFirst();
             return this->doGroupInvite(groupName, args);
-        } else if (command == "JOIN") {
+        } else if (command == "JOIN" || command == "J") {
             if (args.length() != 1) {
                 return this->doHelp("GROUP JOIN");
             }
             return this->doGroupJoin(args[0]);
-        } else if (command == "LEAVE") {
+        } else if (command == "LEAVE" || command == "LE") {
             if (args.length() != 1) {
                 return this->doHelp("GROUP LEAVE");
             }
             return this->doGroupLeave(args[0]);
-        } else if (command == "FITNESS") {
+        } else if (command == "FITNESS" || command == "F") {
             if (args.length() != 1) {
                 return this->doHelp("GROUP FITNESS");
             }
