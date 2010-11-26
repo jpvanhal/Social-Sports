@@ -123,7 +123,11 @@ QString MainWindow::doHelp(QString command)
 {
     QString commandUpper = command.toUpper();
     if (command == "") {
-        return "Available commands: " + QStringList(this->help.keys()).join(", ");
+        QList<QString> availableCommands = this->help.keys();
+        availableCommands.removeAll("MY");
+        availableCommands.removeAll("GROUP");
+        availableCommands.removeAll("RACE");
+        return "Available commands: " + QStringList(availableCommands).join(", ");
     } else if (this->help.contains(commandUpper)) {
         return this->help[commandUpper].arg(this->abbrevation[commandUpper]);
     } else if (this->help.contains(this->abbrevation.keys(commandUpper)[0])) {
