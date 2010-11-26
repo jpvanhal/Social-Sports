@@ -8,7 +8,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-const QString MainWindow::MSG_COMMAND_NOT_RECOGNIZED = QString("Your command was not recognized. Use 'HELP' command to get a list of available commands.");
+const QString MainWindow::MSG_COMMAND_NOT_RECOGNIZED = QString("Your command was not recognized. "); //Use 'HELP' command to get a list of available commands.");
 const QString MainWindow::MSG_REGISTRATION_REQUIRED = QString("You have to register to the service before using this function.");
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -591,7 +591,7 @@ void MainWindow::sendCommand()
     } else if (command == "NEWS" || command == "N") {
         response = doNews();
     } else {
-        response = this->MSG_COMMAND_NOT_RECOGNIZED;
+        response = QString("Your command was not recognized. ").append(doHelp(""));
     }
 
     this->receiveMessage(response);
