@@ -52,6 +52,7 @@ private:
     QString doRaceList();
     QString doRaceJoin(QString raceId, QString groupName);
     QString doRaceLeave(QString raceId, QString groupName);
+    QString doRacePrerank(QString raceId, QString groupName);
     QString doRegister(QString username);
     QString doUnregister();
     QString doMy(QStringList args);

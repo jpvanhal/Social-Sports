@@ -33,6 +33,8 @@ void MainWindow::initGroupsAndUsers()
     createUser("Mark")->join(group);
     createUser("Jane")->join(group);
     createUser("Peter")->join(group);
+    Race *nakukymppi = this->raceLookup["NAKU11"];
+    nakukymppi->join(group);
 }
 
 User* MainWindow::createUser(QString username)
@@ -72,6 +74,7 @@ void MainWindow::initHelp()
     this->help.insert("RACE INFO", "RACE INFO <id> -- Returns detailed information about the race with the given id.");
     this->help.insert("RACE JOIN", "RACE JOIN <raceid> <groupname> -- Enroll a group to a race.");
     this->help.insert("RACE LEAVE", "RACE INFO <raceid> <groupname> -- Cancel the group enrollment to a race.");
+    this->help.insert("RACE PRERANK", "RACE PRERANK <raceid> <groupname> -- Get group's current ranking among other groups participating to a race.");
     this->help.insert("REGISTER", "REGISTER <username> -- Register to the service with the given username.");
     this->help.insert("UNREGISTER", "UNREGISTER -- Unregister from the service.");
     this->help.insert("MY FITNESS", "MY FITNESS -- Returns your current personal fitness values and feedback about your training.");
@@ -136,6 +139,9 @@ QString MainWindow::doRaceInfo(QString id)
 
 QString MainWindow::doRaceJoin(QString raceId, QString groupName)
 {
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
     raceId = raceId.toUpper();
     if (!this->raceLookup.contains(raceId)) {
         return QString("There is no race with the id '%1'").arg(raceId);
@@ -157,6 +163,9 @@ QString MainWindow::doRaceJoin(QString raceId, QString groupName)
 
 QString MainWindow::doRaceLeave(QString raceId, QString groupName)
 {
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
     raceId = raceId.toUpper();
     if (!this->raceLookup.contains(raceId)) {
         return QString("There is no race with the id '%1'").arg(raceId);
@@ -174,6 +183,33 @@ QString MainWindow::doRaceLeave(QString raceId, QString groupName)
     }
     race->leave(group);
     return QString("You have cancelled enrollment of group '%0' to '%1'.").arg(groupName, race->name());
+}
+
+QString MainWindow::doRacePrerank(QString raceId, QString groupName)
+{
+    raceId = raceId.toUpper();
+    if (!this->raceLookup.contains(raceId)) {
+        return QString("There is no race with the id '%1'").arg(raceId);
+    }
+    Race *race = this->raceLookup[raceId];
+    if (!this->groups.contains(groupName)) {
+        return QString("The group '%0' does not exist.").arg(groupName);
+    }
+    Group *group = this->groups[groupName];
+    if (!race->isEnrolled(group)) {
+        return QString("This group has not enrolled to this race.");
+    }
+    QString response = "1. ABB_Runners\n"
+                       "2. Tieto_Runners\n"
+                       "3. HU_RunningTeam\n"
+                       "4. TampereU_Run\n"
+                       "...\n"
+                       "31. Helsinki_Running_club\n"
+                       "32. %0\n"
+                       "33. YOUTH_Runners\n"
+                       "...\n"
+                       "Total number of groups: 230";
+    return response.arg(groupName);
 }
 
 QString MainWindow::doRace(QStringList args)
@@ -199,6 +235,12 @@ QString MainWindow::doRace(QStringList args)
                 return this->doRaceLeave(args[0], args[1]);
             } else {
                 return doHelp("RACE LEAVE");
+            }
+        } else if (command == "PRERANK") {
+            if (args.length() == 2) {
+                return this->doRacePrerank(args[0], args[1]);
+            } else {
+                return doHelp("RACE PRERANK");
             }
         }
     }
