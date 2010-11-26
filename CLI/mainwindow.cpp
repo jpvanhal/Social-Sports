@@ -250,6 +250,8 @@ QString MainWindow::doRace(QStringList args)
                 return doHelp("RACE PRERANK");
             }
         }
+    } else {
+        return QString("The RACE command can be used in the following way: ").append(this->doHelp("RACE INFO (RC INF)"));
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;
 }
