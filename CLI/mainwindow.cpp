@@ -74,7 +74,7 @@ void MainWindow::initRaces()
 void MainWindow::initHelp()
 {
     this->addHelp("HELP", "H", "%0 (%1)-- Returns a list of available commands.\n%0 <command> -- Returns help on the specified command.");
-    this->addHelp("RACE", "RA", "%0 (%1) -- Is the command used before all GROUP commands: RACE LIST, RACE INFO, RACE JOIN, RACE LEAVE, RACE PRERANK");
+    this->addHelp("RACE", "RA", "%0 (%1) -- Is the command used before all commands related to races: RACE LIST, RACE INFO, RACE JOIN, RACE LEAVE, RACE PRERANK");
     this->addHelp("RACE LIST", "RA LI", "%0 (%1) -- Returns a list of upcoming foot races, most recent first.");
     this->addHelp("RACE INFO", "RA INF", "%0 <raceid> (%1) -- Returns detailed information about the race with the given id.");
     this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname> (%1) -- Enroll a group to a race.");
@@ -266,7 +266,7 @@ QString MainWindow::doRace(QStringList args)
             }
         }
     } else {
-        return QString("The RACE command can be used in the following way: ").append(this->doHelp("RACE INFO"));
+        return QString("The RACE command can be used in the following way: ").append(this->doHelp("RACE"));
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;
 }
