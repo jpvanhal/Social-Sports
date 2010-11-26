@@ -73,24 +73,30 @@ void MainWindow::initRaces()
 
 void MainWindow::initHelp()
 {
-    this->help.insert("HELP (H)", "HELP (H) -- Returns a list of available commands.\nHELP <command> -- Returns help on the specified command.");
-    this->help.insert("RACE LIST (RC LST)", "RACE LIST (RC LST) -- Returns a list of upcoming foot races, most recent first.");
-    this->help.insert("RACE INFO (RC INF)", "RACE INFO <id> (RC INF) -- Returns detailed information about the race with the given id.");
-    this->help.insert("RACE JOIN (RC JOIN)", "RACE JOIN <raceid> <groupname> (RC JOIN) -- Enroll a group to a race.");
-    this->help.insert("RACE LEAVE (RC LEAVE)", "RACE INFO <raceid> <groupname> (RN INF) -- Cancel the group enrollment to a race.");
-    this->help.insert("RACE PRERANK (RC PRERNK)", "RACE PRERANK <raceid> <groupname> (RC PRERNK) -- Get group's current ranking among other groups participating to a race.");
-    this->help.insert("REGISTER (RGST)", "REGISTER <username> (RGST) -- Register to the service with the given username.");
-    this->help.insert("UNREGISTER (URGST)", "UNREGISTER (URGST) -- Unregister from the service.");
-    this->help.insert("MY FITNESS (MY FITNS)", "MY FITNESS (MY FITNS) -- Returns your current personal fitness values and feedback about your training.");
-    this->help.insert("MY INVITATIONS (MY INV)", "MY INVITATIONS (MY INV) -- Returns your pending group invitations.");
-    this->help.insert("MY GROUPS (MY GRP)", "MY GROUPS (MY GRP) -- Returns a list of the group you belong to");
-    this->help.insert("GROUP MEMBERS (GRP MEMB)", "GROUP MEMBERS <group name> (GRP MEMB) -- Returns a list of members in the given group.");
-    this->help.insert("GROUP CREATE (GRP CREATE)", "GROUP CREATE <group name> [<username>, ...] (GRP CREATE) -- Creates a group with the given name, and sends invitations to the users given.");
-    this->help.insert("GROUP FITNESS (GRP FITNS)", "GROUP FITNESS <group name> (GRP FITNS) -- Returns the average fitness values of a group.");
-    this->help.insert("GROUP INVITE (GRP INV)", "GROUP INVITE <group name> [<username>, ...] (GRP INV) -- Invites users to a group with the given name.");
-    this->help.insert("GROUP JOIN (GRP JOIN)", "GROUP JOIN <group name> (GRP JOIN) -- Join the group with the given name. You need an invitation to join the group.");
-    this->help.insert("GROUP LEAVE (GRP LEAVE)", "GROUP LEAVE <group name> (GRP LEAVE) -- Leave the group with the given name.");
-    this->help.insert("NEWS (NWS)", "NEWS (NWS) -- Returns a list of recent activity in your groups.");
+    this->addHelp("HELP", "H", "%0 -- Returns a list of available commands.\n%0 <command> -- Returns help on the specified command.");
+    this->addHelp("RACE LIST", "RC LST", "%0  -- Returns a list of upcoming foot races, most recent first.");
+    this->addHelp("RACE INFO", "RC INF", "%0 <id>  -- Returns detailed information about the race with the given id.");
+    this->addHelp("RACE JOIN", "RC JOIN", "%0 <raceid> <groupname>  -- Enroll a group to a race.");
+    this->addHelp("RACE LEAVE", "RC LV", "%0 <raceid> <groupname> -- Cancel the group enrollment to a race.");
+    this->addHelp("RACE PRERANK", "RC PRERNK", "%0 <raceid> <groupname>  -- Get group's current ranking among other groups participating to a race.");
+    this->addHelp("REGISTER", "RGST", "%0 <username>  -- Register to the service with the given username.");
+    this->addHelp("UNREGISTER", "URGST", "%0  -- Unregister from the service.");
+    this->addHelp("MY FITNESS", "MY FITNS", "%0  -- Returns your current personal fitness values and feedback about your training.");
+    this->addHelp("MY INVITATIONS", "MY INV", "%0  -- Returns your pending group invitations.");
+    this->addHelp("MY GROUPS", "MY GRP", "%0  -- Returns a list of the group you belong to");
+    this->addHelp("GROUP MEMBERS", "GRP MEMB", "%0 <group name>  -- Returns a list of members in the given group.");
+    this->addHelp("GROUP CREATE", "GRP CREATE", "%0 <group name> [<username>, ...]  -- Creates a group with the given name, and sends invitations to the users given.");
+    this->addHelp("GROUP FITNESS", "GRP FITNS", "%0 <group name>  -- Returns the average fitness values of a group.");
+    this->addHelp("GROUP INVITE", "GRP INV", "%0 <group name> [<username>, ...]  -- Invites users to a group with the given name.");
+    this->addHelp("GROUP JOIN", "GRP JOIN", "%0 <group name>  -- Join the group with the given name. You need an invitation to join the group.");
+    this->addHelp("GROUP LEAVE", "GRP LEAVE", "%0 <group name>  -- Leave the group with the given name.");
+    this->addHelp("NEWS", "NWS", "%0  -- Returns a list of recent activity in your groups.");
+}
+
+void MainWindow::addHelp(QString command, QString abbr, QString help)
+{
+    this->help.insert(command, help.arg(command));
+    this->help.insert(abbr, help.arg(abbr));
 }
 
 MainWindow::~MainWindow()
