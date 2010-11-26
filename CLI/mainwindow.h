@@ -38,6 +38,7 @@ private:
     void initRaces();
     void initHelp();
     void initGroupsAndUsers();
+    void addHelp(QString command, QString abbr, QString help);
     Group* createGroup(QString name);
     User* createUser(QString username);
     QString doHelp(QString command);
