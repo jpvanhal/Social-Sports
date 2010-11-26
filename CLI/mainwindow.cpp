@@ -575,6 +575,7 @@ void MainWindow::sendCommand()
     command = args.takeFirst().toUpper();
 
     QString response;
+
     if (command == "HELP" || command == "H") {
         response = doHelp(args.join(" "));
     } else if (command == "RACE" || command == "RA") {
@@ -599,6 +600,10 @@ void MainWindow::sendCommand()
         response = doNews();
     } else {
         response = QString("Your command was not recognized. ").append(doHelp(""));
+    }
+
+    if (!this->theUser) {
+        response = QString("You have not registered to the service. Start by registering to the service by sending a message with 'REGISTER <username>' where username is you unique username for the service. ");
     }
 
     this->receiveMessage(response);
