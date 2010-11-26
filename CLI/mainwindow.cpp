@@ -476,7 +476,8 @@ QString MainWindow::doGroup(QStringList args)
             return this->doGroupFitness(args[0]);
         }
     }
-    return this->MSG_COMMAND_NOT_RECOGNIZED;
+    QString response = QString(this->MSG_COMMAND_NOT_RECOGNIZED).append("Did you mean: GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE, GROUP MEMBERS");
+    return response;
 }
 
 QString MainWindow::doRegister(QString username)
