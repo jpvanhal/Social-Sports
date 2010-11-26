@@ -52,6 +52,11 @@ User* User::getInviter(Group *group)
     return this->invitations[group->name()];
 }
 
+QList<QString> User::getGroups()
+{
+    return this->_groups.keys();
+}
+
 void User::acceptInvitation(Group *group)
 {
     if (this->hasInvitation(group))

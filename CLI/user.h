@@ -20,6 +20,7 @@ public:
     User *getInviter(Group *group);
     void acceptInvitation(Group *group);
     QList<QString> getInvitations();
+    QList<QString> getGroups();
 
 private:
     QString _username;

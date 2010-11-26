@@ -528,7 +528,7 @@ QString MainWindow::doMy(QStringList args)
         } else if (command == "INVITATIONS" || command == "INV") {
             return this->doMyInvitations();
         } else if (command == "GROUPS" || command == "G") {
-            return QString("NOT IMPLEMENTED YET");
+            return QStringList(this->theUser->getGroups()).join(", ");
         }
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;
