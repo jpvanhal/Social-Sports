@@ -29,6 +29,7 @@ private:
     QMap<QString, Race *> raceLookup;
     QList<Race *> races;
     QMap<QString, QString> help;
+    QMap<QString, QString> abbrevation;
     User *theUser;
     QMap<QString, User*> users;
     QMap<QString, Group*> groups;

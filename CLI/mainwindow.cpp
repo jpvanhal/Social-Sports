@@ -74,6 +74,7 @@ void MainWindow::initRaces()
 void MainWindow::initHelp()
 {
     this->addHelp("HELP", "H", "%0 -- Returns a list of available commands.\n%0 <command> -- Returns help on the specified command.");
+    this->addHelp("RACE", "RA", "%0  -- Is the command used before all GROUP commands: RACE LIST, RACE INFO, RACE JOIN, RACE LEAVE, RACE PRERANK");
     this->addHelp("RACE LIST", "RA LI", "%0  -- Returns a list of upcoming foot races, most recent first.");
     this->addHelp("RACE INFO", "RA INF", "%0 <id>  -- Returns detailed information about the race with the given id.");
     this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname>  -- Enroll a group to a race.");
@@ -81,9 +82,11 @@ void MainWindow::initHelp()
     this->addHelp("RACE PRERANK", "RA P", "%0 <raceid> <groupname>  -- Get group's current ranking among other groups participating to a race.");
     this->addHelp("REGISTER", "RE", "%0 <username>  -- Register to the service with the given username.");
     this->addHelp("UNREGISTER", "U", "%0  -- Unregister from the service.");
+    this->addHelp("MY", "MY", "%0  -- Is the command used before all commands related to yourself: MY FITNESS, MY INVITATIONS, MY GROUPS");
     this->addHelp("MY FITNESS", "MY F", "%0  -- Returns your current personal fitness values and feedback about your training.");
     this->addHelp("MY INVITATIONS", "MY INV", "%0  -- Returns your pending group invitations.");
     this->addHelp("MY GROUPS", "MY G", "%0  -- Returns a list of the group you belong to");
+    this->addHelp("GROUP", "G", "%0 -- Is the command used before all commands related to groups: GROUP MEMBERS, GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE");
     this->addHelp("GROUP MEMBERS", "G ME", "%0 <group name>  -- Returns a list of members in the given group.");
     this->addHelp("GROUP CREATE", "G C", "%0 <group name> [<username>, ...]  -- Creates a group with the given name, and sends invitations to the users given.");
     this->addHelp("GROUP FITNESS", "G F", "%0 <group name>  -- Returns the average fitness values of a group.");
@@ -96,7 +99,7 @@ void MainWindow::initHelp()
 void MainWindow::addHelp(QString command, QString abbr, QString help)
 {
     this->help.insert(command, help.arg(command));
-    this->help.insert(abbr, help.arg(abbr));
+    this->abbrevation.insert(command, abbr);
 }
 
 MainWindow::~MainWindow()
@@ -123,6 +126,8 @@ QString MainWindow::doHelp(QString command)
         return "Available commands: " + QStringList(this->help.keys()).join(", ");
     } else if (this->help.contains(commandUpper)) {
         return this->help[commandUpper];
+    } else if (this->help.contains(this->abbrevation.keys(commandUpper)[0])) {
+        return this->help[this->abbrevation.keys(commandUpper)[0]];
     } else {
         return "No help available on '" + command + "'.";
     }
