@@ -74,23 +74,23 @@ void MainWindow::initRaces()
 void MainWindow::initHelp()
 {
     this->addHelp("HELP", "H", "%0 -- Returns a list of available commands.\n%0 <command> -- Returns help on the specified command.");
-    this->addHelp("RACE LIST", "RC LST", "%0  -- Returns a list of upcoming foot races, most recent first.");
-    this->addHelp("RACE INFO", "RC INF", "%0 <id>  -- Returns detailed information about the race with the given id.");
-    this->addHelp("RACE JOIN", "RC JOIN", "%0 <raceid> <groupname>  -- Enroll a group to a race.");
-    this->addHelp("RACE LEAVE", "RC LV", "%0 <raceid> <groupname> -- Cancel the group enrollment to a race.");
-    this->addHelp("RACE PRERANK", "RC PRERNK", "%0 <raceid> <groupname>  -- Get group's current ranking among other groups participating to a race.");
-    this->addHelp("REGISTER", "RGST", "%0 <username>  -- Register to the service with the given username.");
-    this->addHelp("UNREGISTER", "URGST", "%0  -- Unregister from the service.");
-    this->addHelp("MY FITNESS", "MY FITNS", "%0  -- Returns your current personal fitness values and feedback about your training.");
+    this->addHelp("RACE LIST", "RA LI", "%0  -- Returns a list of upcoming foot races, most recent first.");
+    this->addHelp("RACE INFO", "RA INF", "%0 <id>  -- Returns detailed information about the race with the given id.");
+    this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname>  -- Enroll a group to a race.");
+    this->addHelp("RACE LEAVE", "RA LE", "%0 <raceid> <groupname> -- Cancel the group enrollment to a race.");
+    this->addHelp("RACE PRERANK", "RA P", "%0 <raceid> <groupname>  -- Get group's current ranking among other groups participating to a race.");
+    this->addHelp("REGISTER", "RE", "%0 <username>  -- Register to the service with the given username.");
+    this->addHelp("UNREGISTER", "U", "%0  -- Unregister from the service.");
+    this->addHelp("MY FITNESS", "MY F", "%0  -- Returns your current personal fitness values and feedback about your training.");
     this->addHelp("MY INVITATIONS", "MY INV", "%0  -- Returns your pending group invitations.");
-    this->addHelp("MY GROUPS", "MY GRP", "%0  -- Returns a list of the group you belong to");
-    this->addHelp("GROUP MEMBERS", "GRP MEMB", "%0 <group name>  -- Returns a list of members in the given group.");
-    this->addHelp("GROUP CREATE", "GRP CREATE", "%0 <group name> [<username>, ...]  -- Creates a group with the given name, and sends invitations to the users given.");
-    this->addHelp("GROUP FITNESS", "GRP FITNS", "%0 <group name>  -- Returns the average fitness values of a group.");
-    this->addHelp("GROUP INVITE", "GRP INV", "%0 <group name> [<username>, ...]  -- Invites users to a group with the given name.");
-    this->addHelp("GROUP JOIN", "GRP JOIN", "%0 <group name>  -- Join the group with the given name. You need an invitation to join the group.");
-    this->addHelp("GROUP LEAVE", "GRP LEAVE", "%0 <group name>  -- Leave the group with the given name.");
-    this->addHelp("NEWS", "NWS", "%0  -- Returns a list of recent activity in your groups.");
+    this->addHelp("MY GROUPS", "MY G", "%0  -- Returns a list of the group you belong to");
+    this->addHelp("GROUP MEMBERS", "G ME", "%0 <group name>  -- Returns a list of members in the given group.");
+    this->addHelp("GROUP CREATE", "G C", "%0 <group name> [<username>, ...]  -- Creates a group with the given name, and sends invitations to the users given.");
+    this->addHelp("GROUP FITNESS", "G F", "%0 <group name>  -- Returns the average fitness values of a group.");
+    this->addHelp("GROUP INVITE", "G INV", "%0 <group name> [<username>, ...]  -- Invites users to a group with the given name.");
+    this->addHelp("GROUP JOIN", "G J", "%0 <group name>  -- Join the group with the given name. You need an invitation to join the group.");
+    this->addHelp("GROUP LEAVE", "G LE", "%0 <group name>  -- Leave the group with the given name.");
+    this->addHelp("NEWS", "N", "%0  -- Returns a list of recent activity in your groups.");
 }
 
 void MainWindow::addHelp(QString command, QString abbr, QString help)
@@ -257,7 +257,7 @@ QString MainWindow::doRace(QStringList args)
             }
         }
     } else {
-        return QString("The RACE command can be used in the following way: ").append(this->doHelp("RACE INFO (RC INF)"));
+        return QString("The RACE command can be used in the following way: ").append(this->doHelp("RACE INFO"));
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;
 }
