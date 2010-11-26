@@ -26,8 +26,8 @@ protected:
     void changeEvent(QEvent *e);
 
 private:
-    QMap<QString, Race> raceLookup;
-    QList<Race> races;
+    QMap<QString, Race *> raceLookup;
+    QList<Race *> races;
     QMap<QString, QString> help;
     User *theUser;
     QMap<QString, User*> users;
@@ -50,6 +50,8 @@ private:
     QString doRace(QStringList args);
     QString doRaceInfo(QString id);
     QString doRaceList();
+    QString doRaceJoin(QString raceId, QString groupName);
+    QString doRaceLeave(QString raceId, QString groupName);
     QString doRegister(QString username);
     QString doUnregister();
     QString doMy(QStringList args);

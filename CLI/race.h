@@ -3,6 +3,9 @@
 
 #include <QString>
 #include <QDate>
+#include <QHash>
+
+#include "group.h"
 
 class Race
 {
@@ -14,6 +17,9 @@ public:
     QString location();
     int distance();
     QDate date();
+    void join(Group *group);
+    void leave(Group *group);
+    bool isEnrolled(Group *group);
 
 private:
     QString _id;
@@ -21,6 +27,7 @@ private:
     QString _location;
     int _distance;
     QDate _date;
+    QHash<QString, Group *> enrollments;
 };
 
 #endif // RACE_H

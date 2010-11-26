@@ -37,3 +37,16 @@ QDate Race::date()
 {
     return this->_date;
 }
+
+void Race::join(Group *group)
+{
+    this->enrollments.insert(group->name(), group);
+}
+
+void Race::leave(Group *group) {
+    this->enrollments.remove(group->name());
+}
+
+bool Race::isEnrolled(Group *group) {
+    return this->enrollments.contains(group->name());
+}
