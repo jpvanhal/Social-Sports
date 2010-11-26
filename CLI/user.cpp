@@ -31,6 +31,11 @@ bool User::hasInvitation(Group *group)
     return this->invitations.contains(group->name());
 }
 
+QList<QString> User::getInvitations()
+{
+    return this->invitations.keys();
+}
+
 User* User::getInviter(Group *group)
 {
     return this->invitations[group->name()];

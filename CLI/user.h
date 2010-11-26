@@ -17,6 +17,7 @@ public:
     bool hasInvitation(Group *group);
     User *getInviter(Group *group);
     void acceptInvitation(Group *group);
+    QList<QString> getInvitations();
 
 private:
     QString _username;

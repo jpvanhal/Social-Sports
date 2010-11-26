@@ -50,7 +50,9 @@ private:
     QString doRaceList();
     QString doRegister(QString username);
     QString doUnregister();
+    QString doMy(QStringList args);
     QString doMyFitness();
+    QString doMyInvitations();
     void receiveMessage(QString message);
 
     static const QString MSG_COMMAND_NOT_RECOGNIZED;

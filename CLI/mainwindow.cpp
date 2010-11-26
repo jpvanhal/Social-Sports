@@ -200,7 +200,7 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
 
 QString MainWindow::doGroupJoin(QString groupName)
 {
-    if (groupName != "NakedJoggers")
+    if (!this->groups.contains(groupName))
     {
         return QString("There is no group called '%0'.").arg(groupName);
     }
@@ -264,15 +264,49 @@ QString MainWindow::doUnregister()
 }
 
 void MainWindow::simulateInvitation() {
+    User *mark = this->users["Mark"];
+    Group *nakedJoggers = this->groups["NakedJoggers"];
+    mark->invite(this->theUser, nakedJoggers);
     this->receiveMessage("Mark has invited you to join a group called 'NakedJoggers'. Send 'GROUP JOIN NakedJoggers' to accept this invitation.");
-    this->ui->btnSimulateInvitation->setEnabled(true);
+    this->ui->btnSimulateInvitation->setEnabled(false);
 }
 
-QString MainWindow::doMyFitness()
+QString MainWindow::doMy(QStringList args)
 {
     if (!this->theUser) {
         return MSG_REGISTRATION_REQUIRED;
     }
+    if (args.length() > 0) {
+        QString command = args.takeFirst().toUpper();
+        if (command == "FITNESS") {
+            return this->doMyFitness();
+        } else if (command == "INVITATIONS") {
+            return this->doMyInvitations();
+        }
+    }
+    return this->MSG_COMMAND_NOT_RECOGNIZED;
+}
+
+QString MainWindow::doMyInvitations()
+{
+    QString response;
+    QList<QString> groupNames = this->theUser->getInvitations();
+    if (groupNames.length() == 0) {
+        return "You do not have any pending group invitations at the moment.";
+    }
+    response = "You have been invited to the following groups: ";
+    QStringList invitations;
+    foreach (QString groupName, groupNames) {
+        Group *group = this->groups[groupName];
+        User *inviter = this->theUser->getInviter(group);
+        invitations.append(QString("%0 by %1").arg(groupName, inviter->username()));
+    }
+    response += invitations.join(", ");
+    return response;
+}
+
+QString MainWindow::doMyFitness()
+{
     return "Your endurance is 68/100, strength 45/100 and flexibility 89/100. You have been training hard lately. Maybe you should rest for a change?";
 }
 
@@ -308,8 +342,8 @@ void MainWindow::sendCommand()
         } else {
             response = doHelp("UNREGISTER");
         }
-    } else if (command == "MY" && args.length() == 1 && args[0].toUpper() == "FITNESS") {
-        response = doMyFitness();
+    } else if (command == "MY") {
+        response = doMy(args);
     } else {
         response = this->MSG_COMMAND_NOT_RECOGNIZED;
     }
