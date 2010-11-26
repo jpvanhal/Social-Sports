@@ -47,6 +47,7 @@ private:
     QString doGroupLeave(QString groupName);
     QString doGroupCreate(QString groupName, QStringList usernames);
     QString doGroupInvite(QString groupName, QStringList usernames);
+    QString doGroupFitness(QString groupName);
     QString doRace(QStringList args);
     QString doRaceInfo(QString id);
     QString doRaceList();
@@ -58,6 +59,7 @@ private:
     QString doMy(QStringList args);
     QString doMyFitness();
     QString doMyInvitations();
+    QString doNews();
     void receiveMessage(QString message);
 
     static const QString MSG_COMMAND_NOT_RECOGNIZED;

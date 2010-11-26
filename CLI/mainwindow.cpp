@@ -33,6 +33,10 @@ void MainWindow::initGroupsAndUsers()
     createUser("Mark")->join(group);
     createUser("Jane")->join(group);
     createUser("Peter")->join(group);
+    createUser("JamesJones");
+    createUser("FastRunner");
+    createUser("AnneWhite");
+    createUser("LauraGreen");
     Race *nakukymppi = this->raceLookup["NAKU11"];
     nakukymppi->join(group);
 }
@@ -81,9 +85,11 @@ void MainWindow::initHelp()
     this->help.insert("MY INVITATIONS", "MY INVITATIONS -- Returns your pending group invitations.");
     this->help.insert("GROUP MEMBERS", "GROUP MEMBERS <group name> -- Returns a list of members in the given group.");
     this->help.insert("GROUP CREATE", "GROUP CREATE <group name> [<username>, ...] -- Creates a group with the given name, and sends invitations to the users given.");
+    this->help.insert("GROUP FITNESS", "GROUP FITNESS <group name> -- Returns the average fitness values of a group.");
     this->help.insert("GROUP INVITE", "GROUP INVITE <group name> [<username>, ...] -- Invites users to a group with the given name.");
     this->help.insert("GROUP JOIN", "GROUP JOIN <group name> -- Join the group with the given name. You need an invitation to join the group.");
     this->help.insert("GROUP LEAVE", "GROUP LEAVE <group name> -- Leave the group with the given name.");
+    this->help.insert("NEWS", "NEWS -- Returns a list of recent activity in your groups.");
 }
 
 MainWindow::~MainWindow()
@@ -391,6 +397,32 @@ QString MainWindow::doGroupLeave(QString groupName)
     return QString("You have left the group called '%0'.").arg(groupName);
 }
 
+QString MainWindow::doNews()
+{
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
+    return "TimoAalto ran 11km in 45 minutes yesterday.\nLauraGreen joined TKK_Runners.";
+}
+
+QString MainWindow::doGroupFitness(QString groupName)
+{
+    if (!this->theUser) {
+        return MSG_REGISTRATION_REQUIRED;
+    }
+    if (!this->groups.contains(groupName))
+    {
+        return QString("There is no group called '%0'.").arg(groupName);
+    }
+    QString response = QString("Group %0 has average fitness levels of endurance 55, strength 70 and flexibility 83. ").arg(groupName);
+    Group *group = this->groups[groupName];
+    if (this->theUser->isMemberOf(group))
+    {
+        response += "TimoAalto has reached his all time high in flexibility level, 90.";
+    }
+    return response;
+}
+
 QString MainWindow::doGroup(QStringList args)
 {
     if (args.length() > 0) {
@@ -419,6 +451,11 @@ QString MainWindow::doGroup(QStringList args)
                 return this->doHelp("GROUP LEAVE");
             }
             return this->doGroupLeave(args[0]);
+        } else if (command == "FITNESS") {
+            if (args.length() != 1) {
+                return this->doHelp("GROUP FITNESS");
+            }
+            return this->doGroupFitness(args[0]);
         }
     }
     return this->MSG_COMMAND_NOT_RECOGNIZED;
@@ -496,7 +533,7 @@ QString MainWindow::doMyInvitations()
 
 QString MainWindow::doMyFitness()
 {
-    return "Your endurance is 68/100, strength 45/100 and flexibility 89/100. You have been training hard lately. Maybe you should rest for a change?";
+    return "Your endurance is 70, strength 89 and flexibility 90. Your flexibility level has reached its all time high. Try to improve your endurance by running longer distances.";
 }
 
 void MainWindow::receiveMessage(QString message)
@@ -533,6 +570,8 @@ void MainWindow::sendCommand()
         }
     } else if (command == "MY") {
         response = doMy(args);
+    } else if (command == "NEWS") {
+        response = doNews();
     } else {
         response = this->MSG_COMMAND_NOT_RECOGNIZED;
     }
