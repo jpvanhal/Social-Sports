@@ -73,8 +73,10 @@ void MainWindow::initHelp()
     this->help.insert("REGISTER", "REGISTER &lt;username&gt; -- Register to the service with the given username.");
     this->help.insert("UNREGISTER", "UNREGISTER -- Unregister from the service.");
     this->help.insert("MY FITNESS", "MY FITNESS -- Returns your current personal fitness values and feedback about your training.");
+    this->help.insert("MY INVITATIONS", "MY INVITATIONS -- Returns your pending group invitations.");
     this->help.insert("GROUP MEMBERS", "GROUP MEMBERS &lt;group name&gt; -- Returns a list of members in the given group.");
     this->help.insert("GROUP CREATE", "GROUP CREATE &lt;group name&gt; [&lt;username&gt;, ...] -- Creates a group with the given name, and sends invitations to the users given.");
+    this->help.insert("GROUP JOIN", "GROUP JOIN &lt;group name&gt; -- Join a group with the given name. You need an invitation to join a group.");
 }
 
 MainWindow::~MainWindow()
