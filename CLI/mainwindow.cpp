@@ -130,7 +130,7 @@ QString MainWindow::doHelp(QString command)
         return "Available commands: " + QStringList(availableCommands).join(", ");
     } else if (this->help.contains(commandUpper)) {
         return this->help[commandUpper].arg(this->abbrevation[commandUpper]);
-    } else if (this->help.contains(this->abbrevation.keys(commandUpper)[0])) {
+    } else if (this->abbrevation.keys(commandUpper).length() > 0) {
         return this->help[this->abbrevation.keys(commandUpper)[0]].arg(this->abbrevation[this->abbrevation.keys(commandUpper)[0]]);
     } else {
         return "No help available on '" + command + "'.";
