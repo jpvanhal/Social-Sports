@@ -275,7 +275,7 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
         return MSG_REGISTRATION_REQUIRED;
     }
     if (this->groups.contains(groupName)) {
-        return QString("Group name '%0' is already taken. Please choose another name.");
+        return QString("Group name '%0' is already taken. Please choose another name.").arg(groupName);
     } else {
         QStringList usersNotFound;
         QStringList usersInvited;
