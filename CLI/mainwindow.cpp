@@ -603,7 +603,7 @@ void MainWindow::sendCommand()
     }
 
     if (!this->theUser) {
-        response = QString("You have not registered to the service. Start by registering to the service by sending a message with 'REGISTER <username>' where username is you unique username for the service. ");
+        response = QString("You have not registered to the service. Start by registering to the service by sending a message 'REGISTER <username>' where username is you unique username for the service. ");
     }
 
     this->receiveMessage(response);
