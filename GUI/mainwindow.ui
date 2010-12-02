@@ -85,7 +85,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Invitations</string>
+        <string>Groups</string>
        </property>
        <property name="checkable">
         <bool>true</bool>
