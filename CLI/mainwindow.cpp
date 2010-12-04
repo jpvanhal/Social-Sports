@@ -51,8 +51,18 @@ User* MainWindow::createUser(QString username)
 Group* MainWindow::createGroup(QString name)
 {
     Group *group = new Group(name);
-    this->groups.insert(name, group);
+    this->groups.insert(name.toUpper(), group);
     return group;
+}
+
+bool MainWindow::groupExists(QString name)
+{
+    return this->groups.contains(name.toUpper());
+}
+
+Group* MainWindow::getGroup(QString name)
+{
+    return this->groups[name.toUpper()];
 }
 
 void MainWindow::initRaces()
@@ -169,10 +179,10 @@ QString MainWindow::doRaceJoin(QString raceId, QString groupName)
         return QString("There is no race with the id '%1'").arg(raceId);
     }
     Race *race = this->raceLookup[raceId];
-    if (!this->groups.contains(groupName)) {
+    if (!this->groupExists(groupName)) {
         return QString("The group '%0' does not exist.").arg(groupName);
     }
-    Group *group = this->groups[groupName];
+    Group *group = this->getGroup(groupName);
     if (!this->theUser->isMemberOf(group)) {
         return QString("You must be a member of a group in order to enroll the group to a race.");
     }
@@ -180,7 +190,7 @@ QString MainWindow::doRaceJoin(QString raceId, QString groupName)
         return QString("This group is already enrolled to this race.");
     }
     race->join(group);
-    return QString("You have enrolled group '%0' to '%1'.").arg(groupName, race->name());
+    return QString("You have enrolled group '%0' to '%1'.").arg(group->name(), race->name());
 }
 
 QString MainWindow::doRaceLeave(QString raceId, QString groupName)
@@ -193,10 +203,10 @@ QString MainWindow::doRaceLeave(QString raceId, QString groupName)
         return QString("There is no race with the id '%1'").arg(raceId);
     }
     Race *race = this->raceLookup[raceId];
-    if (!this->groups.contains(groupName)) {
+    if (!this->groupExists(groupName)) {
         return QString("The group '%0' does not exist.").arg(groupName);
     }
-    Group *group = this->groups[groupName];
+    Group *group = this->getGroup(groupName);
     if (!this->theUser->isMemberOf(group)) {
         return QString("You must be a member of a group in order to cancel an enrollment to a race.");
     }
@@ -204,7 +214,7 @@ QString MainWindow::doRaceLeave(QString raceId, QString groupName)
         return QString("This group has not enrolled to this race.");
     }
     race->leave(group);
-    return QString("You have cancelled enrollment of group '%0' to '%1'.").arg(groupName, race->name());
+    return QString("You have cancelled enrollment of group '%0' to '%1'.").arg(group->name(), race->name());
 }
 
 QString MainWindow::doRacePrerank(QString raceId, QString groupName)
@@ -214,10 +224,10 @@ QString MainWindow::doRacePrerank(QString raceId, QString groupName)
         return QString("There is no race with the id '%1'").arg(raceId);
     }
     Race *race = this->raceLookup[raceId];
-    if (!this->groups.contains(groupName)) {
+    if (!this->groupExists(groupName)) {
         return QString("The group '%0' does not exist.").arg(groupName);
     }
-    Group *group = this->groups[groupName];
+    Group *group = this->getGroup(groupName);
     if (!race->isEnrolled(group)) {
         return QString("This group has not enrolled to this race.");
     }
@@ -231,7 +241,7 @@ QString MainWindow::doRacePrerank(QString raceId, QString groupName)
                        "33. YOUTH_Runners\n"
                        "...\n"
                        "Total number of groups: 230";
-    return response.arg(groupName);
+    return response.arg(group->name());
 }
 
 QString MainWindow::doRace(QStringList args)
@@ -273,9 +283,9 @@ QString MainWindow::doRace(QStringList args)
 
 QString MainWindow::doGroupMembers(QString groupName)
 {
-    if (this->groups.contains(groupName)) {
-        Group *group = this->groups[groupName];
-        QString response = QString("Members of group '%0': ").arg(groupName);
+    if (this->groupExists(groupName)) {
+        Group *group = this->getGroup(groupName);
+        QString response = QString("Members of group '%0': ").arg(group->name());
         QStringList usernames;
         foreach (User *user, group->getMembers()) {
             usernames.append(user->username());
@@ -292,7 +302,7 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
     if (!this->theUser) {
         return MSG_REGISTRATION_REQUIRED;
     }
-    if (this->groups.contains(groupName)) {
+    if (this->groupExists(groupName)) {
         return QString("Group name '%0' is already taken. Please choose another name.").arg(groupName);
     } else {
         QStringList usersNotFound;
@@ -308,7 +318,7 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
                 usersNotFound.append(username);
             }
         }
-        QString response = QString("You created a group called '%0'.").arg(groupName);
+        QString response = QString("You created a group called '%0'.").arg(group->name());
         if (usersInvited.length() > 0) {
             response += "The following users were invited to join the group: ";
             response += usersInvited.join(", ");
@@ -328,10 +338,10 @@ QString MainWindow::doGroupInvite(QString groupName, QStringList usernames)
     if (!this->theUser) {
         return MSG_REGISTRATION_REQUIRED;
     }
-    if (!this->groups.contains(groupName)) {
+    if (!this->groupExists(groupName)) {
         return QString("The group '%0' does not exist.").arg(groupName);
     } else {
-        Group *group = this->groups[groupName];
+        Group *group = this->getGroup(groupName);
         if (!this->theUser->isMemberOf(group)) {
             return QString("You must be a member of the group in order to invite people to join it.");
         }
@@ -356,7 +366,7 @@ QString MainWindow::doGroupInvite(QString groupName, QStringList usernames)
         }
         QString response;
         if (usersInvited.length() > 0) {
-            response += "You have invited the following users to group " + groupName + ": ";
+            response += "You have invited the following users to group " + group->name() + ": ";
             response += usersInvited.join(", ");
             response += ". ";
         }
@@ -384,17 +394,17 @@ QString MainWindow::doGroupJoin(QString groupName)
     if (!this->theUser) {
         return MSG_REGISTRATION_REQUIRED;
     }
-    if (!this->groups.contains(groupName))
+    if (!this->groupExists(groupName))
     {
         return QString("There is no group called '%0'.").arg(groupName);
     }
-    Group *group = this->groups[groupName];
+    Group *group = this->getGroup(groupName);
     if (!this->theUser->hasInvitation(group))
     {
         return QString("You need an invitation to join this group.");
     }
     this->theUser->acceptInvitation(group);
-    return QString("You have joined the group called '%0'.").arg(groupName);
+    return QString("You have joined the group called '%0'.").arg(group->name());
 }
 
 QString MainWindow::doGroupLeave(QString groupName)
@@ -402,17 +412,17 @@ QString MainWindow::doGroupLeave(QString groupName)
     if (!this->theUser) {
         return MSG_REGISTRATION_REQUIRED;
     }
-    if (!this->groups.contains(groupName))
+    if (!this->groupExists(groupName))
     {
         return QString("There is no group called '%0'.").arg(groupName);
     }
-    Group *group = this->groups[groupName];
+    Group *group = this->getGroup(groupName);
     if (!this->theUser->isMemberOf(group))
     {
         return QString("You are not a member of this group.");
     }
     this->theUser->leave(group);
-    return QString("You have left the group called '%0'.").arg(groupName);
+    return QString("You have left the group called '%0'.").arg(group->name());
 }
 
 QString MainWindow::doNews()
@@ -428,12 +438,12 @@ QString MainWindow::doGroupFitness(QString groupName)
     if (!this->theUser) {
         return MSG_REGISTRATION_REQUIRED;
     }
-    if (!this->groups.contains(groupName))
+    if (!this->groupExists(groupName))
     {
         return QString("There is no group called '%0'.").arg(groupName);
     }
-    QString response = QString("Group %0 has average fitness levels of endurance 55, strength 70 and flexibility 83. ").arg(groupName);
-    Group *group = this->groups[groupName];
+    Group *group = this->getGroup(groupName);
+    QString response = QString("Group %0 has average fitness levels of endurance 55, strength 70 and flexibility 83. ").arg(group->name());
     if (this->theUser->isMemberOf(group))
     {
         response += "TimoAalto has reached his all time high in flexibility level, 90.";
@@ -510,7 +520,7 @@ QString MainWindow::doUnregister()
 
 void MainWindow::simulateInvitation() {
     User *mark = this->users["Mark"];
-    Group *nakedJoggers = this->groups["NakedJoggers"];
+    Group *nakedJoggers = this->getGroup("NakedJoggers");
     mark->invite(this->theUser, nakedJoggers);
     this->receiveMessage("Mark has invited you to join a group called 'NakedJoggers'. Send 'GROUP JOIN NakedJoggers' to accept this invitation.");
     this->ui->btnSimulateInvitation->setEnabled(false);
@@ -548,9 +558,9 @@ QString MainWindow::doMyInvitations()
     response = "You have been invited to the following groups: ";
     QStringList invitations;
     foreach (QString groupName, groupNames) {
-        Group *group = this->groups[groupName];
+        Group *group = this->getGroup(groupName);
         User *inviter = this->theUser->getInviter(group);
-        invitations.append(QString("%0 by %1").arg(groupName, inviter->username()));
+        invitations.append(QString("%0 by %1").arg(group->name(), inviter->username()));
     }
     response += invitations.join(", ");
     return response;
