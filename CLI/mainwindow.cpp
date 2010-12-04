@@ -51,6 +51,10 @@ User* MainWindow::createUser(QString username)
 void MainWindow::destroyUser(QString username)
 {
     User *user = this->users.take(username.toUpper());
+    foreach (QString groupname, user->getGroups()) {
+        Group *group = this->getGroup(groupname);
+        user->leave(group);
+    }
     delete user;
 }
 
@@ -610,16 +614,18 @@ void MainWindow::sendCommand()
 
     if (command == "HELP" || command == "H") {
         response = doHelp(args.join(" "));
-    } else if (command == "RACE" || command == "RA") {
-        response = doRace(args);
-    } else if (command == "GROUP" || command == "G") {
-        response = doGroup(args);
     } else if (command == "REGISTER" || command == "RE") {
         if (args.length() == 1) {
             response = doRegister(args[0]);
         } else {
             response = doHelp("REGISTER");
         }
+    } else if (!this->theUser) {
+        response = QString("You have not registered to the service. Start by registering to the service by sending a message 'REGISTER <username>' where username is you unique username for the service. ");
+    } else if (command == "RACE" || command == "RA") {
+        response = doRace(args);
+    } else if (command == "GROUP" || command == "G") {
+        response = doGroup(args);
     } else if (command == "UNREGISTER" || command == "U") {
         if (args.length() == 0) {
             response = doUnregister();
@@ -632,10 +638,6 @@ void MainWindow::sendCommand()
         response = doNews();
     } else {
         response = QString("Your command was not recognized. ").append(doHelp(""));
-    }
-
-    if (!this->theUser) {
-        response = QString("You have not registered to the service. Start by registering to the service by sending a message 'REGISTER <username>' where username is you unique username for the service. ");
     }
 
     this->receiveMessage(response);
