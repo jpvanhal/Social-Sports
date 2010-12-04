@@ -44,8 +44,22 @@ void MainWindow::initGroupsAndUsers()
 User* MainWindow::createUser(QString username)
 {
     User *user = new User(username);
-    this->users.insert(username, user);
+    this->users.insert(username.toUpper(), user);
     return user;
+}
+
+void MainWindow::destroyUser(QString username)
+{
+    User *user = this->users.take(username.toUpper());
+    delete user;
+}
+
+User *MainWindow::getUser(QString username) {
+    return this->users[username.toUpper()];
+}
+
+bool MainWindow::userExists(QString username) {
+    return this->users.contains(username.toUpper());
 }
 
 Group* MainWindow::createGroup(QString name)
@@ -319,8 +333,8 @@ QString MainWindow::doGroupCreate(QString groupName, QStringList usernames)
         Group *group = this->createGroup(groupName);
         this->theUser->join(group);
         foreach (QString username, usernames) {
-            if (this->users.contains(username)) {
-                User *user = this->users[username];
+            if (this->userExists(username)) {
+                User *user = this->getUser(username);
                 usersInvited.append(user->username());
                 theUser->invite(user, group);
             } else {
@@ -359,8 +373,8 @@ QString MainWindow::doGroupInvite(QString groupName, QStringList usernames)
         QStringList usersAlreadyMember;
         QStringList usersAlreadyInvited;
         foreach (QString username, usernames) {
-            if (this->users.contains(username)) {
-                User *user = this->users[username];
+            if (this->userExists(username)) {
+                User *user = this->getUser(username);
                 if (user->isMemberOf(group)) {
                     usersAlreadyMember.append(username);
                 } else if (user->hasInvitation(group)) {
@@ -504,11 +518,10 @@ QString MainWindow::doRegister(QString username)
     if (this->theUser) {
         return QString("You have already registered to the service with username '%0'.").arg(this->theUser->username());
     } else {
-        if (this->users.contains(username)) {
+        if (this->userExists(username)) {
             return QString("Registration failed. The username '%0' is already taken. Please try some other username.").arg(username);
-        }
-        this->theUser = new User(username);
-        this->users.insert(username, this->theUser);
+        }        
+        this->theUser = this->createUser(username);
         this->ui->btnSimulateInvitation->setEnabled(true);
         return QString("You have succesfully registered to the service with username '%0'.").arg(username);
     }
@@ -517,8 +530,7 @@ QString MainWindow::doRegister(QString username)
 QString MainWindow::doUnregister()
 {
     if (this->theUser) {
-        this->users.remove(this->theUser->username());
-        delete this->theUser;
+        this->destroyUser(this->theUser->username());
         this->theUser = 0;
         this->ui->btnSimulateInvitation->setEnabled(false);
         return QString("You have succesfully unregistered from the service.");
@@ -528,7 +540,7 @@ QString MainWindow::doUnregister()
 }
 
 void MainWindow::simulateInvitation() {
-    User *mark = this->users["Mark"];
+    User *mark = this->getUser("Mark");
     Group *nakedJoggers = this->getGroup("NakedJoggers");
     mark->invite(this->theUser, nakedJoggers);
     this->receiveMessage("Mark has invited you to join a group called 'NakedJoggers'. Send 'GROUP JOIN NakedJoggers' to accept this invitation.");

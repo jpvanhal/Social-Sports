@@ -42,6 +42,7 @@ private:
     void addHelp(QString command, QString abbr, QString help);
     Group* createGroup(QString name);
     User* createUser(QString username);
+    void destroyUser(QString username);
     bool userExists(QString username);
     User* getUser(QString username);
     bool groupExists(QString name);
