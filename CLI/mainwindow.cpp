@@ -308,13 +308,11 @@ QString MainWindow::doGroupMembers(QString groupName)
 {
     if (this->groupExists(groupName)) {
         Group *group = this->getGroup(groupName);
-        QString response = QString("Members of group '%0': ").arg(group->name());
         QStringList usernames;
         foreach (User *user, group->getMembers()) {
             usernames.append(user->username());
         }
-        response += usernames.join(", ");
-        return response;
+        return QString("Members of group '%0': %1").arg(group->name(), usernames.join(", "));
     } else {
         return QString("There is no group called '%0'.").arg(groupName);
     }
@@ -479,7 +477,10 @@ QString MainWindow::doGroup(QStringList args)
     if (args.length() > 0) {
         QString command = args.takeFirst().toUpper();
         if (command == "MEMBERS" || command == "ME") {
-            return this->doGroupMembers(args.join(" "));
+            if (args.length() != 1) {
+                return this->doHelp("GROUP MEMBERS");
+            }
+            return this->doGroupMembers(args[0]);
         } else if (command == "CREATE" || command == "C") {
             if (args.length() < 1) {
                 return this->doHelp("GROUP CREATE");
