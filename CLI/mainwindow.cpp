@@ -37,7 +37,7 @@ void MainWindow::initGroupsAndUsers()
     createUser("FastRunner");
     createUser("AnneWhite");
     createUser("LauraGreen");
-    Race *nakukymppi = this->raceLookup["NAKU11"];
+    Race *nakukymppi = this->getRace("NAKU11");
     nakukymppi->join(group);
 }
 
@@ -63,6 +63,16 @@ bool MainWindow::groupExists(QString name)
 Group* MainWindow::getGroup(QString name)
 {
     return this->groups[name.toUpper()];
+}
+
+bool MainWindow::raceExists(QString raceId)
+{
+    return this->raceLookup.contains(raceId.toUpper());
+}
+
+Race* MainWindow::getRace(QString raceId)
+{
+    return this->raceLookup[raceId.toUpper()];
 }
 
 void MainWindow::initRaces()
@@ -158,9 +168,8 @@ QString MainWindow::doRaceList()
 
 QString MainWindow::doRaceInfo(QString id)
 {
-    QString idUpper = id.toUpper();
-    if (this->raceLookup.contains(idUpper)) {
-        Race *race = this->raceLookup[idUpper];
+    if (this->raceExists(id)) {
+        Race *race = this->getRace(id);
         return QString("%1 (%2) is %3 m long race organized in %4 on %5.").arg(
                 race->name(), race->id(), QString::number(race->distance()),
                 race->location(), race->date().toString("dd.MM.yyyy"));
@@ -175,10 +184,10 @@ QString MainWindow::doRaceJoin(QString raceId, QString groupName)
         return MSG_REGISTRATION_REQUIRED;
     }
     raceId = raceId.toUpper();
-    if (!this->raceLookup.contains(raceId)) {
+    if (!this->raceExists(raceId)) {
         return QString("There is no race with the id '%1'").arg(raceId);
     }
-    Race *race = this->raceLookup[raceId];
+    Race *race = this->getRace(raceId);
     if (!this->groupExists(groupName)) {
         return QString("The group '%0' does not exist.").arg(groupName);
     }
@@ -199,10 +208,10 @@ QString MainWindow::doRaceLeave(QString raceId, QString groupName)
         return MSG_REGISTRATION_REQUIRED;
     }
     raceId = raceId.toUpper();
-    if (!this->raceLookup.contains(raceId)) {
+    if (!this->raceExists(raceId)) {
         return QString("There is no race with the id '%1'").arg(raceId);
     }
-    Race *race = this->raceLookup[raceId];
+    Race *race = this->getRace(raceId);
     if (!this->groupExists(groupName)) {
         return QString("The group '%0' does not exist.").arg(groupName);
     }
@@ -220,10 +229,10 @@ QString MainWindow::doRaceLeave(QString raceId, QString groupName)
 QString MainWindow::doRacePrerank(QString raceId, QString groupName)
 {
     raceId = raceId.toUpper();
-    if (!this->raceLookup.contains(raceId)) {
+    if (!this->raceExists(raceId)) {
         return QString("There is no race with the id '%1'").arg(raceId);
     }
-    Race *race = this->raceLookup[raceId];
+    Race *race = this->getRace(raceId);
     if (!this->groupExists(groupName)) {
         return QString("The group '%0' does not exist.").arg(groupName);
     }
