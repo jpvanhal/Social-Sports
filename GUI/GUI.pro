@@ -15,8 +15,4 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h
 
-FORMS    += \
-    Sign_in_window.ui \
-    new_user_registration.ui \
-    main.ui \
-    create_group.ui
+FORMS    += mainwindow.ui
