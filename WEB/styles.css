@@ -1,9 +1,10 @@
-a {
-    text-decoration: none;
+html {
+    font-family: sans-serif;
 }
 
 .header {
-    float: right;
+    height: 50px;
+    font-size: 40px;
 }
 
 .wrapper {
@@ -12,17 +13,34 @@ a {
     border: 1px solid black;
 }
 
-.item {
+.menu {
+    border: 1px solid black;
+    height: 30px;
+    vertical-align: middle;
+}
+.menu a {
+    text-decoration: none;
+}
+
+.menu .left {
+    float: left;
+    text-align: left;
+}
+
+.menu .right {
+    float: right;
+    text-align: right;
+}
+
+.menu .item {
     display: inline-block;
     height: 20px;
-    width: auto;
     padding: 5px;
 }
 
-.item:hover {
+.menu .item:hover {
     background: #EEEEEE;
 }
 
 .content {
-    height: 800px;
 }
