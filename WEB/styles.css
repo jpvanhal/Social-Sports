@@ -1,0 +1,59 @@
+html {
+    font-family: sans-serif;
+}
+
+.header {
+    height: 50px;
+    font-size: 40px;
+}
+
+.wrapper {
+    width: 1024px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.menu {
+    border: 1px solid black;
+    height: 30px;
+    vertical-align: middle;
+}
+.menu a {
+    text-decoration: none;
+}
+
+.menu .left {
+    float: left;
+    text-align: left;
+}
+
+.menu .right {
+    float: right;
+    text-align: right;
+}
+
+.menu .right .username {
+    font-weight: bold;
+}
+
+.menu .item {
+    display: inline-block;
+    height: 20px;
+    padding: 5px;
+}
+
+.menu .item.selected {
+    background: #EEEEEE;
+}
+
+.menu .item:hover {
+    background: #EEEEEE;
+}
+
+.content {
+}
+
+.help {
+    font-style: italic;
+    font-size: 90%;
+}

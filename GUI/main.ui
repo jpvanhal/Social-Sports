@@ -20,7 +20,7 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
-      <widget class="QWidget" name="tab_10">
+      <widget class="QWidget" name="NewsTab">
        <attribute name="title">
         <string>News</string>
        </attribute>
@@ -80,7 +80,7 @@ p, li { white-space: pre-wrap; }
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_3">
+      <widget class="QWidget" name="FitnessTab">
        <attribute name="title">
         <string>Fitness</string>
        </attribute>
@@ -183,7 +183,7 @@ p, li { white-space: pre-wrap; }
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab">
+      <widget class="QWidget" name="GroupsTab">
        <attribute name="title">
         <string>Groups</string>
        </attribute>
@@ -356,7 +356,7 @@ Group 2: Naked Joggers
         </property>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_2">
+      <widget class="QWidget" name="RaceTab">
        <attribute name="title">
         <string>Race</string>
        </attribute>
