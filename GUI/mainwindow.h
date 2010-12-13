@@ -17,6 +17,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    void addNewsItem(QString title, QString time);
 };
 
 #endif // MAINWINDOW_H
