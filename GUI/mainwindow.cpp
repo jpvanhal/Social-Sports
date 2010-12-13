@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "ui_main.h"
+#include "ui_mainwindow.h"
 
 #include <QStandardItemModel>
 #include <QStandardItem>
