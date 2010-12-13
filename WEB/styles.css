@@ -38,9 +38,18 @@ html {
     padding: 5px;
 }
 
+.menu .item.selected {
+    background: #EEEEEE;
+}
+
 .menu .item:hover {
     background: #EEEEEE;
 }
 
 .content {
+}
+
+.help {
+    font-style: italic;
+    font-size: 90%;
 }
