@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QModelIndex>
 
 namespace Ui {
     class MainWindow;
@@ -18,6 +19,9 @@ public:
 private:
     Ui::MainWindow *ui;
     void addNewsItem(QString title, QString time);
+
+private slots:
+    void newsItemActivated(QModelIndex index);
 };
 
 #endif // MAINWINDOW_H
