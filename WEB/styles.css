@@ -1,5 +1,5 @@
 html {
-    font-family: sans-serif;
+    font-family: calibri, sans-serif;
 }
 
 .header {
@@ -51,9 +51,14 @@ html {
 }
 
 .content {
+    padding-left: 50px;
 }
 
 .help {
     font-style: italic;
     font-size: 90%;
+}
+
+.intro {
+    width: 400px;
 }
