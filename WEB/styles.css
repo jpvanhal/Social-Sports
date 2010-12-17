@@ -82,6 +82,8 @@ html {
     width: 500px;
     margin-top: 20px;
     border: 1px solid black;
+    max-height: 200px;
+    overflow-y: scroll;
 }
 
 .group_select .item {
@@ -90,4 +92,9 @@ html {
 }
 .group_select .item:hover {
     background: #EEEEEE;
+}
+.group_select .checked {
+    height: 23px;
+    position: relative;
+    top: 3px;
 }

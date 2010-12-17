@@ -4,6 +4,7 @@
         <title>Hookie</title>
         
         <link rel="stylesheet" type="text/css" href="styles.css" />
+        <script src="jquery-1.4.4.min.js"></script>
     </head>
     <body>
         <div class="wrapper">
@@ -48,17 +49,52 @@
                     </div>
                 </div>
                 <div class="group_select">
-                    <div class="item">
+                    <div class="item" onclick="">
                         Show my graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
                     </div>
                     <div class="item">
                         Show group1 graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
                     </div>
                     <div class="item">
                         Show group2 graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
+                    </div>
+                    <div class="item">
+                        Show group3 graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
+                    </div>
+                    <div class="item">
+                        Show group4 graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
+                    </div>
+                    <div class="item">
+                        Show group5 graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
+                    </div>
+                    <div class="item">
+                        Show group6 graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
+                    </div>
+                    <div class="item">
+                        Show group7 graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
+                    </div>
+                    <div class="item">
+                        Show group8 graph
+                        <img class="checked" src="icon_check.png" alt="checked" />
                     </div>
                 </div>
             </div>
         </div>
+        <script type="text/javascript">
+            $(".group_select .item img").hide();
+            $(".group_select .item").bind("click",
+                                          function(event) {                                           
+                                            $(".group_select .item img").hide();
+                                            $(this).find("img").show();
+                                            })
+        </script>
     </body>
 </html>
