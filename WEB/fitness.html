@@ -4,14 +4,13 @@
         <title>Hookie</title>
         
         <link rel="stylesheet" type="text/css" href="styles.css" />
-        <script src="jquery-1.4.4.min.js"></script>
     </head>
     <body>
         <div class="wrapper">
             <div class="header">Hookie</div>
             <div class="menu">
                 <div class="left">
-                    <a class="item" href="">
+                    <a class="item" href="news.html">
                         News
                     </a>
                     <a class="item selected" href="fitness.html">
@@ -26,7 +25,7 @@
                 </div>
                 <div class="right">
                     <span class="username">user.name</span>
-                    <a class="item" href="">
+                    <a class="item" href="help_registered.html">
                         Help
                     </a>
                     <a class="item" href="index.html">
@@ -48,6 +47,7 @@
                         <p><a href="">Read more about how to interpret the graph.</a></p>
                     </div>
                 </div>
+                <div class="box_description">Choose group to view their fitness:</div>
                 <div class="group_select">
                     <div class="item" onclick="">
                         Show my graph
@@ -88,6 +88,7 @@
                 </div>
             </div>
         </div>
+        <script src="jquery-1.4.4.min.js"></script>
         <script type="text/javascript">
             $(".group_select .item img").hide();
             $("div.item:first-child img").show();
