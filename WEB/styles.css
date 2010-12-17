@@ -8,7 +8,8 @@ html {
 }
 
 .wrapper {
-    width: 1024px;
+    min-width: 430px;
+    max-width: 1024px;
     margin: 0 auto;
     border: 1px solid black;
 }
@@ -63,4 +64,30 @@ html {
 
 .intro {
     width: 400px;
+}
+.graph {
+    height: 300px;
+}
+.graph img {
+    height: 300px;
+}
+.tools {
+    position: relative;
+    bottom: 300px;
+    left: 500px;
+    width: 100px;
+}
+
+.group_select {
+    width: 500px;
+    margin-top: 20px;
+    border: 1px solid black;
+}
+
+.group_select .item {
+    padding: 10px;
+    border: 1px dotted black;
+}
+.group_select .item:hover {
+    background: #EEEEEE;
 }
