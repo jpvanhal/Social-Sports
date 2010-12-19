@@ -12,16 +12,19 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    eventdelegate.cpp
+    eventdelegate.cpp \
+    signindialog.cpp
 
 HEADERS  += mainwindow.h \
-    eventdelegate.h
+    eventdelegate.h \
+    signindialog.h
 
 FORMS    += \
     Sign_in_window.ui \
     new_user_registration.ui \
     mainwindow.ui \
-    create_group.ui
+    create_group.ui \
+    signindialog.ui
 
 RESOURCES += \
     icons.qrc
