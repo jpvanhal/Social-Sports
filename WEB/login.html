@@ -27,27 +27,30 @@
                 </div>
             </div>
             <div class="content">
-                <form action="news.html" method="post" onsubmit="return validate(this)">
+                <form action="news.html" method="post" onsubmit="return validate(this);">
                     <table>
-                        <tr class="error help">
-                            <td colspan="2">
-                                Username was not found or username and password did not match.
-                            </td>
-                        </tr>
                         <tr>
                             <td>
                                 <label for="username">User name:</label>
                             </td>
-                            <td>
+                            <td class="username error">
                                 <input id="username" type="text" name="username" />
+                                <span class="help username_notfound">The username was not found.</span>
+                                <span class="help username_empty">You have to provide a username.</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label for="password">Password:</label>
                             </td>
-                            <td>
+                            <td class="password error">
                                 <input id="password" type="password" name="password" />
+                                <span class="help wrong_password">The password did not match the username.</span>
+                                <span class="help password_empty">You have to provide a password.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                             </td>
                             <td>
                                 <a class="help" href="new_password.html">Forgot your password?</a>
@@ -74,14 +77,34 @@
         </div>
         <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
         <script type="text/javascript">
-            $(".error").hide();
+            $("span.help").hide();
+            $(".error").removeClass("error");
             function validate(form) {
-                if($("#username")[0].value == "hookie" && $("#password")[0].value == "hookie") {
-                    return true;
-                } else {
-                    $(".error").show();
-                    return false
+                $("span.help").hide();
+                var return_value = true;
+                if($("#username")[0].value != "hookie") {
+                    $(".username_notfound").show();
+                    $(".username").addClass("error");
+                    return_value = false;
                 }
+                if($("#username")[0].value === "") {
+                    $(".username_empty").show();
+                    $(".username_notfound").hide();
+                    $(".username").addClass("error");
+                    return_value = false;
+                }
+                if($("#username")[0].value === "hookie" && $("#password")[0].value != "hookie") {
+                    $(".wrong_password").show();
+                    $(".password").addClass("error");
+                    return_value = false;
+                }
+                if($("#password")[0].value === "") {
+                    $(".password_empty").show();
+                    $(".wrong_password").hide();
+                    $(".password").addClass("error");
+                    return_value = false;
+                }
+                return return_value;
             }
         </script>
     </body>

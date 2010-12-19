@@ -27,38 +27,48 @@
                 </div>
             </div>
             <div class="content">
-                <form action="welcome.html" method="post">
+                <form action="welcome.html" method="post" onsubmit="return validate(this);">
                     <table>
                         <tr>
                             <td>
-                                <label for="username">User name:</label>
+                                <label for="username">Username:</label>
                             </td>
-                            <td>
+                            <td class="username error">
                                 <input id="username" type="text" name="username" />
+                                <span class="help username_required">You need to provide a username.</span>
+                                <span class="help username_unique">The username has already been taken.</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label for="email">Email:</label>
                             </td>
-                            <td>
+                            <td class="email error">
                                 <input id="email" type="text" name="email" />
+                                <span class="help empty_email">You need to provide an email.</span>
+                                <span class="help valid_email">The email is not valid. Example of a valid email address: firstname.lastname@domain.org</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td class="help">
+                                Password should be at least 6 characters long
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <label for="password">Password:</label>
                             </td>
-                            <td>
+                            <td class="password error">
                                 <input id="password" type="password" name="password" />
-                            </td>
-                            <td class="help">
-                                Password should be between 6-10 characters
+                                <span class="help password_match">The passwords did not match.</span>
+                                <span class="help password_required">You need to provide a password.</span>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <label for="password2">Retype your password:</label>
+                                <label for="password2">Re-enter your password:</label>
                             </td>
                             <td>
                                 <input id="password2" type="password" name="password" />
@@ -75,5 +85,40 @@
                 </form>
             </div>
         </div>
+        <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">
+            $("span.help").hide();
+            $(".error").removeClass("error");
+            function validate(form) {
+                $("span.help").hide();
+                var return_value = false;
+                if($("#password")[0].value !== $("#password2")[0].value) {
+                    $(".password_match").show();
+                    $(".password").addClass("error");
+                    return_value = false;
+                }
+                if($("#password")[0].value === "") {
+                    $(".password_required").show();
+                    $(".password").addClass("error");
+                    return_value = false;
+                }
+                if($("#username")[0].value === "hookie") {
+                    $(".username_unique").show();
+                    $(".username").addClass("error");
+                    return_value = false;
+                }
+                if($("#username")[0].value === "") {
+                    $(".username_required").show();
+                    $(".username").addClass("error");
+                    return_value = false;
+                }
+                if($("#email")[0].value === "") {
+                    $(".empty_email").show();
+                    $(".email").addClass("error");
+                    return_value = false;
+                }
+                return return_value;
+            }
+        </script>
     </body>
 </html>
