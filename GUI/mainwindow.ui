@@ -25,10 +25,16 @@
         <string>News</string>
        </attribute>
        <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <property name="spacing">
+         <number>-1</number>
+        </property>
         <item>
          <widget class="QSplitter" name="splitter">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="handleWidth">
+           <number>15</number>
           </property>
           <widget class="QListView" name="listViewNews">
            <property name="editTriggers">
@@ -119,7 +125,7 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>514</width>
+                 <width>510</width>
                  <height>152</height>
                 </rect>
                </property>
@@ -277,8 +283,8 @@ p, li { white-space: pre-wrap; }
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>514</width>
-                 <height>140</height>
+                 <width>510</width>
+                 <height>138</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_13">
