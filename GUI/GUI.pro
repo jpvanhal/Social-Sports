@@ -20,7 +20,6 @@ HEADERS  += mainwindow.h \
     signindialog.h
 
 FORMS    += \
-    Sign_in_window.ui \
     new_user_registration.ui \
     mainwindow.ui \
     create_group.ui \
