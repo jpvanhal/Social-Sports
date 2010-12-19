@@ -91,7 +91,7 @@
             $(".error").removeClass("error");
             function validate(form) {
                 $("span.help").hide();
-                var return_value = false;
+                var return_value = true;
                 if($("#password")[0].value !== $("#password2")[0].value) {
                     $(".password_match").show();
                     $(".password").addClass("error");
