@@ -151,3 +151,9 @@ html {
     top: 10px;
     left: 10px;
 }
+
+.error td {
+    padding: 3px;
+    border: 1px solid #FF0000;
+    background-color: #fff8dc;
+}

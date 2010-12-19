@@ -27,8 +27,13 @@
                 </div>
             </div>
             <div class="content">
-                <form action="news.html" method="post">
+                <form action="news.html" method="post" onsubmit="return validate(this)">
                     <table>
+                        <tr class="error help">
+                            <td colspan="2">
+                                Username was not found or username and password did not match.
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 <label for="username">User name:</label>
@@ -67,5 +72,17 @@
                 </form>
             </div>
         </div>
+        <script type="text/javascript" src="jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">
+            $(".error").hide();
+            function validate(form) {
+                if($("#username")[0].value == "hookie" && $("#password")[0].value == "hookie") {
+                    return true;
+                } else {
+                    $(".error").show();
+                    return false
+                }
+            }
+        </script>
     </body>
 </html>
