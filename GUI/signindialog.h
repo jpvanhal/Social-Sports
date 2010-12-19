@@ -23,6 +23,8 @@ private:
 
 private slots:
     void doSignIn();
+    void doForgotPassword();
+    void doSignUp();
 };
 
 #endif // SIGNINDIALOG_H
