@@ -82,25 +82,6 @@ html {
 .box_description {
     margin-top: 10px;
 }
-.group_select {
-    width: 500px;
-    border: 1px solid black;
-    max-height: 200px;
-    overflow-y: scroll;
-}
-
-.group_select .item {
-    padding: 10px;
-    border: 1px dotted black;
-}
-.group_select .item:hover {
-    background: #EEEEEE;
-}
-.group_select .checked {
-    height: 23px;
-    position: relative;
-    top: 3px;
-}
 
 .notifications {
     width: 300px;
@@ -121,7 +102,7 @@ html {
     float: left;
     display: inline;
     margin-right: 5px;
-    max-height: 500px;
+    max-height: 70px;
     overflow-y: scroll;
 }
 .notifications .item .notifications_text {
@@ -133,6 +114,20 @@ html {
 }
 .notifications .item .checked {
     float: right;
+}
+
+
+.group_select {
+    width: 500px;
+    border: 1px solid black;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+.group_select .item {
+    height: 45px;
+}
+.group_select .item img {
+    max-height: 40px;
 }
 
 .more_info {
