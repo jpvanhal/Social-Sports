@@ -14,18 +14,21 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     eventdelegate.cpp \
     signindialog.cpp \
-    signupdialog.cpp
+    signupdialog.cpp \
+    eventwidget.cpp
 
 HEADERS  += mainwindow.h \
     eventdelegate.h \
     signindialog.h \
-    signupdialog.h
+    signupdialog.h \
+    eventwidget.h
 
 FORMS    += \
     mainwindow.ui \
     create_group.ui \
     signindialog.ui \
-    signupdialog.ui
+    signupdialog.ui \
+    eventwidget.ui
 
 RESOURCES += \
     icons.qrc

@@ -18,10 +18,16 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    bool theUserLikes;
+    void addNewsItemComment(QString name, QString comment, QString time);
+    void clearNewsItemComments();
     void addNewsItem(QString title, QString time);
+    void updateLikings();
 
 private slots:
     void newsItemActivated(QModelIndex index);
+    void commentNewsItem();
+    void likeNewsItem();
 };
 
 #endif // MAINWINDOW_H
