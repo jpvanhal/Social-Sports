@@ -33,7 +33,7 @@ void EventDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
     }
 
     QRect textRect = QRect(option.rect);
-    textRect.setX(option.decorationSize.width() + 5);
+    textRect.setX(option.rect.x() + option.decorationSize.width() + 5);
 
     QVariant title = index.data(Qt::DisplayRole);
     if (title.isValid()) {
