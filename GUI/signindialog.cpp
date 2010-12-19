@@ -2,6 +2,7 @@
 #include <QInputDialog>
 
 #include "signindialog.h"
+#include "signupdialog.h"
 #include "ui_signindialog.h"
 
 SignInDialog::SignInDialog(MainWindow *mainwindow, QWidget *parent) :
@@ -38,7 +39,12 @@ void SignInDialog::doForgotPassword()
 
 void SignInDialog::doSignUp()
 {
-
+    SignUpDialog d;
+    if (d.exec() == QDialog::Accepted) {
+        QMessageBox::information(this, "Sign Up", "You have succesfully signed up to Social Sports!");
+        mainwindow->show();
+        accept();
+    }
 }
 
 bool SignInDialog::validateUserCredentials()
