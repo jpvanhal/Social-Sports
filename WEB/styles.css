@@ -1,0 +1,153 @@
+html {
+    font-family: calibri, sans-serif;
+}
+
+.header {
+    height: 50px;
+    font-size: 40px;
+}
+
+.wrapper {
+    min-width: 430px;
+    max-width: 1024px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
+.menu {
+    border: 1px solid black;
+    height: 30px;
+    vertical-align: middle;
+}
+.menu a {
+    text-decoration: none;
+}
+
+.menu .left {
+    float: left;
+    text-align: left;
+}
+
+.menu .right {
+    float: right;
+    text-align: right;
+}
+
+.menu .right .username {
+    font-weight: bold;
+}
+
+.menu .item {
+    display: inline-block;
+    height: 20px;
+    padding: 5px;
+}
+
+.menu .item.selected {
+    background: #EEEEEE;
+}
+
+.menu .item:hover {
+    background: #EEEEEE;
+}
+
+.content {
+    max-height: 520px;
+    padding-left: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.help {
+    font-style: italic;
+    font-size: 90%;
+}
+
+.intro {
+    width: 400px;
+}
+.graph {
+    height: 300px;
+}
+.graph img {
+    height: 300px;
+}
+.tools {
+    position: relative;
+    bottom: 300px;
+    left: 500px;
+    width: 100px;
+}
+
+.box_description {
+    margin-top: 10px;
+}
+.group_select {
+    width: 500px;
+    border: 1px solid black;
+    max-height: 200px;
+    overflow-y: scroll;
+}
+
+.group_select .item {
+    padding: 10px;
+    border: 1px dotted black;
+}
+.group_select .item:hover {
+    background: #EEEEEE;
+}
+.group_select .checked {
+    height: 23px;
+    position: relative;
+    top: 3px;
+}
+
+.notifications {
+    width: 300px;
+    height: 500px;
+    border: 1px solid black;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+.notifications .item {
+    height: 85px;
+    padding: 6px;
+    border: 1px dotted black;
+}
+.notifications .item:hover {
+    background-color: #EEEEEE;
+}
+.notifications .item img {
+    float: left;
+    display: inline;
+    margin-right: 5px;
+    max-height: 500px;
+    overflow-y: scroll;
+}
+.notifications .item .notifications_text {
+}
+.notifications .item .time {
+    font-style: italic;
+    font-size: 90%;
+    display: inline-block;
+}
+.notifications .item .checked {
+    float: right;
+}
+
+.more_info {
+    position: relative;
+    left: 320px;
+    bottom: 500px;
+    width: 350px;
+    height: 500px;
+    border: 1px solid black;
+}
+
+.thumb {
+    height: 30px;
+    border: 1px outset black;
+    position: relative;
+    top: 10px;
+    left: 10px;
+}

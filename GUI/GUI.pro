@@ -11,12 +11,17 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    eventdelegate.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    eventdelegate.h
 
-FORMS    += mainwindow.ui \
+FORMS    += \
     Sign_in_window.ui \
     new_user_registration.ui \
-    main.ui \
+    mainwindow.ui \
     create_group.ui
+
+RESOURCES += \
+    icons.qrc
