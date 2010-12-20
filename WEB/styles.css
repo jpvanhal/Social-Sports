@@ -217,13 +217,36 @@ html {
 }
 .group_details {
     position: relative;
-    bottom: 550px;
+    bottom: 540px;
     left: 420px;
 }
 .details.group_details {
-    height: 400px;
+    height: 510px;
     width: 400px;
     border: 1px solid black;
+}
+.details.group_details .short_desc {
+    height: 90px;
+}
+.details.group_details .short_desc img {
+    float: left;
+}
+.members.notifications {
+    overflow: visible;
+    border: 0px solid black;
+    width: 400px;
+}
+.members .item {
+    height: 45px;
+}
+.members .item img {
+    height: 40px;
+}
+button.create_new_group {
+    float: right;
+    position: relative;
+    top: 20px;
+    right: 30px;
 }
 .thumb {
     height: 30px;
