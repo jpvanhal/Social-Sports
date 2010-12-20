@@ -230,6 +230,7 @@ html {
 }
 .details.group_details .short_desc img {
     float: left;
+    height: 80px;
 }
 .members.notifications {
     overflow: visible;
