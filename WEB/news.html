@@ -99,11 +99,12 @@
                         <button type="button">Like</button>
                     </div>
                     <p>Comments:</p>
-                    <div class="comments">
+                    <div id="commentbox" class="comments">
+                        Jane: Great job!
                     </div>
                     <p>Your comment:</p>
-                    <textarea cols="44" rows="5" ></textarea>
-                    <button type="button">Comment</button>
+                    <textarea id="comment" cols="44" rows="5" ></textarea>
+                    <button type="button" onclick="add_comment()">Comment</button>
                 </div>
             </div>
         </div>
@@ -117,6 +118,11 @@
                                             $(".notifications .item .checked").hide();
                                             $(this).find(".checked").show();
                                             })
+            function add_comment() {
+                var comment = $("#comment")[0].value;
+                $("#commentbox")[0].innerHTML = $("#commentbox")[0].innerHTML + "<br />Me:" + comment;
+                $("#comment")[0].value = "";
+            }
         </script>
     </body>
 </html>
