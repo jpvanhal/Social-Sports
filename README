@@ -1,6 +1,8 @@
 Command Line Interface
 ======================
 
+There is a pre-compiled executable for 64-bit Mac OS X 10.6 in Executables/CLI.app
+
 Compiling and running the CLI application:
 1. Install Qt Creator 2.0: http://qt.nokia.com
 2. Open CLI/CLI.pro in Qt Creator
@@ -9,6 +11,8 @@ Compiling and running the CLI application:
 
 Graphical User Interface
 ========================
+
+There is a pre-compiled executable for 64-bit Mac OS X 10.6 in Executables/GUI.app
 
 Compiling and running the GUI application:
 1. Install Qt Creator 2.0: http://qt.nokia.com
