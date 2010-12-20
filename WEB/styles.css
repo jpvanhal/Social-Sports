@@ -249,6 +249,11 @@ button.create_new_group {
     top: 20px;
     right: 30px;
 }
+div.create_new_group {
+    position: absolute;
+    top: 130px;
+    left: 500px;
+}
 .thumb {
     height: 30px;
     border: 1px outset black;

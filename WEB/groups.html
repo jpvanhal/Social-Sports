@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="content groups">
-                <button class="create_new_group">Create new group</button>
+                <button class="create_new_group" onclick="create_group()">Create new group</button>
                 <div class="box_description">Choose a group to view more details:</div>
                 <div class="notifications users_groups">
                     <div class="item">
@@ -114,8 +114,23 @@
                     </div>
                 </div>
                 <div class="create_new_group">
-                    <label for="groupname">Name for new group:<label>
-                    <input id="groupname" type="text" />
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="groupname">Name for new group:</label>
+                            </td>
+                            <td>
+                                <input id="groupname" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <button type="button" onclick="make_group()">Create group</button>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
@@ -123,16 +138,25 @@
         <script src="jquery-1.4.4.min.js"></script>
         <script type="text/javascript">
             $(".notifications .item .checked").hide();
-            $(".create_new_group").hide();
+            $("div.create_new_group").hide();
             $("div.item:first-child .checked").show();
             $(".notifications.users_groups .item").bind("click",
                                           function(event) {                                           
                                             $(".notifications .item .checked").hide();
+                                            $("div.create_new_group").hide();
                                             $(this).find(".checked").show();
                                             });
             
             function accept(nr) {
                 $("." + nr).hide();
+            }
+            function create_group() {
+                $(".details.group_details").hide();
+                $("div.create_new_group").show();
+            }
+            function make_group() {
+                $("div.create_new_group").hide();
+                $(".details.group_details").show();
             }
         </script>
     </body>
