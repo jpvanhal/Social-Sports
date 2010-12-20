@@ -24,25 +24,32 @@
        <attribute name="title">
         <string>News</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <property name="spacing">
-         <number>-1</number>
-        </property>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QSplitter" name="splitter">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <property name="handleWidth">
-           <number>15</number>
-          </property>
-          <widget class="QListView" name="listViewNews">
-           <property name="editTriggers">
-            <set>QAbstractItemView::NoEditTriggers</set>
-           </property>
-           <property name="selectionBehavior">
-            <enum>QAbstractItemView::SelectRows</enum>
-           </property>
+          <widget class="QWidget" name="">
+           <layout class="QVBoxLayout" name="verticalLayout_7">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>Latest News:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QListView" name="listViewNews">
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </widget>
           <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_12">
@@ -125,8 +132,8 @@
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>510</width>
-                 <height>152</height>
+                 <width>512</width>
+                 <height>156</height>
                 </rect>
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -283,8 +290,8 @@ p, li { white-space: pre-wrap; }
                 <rect>
                  <x>0</x>
                  <y>0</y>
-                 <width>510</width>
-                 <height>138</height>
+                 <width>512</width>
+                 <height>155</height>
                 </rect>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_13">
@@ -506,6 +513,11 @@ p, li { white-space: pre-wrap; }
              <attribute name="headerVisible">
               <bool>false</bool>
              </attribute>
+             <column>
+              <property name="text">
+               <string notr="true">1</string>
+              </property>
+             </column>
             </widget>
            </item>
            <item>
@@ -868,7 +880,6 @@ p, li { white-space: pre-wrap; }
    </widget>
    <addaction name="menuHelp"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
