@@ -126,8 +126,12 @@
                 $("#commentbox")[0].innerHTML = $("#commentbox")[0].innerHTML + "<br />Me:" + comment;
                 $("#comment")[0].value = "";
             }
+            var liked = true;
             function like() {
-                $(".who_likes > p")[0].innerHTML = "Me, " + $(".who_likes > p")[0].innerHTML;
+                if(liked) {
+                    $(".who_likes > p")[0].innerHTML = "Me, " + $(".who_likes > p")[0].innerHTML;
+                }
+                liked = false;
             }
         </script>
     </body>
