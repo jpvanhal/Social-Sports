@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="NewsTab">
        <attribute name="title">
@@ -625,140 +625,17 @@ p, li { white-space: pre-wrap; }
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QLabel" name="label_10">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Click on each race for more detailed information</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <layout class="QGridLayout" name="gridLayout">
-          <property name="leftMargin">
-           <number>4</number>
-          </property>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="pushButton_7">
-            <property name="text">
-             <string>Join Race</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>Helsinki City Marathon</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>Naisten Kymppi</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string>Helsinki Night Run</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="pushButton_8">
-            <property name="text">
-             <string>Join Race</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QPushButton" name="pushButton_9">
-            <property name="text">
-             <string>Join Race</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPushButton" name="pushButton_10">
-            <property name="text">
-             <string>Leave Race</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QPushButton" name="pushButton_11">
-            <property name="text">
-             <string>Leave Race</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QPushButton" name="pushButton_12">
-            <property name="text">
-             <string>Leave Race</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>Stockholm Night Run</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="pushButton_13">
-            <property name="text">
-             <string>Join Race</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2">
-           <widget class="QPushButton" name="pushButton_14">
-            <property name="text">
-             <string>Leave Race</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_13">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
-          <property name="text">
-           <string>Race Info</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="lineEdit"/>
-        </item>
-        <item>
          <widget class="QLabel" name="label_14">
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
-          </property>
           <property name="text">
-           <string>Your Races: </string>
+           <string>The upcoming foot races are listed below. You can enroll to a race by checking the corresponding checkbox on the left.</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QTableWidget" name="tableWidget">
+         <widget class="QTreeWidget" name="treeWidgetRaces">
           <property name="font">
            <font>
             <kerning>true</kerning>
@@ -776,24 +653,17 @@ p, li { white-space: pre-wrap; }
           <property name="textElideMode">
            <enum>Qt::ElideMiddle</enum>
           </property>
-          <row>
-           <property name="text">
-            <string>Helsinki City Run</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>Naisten Kymppi</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>Helsinki Night Run</string>
-           </property>
-          </row>
+          <property name="columnCount">
+           <number>5</number>
+          </property>
           <column>
            <property name="text">
-            <string>Date</string>
+            <string>Enrolled?</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Name</string>
            </property>
           </column>
           <column>
@@ -806,49 +676,172 @@ p, li { white-space: pre-wrap; }
             <string>Distance</string>
            </property>
           </column>
-          <item row="0" column="0">
+          <column>
            <property name="text">
-            <string>06.08.2010</string>
+            <string>Date</string>
+           </property>
+          </column>
+          <item>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checkState">
+            <enum>Unchecked</enum>
+           </property>
+           <property name="text">
+            <string>Länsiväyläjuoksu (long)</string>
+           </property>
+           <property name="text">
+            <string>Espoo</string>
+           </property>
+           <property name="text">
+            <string>17.4 km</string>
+           </property>
+           <property name="text">
+            <string>17.4.2011</string>
+           </property>
+           <property name="flags">
+            <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
            </property>
           </item>
-          <item row="0" column="1">
+          <item>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checkState">
+            <enum>Unchecked</enum>
+           </property>
+           <property name="text">
+            <string>Länsiväyläjuoksu (short)</string>
+           </property>
+           <property name="text">
+            <string>Espoo</string>
+           </property>
+           <property name="text">
+            <string>6.5 km</string>
+           </property>
+           <property name="text">
+            <string>17.4.2011</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checkState">
+            <enum>Unchecked</enum>
+           </property>
+           <property name="text">
+            <string>Länsiväyläjuoksu (walk)</string>
+           </property>
+           <property name="text">
+            <string>Espoo</string>
+           </property>
+           <property name="text">
+            <string>6.2 km</string>
+           </property>
+           <property name="text">
+            <string>17.4.2011</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checkState">
+            <enum>Unchecked</enum>
+           </property>
+           <property name="text">
+            <string>Helsinki City Run</string>
+           </property>
            <property name="text">
             <string>Helsinki</string>
            </property>
-          </item>
-          <item row="0" column="2">
            <property name="text">
-            <string>10 Km</string>
+            <string>21.1 km</string>
+           </property>
+           <property name="text">
+            <string>7.5.2011</string>
            </property>
           </item>
-          <item row="1" column="0">
+          <item>
            <property name="text">
-            <string>31.05.2010</string>
+            <string/>
            </property>
-          </item>
-          <item row="1" column="1">
+           <property name="checkState">
+            <enum>Unchecked</enum>
+           </property>
            <property name="text">
-            <string>Helsinki </string>
+            <string>Naisten kymppi</string>
            </property>
-          </item>
-          <item row="1" column="2">
-           <property name="text">
-            <string>10 Km</string>
-           </property>
-          </item>
-          <item row="2" column="0">
-           <property name="text">
-            <string>2.09.2010</string>
-           </property>
-          </item>
-          <item row="2" column="1">
            <property name="text">
             <string>Helsinki</string>
            </property>
-          </item>
-          <item row="2" column="2">
            <property name="text">
-            <string>12 Km</string>
+            <string>10 km</string>
+           </property>
+           <property name="text">
+            <string>22.5.2011</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checkState">
+            <enum>Unchecked</enum>
+           </property>
+           <property name="text">
+            <string>Nakukymppi</string>
+           </property>
+           <property name="text">
+            <string>Padasjoki</string>
+           </property>
+           <property name="text">
+            <string>10 km</string>
+           </property>
+           <property name="text">
+            <string>17.6.2011</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checkState">
+            <enum>Unchecked</enum>
+           </property>
+           <property name="text">
+            <string>Paavo Nurmi Marathon</string>
+           </property>
+           <property name="text">
+            <string>Turku</string>
+           </property>
+           <property name="text">
+            <string>42.2 km</string>
+           </property>
+           <property name="text">
+            <string>2.7.2011</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string/>
+           </property>
+           <property name="checkState">
+            <enum>Unchecked</enum>
+           </property>
+           <property name="text">
+            <string>Helsinki City Marathon</string>
+           </property>
+           <property name="text">
+            <string>Helsinki</string>
+           </property>
+           <property name="text">
+            <string>42.2 km</string>
+           </property>
+           <property name="text">
+            <string>20.8.2011</string>
            </property>
           </item>
          </widget>

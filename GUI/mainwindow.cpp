@@ -21,6 +21,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btnComment, SIGNAL(clicked()), SLOT(commentNewsItem()));
     connect(ui->btnLike, SIGNAL(clicked()), SLOT(likeNewsItem()));
 
+    for (int i = 0; i < ui->treeWidgetRaces->columnCount(); i++) {
+        ui->treeWidgetRaces->resizeColumnToContents(i);
+    }
+
     initNews();
     initFitness();
     initGroups();
