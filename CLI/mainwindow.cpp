@@ -514,8 +514,7 @@ QString MainWindow::doGroup(QStringList args)
             return this->doGroupFitness(args[0]);
         }
     }
-    QString response = QString(this->MSG_COMMAND_NOT_RECOGNIZED).append("Did you mean: GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE, GROUP MEMBERS");
-    return response;
+    return "Here are the commands related to groups: GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE, GROUP MEMBERS. You can get more information about each command by typing HELP followed by the command name.";
 }
 
 QString MainWindow::doRegister(QString username)
@@ -568,10 +567,10 @@ QString MainWindow::doMy(QStringList args)
             if (userGroups.length() == 0) {
                 return QString("You have not joined or created any groups yet.");
             }
-            return QStringList(this->theUser->getGroups()).join(", ");
+            return "You are a member of the following groups: " + QStringList(this->theUser->getGroups()).join(", ");
         }
     }
-    return this->MSG_COMMAND_NOT_RECOGNIZED;
+    return "Here are the commands beginning with MY: MY FITNESS, MY GROUPS, MY INVITATIONS. You can get more information about each command by typing HELP followed by the command name.";
 }
 
 QString MainWindow::doMyInvitations()
