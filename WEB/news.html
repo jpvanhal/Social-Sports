@@ -96,7 +96,7 @@
                         <div class="who_likes">
                             <p>Jane and Mark likes this.</p>
                         </div>
-                        <button type="button">Like</button>
+                        <button type="button" onclick="like()">Like</button>
                     </div>
                     <p>Comments:</p>
                     <div id="commentbox" class="comments">
@@ -125,6 +125,9 @@
                 }
                 $("#commentbox")[0].innerHTML = $("#commentbox")[0].innerHTML + "<br />Me:" + comment;
                 $("#comment")[0].value = "";
+            }
+            function like() {
+                $(".who_likes > p")[0].innerHTML = "Me, " + $(".who_likes > p")[0].innerHTML;
             }
         </script>
     </body>
