@@ -120,6 +120,9 @@
                                             })
             function add_comment() {
                 var comment = $("#comment")[0].value;
+                if(comment === "") {
+                    return;
+                }
                 $("#commentbox")[0].innerHTML = $("#commentbox")[0].innerHTML + "<br />Me:" + comment;
                 $("#comment")[0].value = "";
             }
