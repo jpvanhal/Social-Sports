@@ -525,7 +525,7 @@ QString MainWindow::doRegister(QString username)
     } else {
         if (this->userExists(username)) {
             return QString("Registration failed. The username '%0' is already taken. Please try some other username.").arg(username);
-        }        
+        }
         this->theUser = this->createUser(username);
         this->ui->btnSimulateInvitation->setEnabled(true);
         return QString("You have succesfully registered to the service with username '%0'.").arg(username);
@@ -604,11 +604,11 @@ void MainWindow::receiveMessage(QString message)
 
 void MainWindow::sendCommand()
 {
-    QString command = this->ui->lineEditCommand->text();
+    QString originalCommand = this->ui->lineEditCommand->text();
     this->ui->lineEditCommand->clear();
 
-    QStringList args = command.trimmed().split(QRegExp("\\s+"));
-    command = args.takeFirst().toUpper();
+    QStringList args = originalCommand.trimmed().split(QRegExp("\\s+"));
+    QString command = args.takeFirst().toUpper();
 
     QString response;
 
@@ -637,7 +637,7 @@ void MainWindow::sendCommand()
     } else if (command == "NEWS" || command == "N") {
         response = doNews();
     } else {
-        response = QString("Your command was not recognized. ").append(doHelp(""));
+        response = QString("Your command '%0' was not recognized. ").arg(originalCommand).append(doHelp(""));
     }
 
     this->receiveMessage(response);
