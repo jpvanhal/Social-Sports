@@ -270,13 +270,13 @@ div.create_new_group {
 }
 
 table {
-    border: 2px solid gray;
+    border: 1px solid black;
     border-collapse: collapse;
 }
 
 thead {
     background-color: lightgray;
-    border-bottom: 2px solid gray;
+    border-bottom: 1px solid black;
 }
 
 th {
