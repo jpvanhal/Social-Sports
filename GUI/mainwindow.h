@@ -19,6 +19,7 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QStringList groupNames;
     bool theUserLikes;
     void initNews();
     void initFitness();
@@ -36,6 +37,8 @@ private slots:
     void newsItemSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
     void commentNewsItem();
     void likeNewsItem();
+    void createGroup();
+    void inviteToGroup();
     void leaveGroup();
     void acceptInvitation();
     void declineInvitation();

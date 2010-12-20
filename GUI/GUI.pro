@@ -15,20 +15,25 @@ SOURCES += main.cpp\
     eventdelegate.cpp \
     signindialog.cpp \
     signupdialog.cpp \
-    eventwidget.cpp
+    eventwidget.cpp \
+    newgroupdialog.cpp \
+    invitetogroupdialog.cpp
 
 HEADERS  += mainwindow.h \
     eventdelegate.h \
     signindialog.h \
     signupdialog.h \
-    eventwidget.h
+    eventwidget.h \
+    newgroupdialog.h \
+    invitetogroupdialog.h
 
 FORMS    += \
     mainwindow.ui \
-    create_group.ui \
     signindialog.ui \
     signupdialog.ui \
-    eventwidget.ui
+    eventwidget.ui \
+    newgroupdialog.ui \
+    invitetogroupdialog.ui
 
 RESOURCES += \
     resources.qrc

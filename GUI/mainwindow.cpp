@@ -5,9 +5,12 @@
 #include <QStandardItem>
 #include <QDebug>
 #include <QResource>
+#include <QMessageBox>
 
 #include "eventdelegate.h"
 #include "eventwidget.h"
+#include "newgroupdialog.h"
+#include "invitetogroupdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -92,7 +95,12 @@ void MainWindow::initInvitations()
 void MainWindow::initGroups()
 {
     connect(ui->treeWidgetGroups, SIGNAL(itemSelectionChanged()), SLOT(groupSelectionChanged()));
+    connect(ui->btnCreateGroup, SIGNAL(clicked()), SLOT(createGroup()));
+    connect(ui->btnInviteToGroup, SIGNAL(clicked()), SLOT(inviteToGroup()));
     connect(ui->btnLeaveGroup, SIGNAL(clicked()), SLOT(leaveGroup()));
+
+    groupNames.append("TKKRunners");
+    groupNames.append("NakedJoggers");
 
     ui->treeWidgetGroups->setColumnCount(1);
     ui->treeWidgetGroups->setIconSize(QSize(32, 32));
@@ -103,6 +111,30 @@ void MainWindow::initGroups()
     addUserToGroup(tkkRunners, "FastRunner");
     addUserToGroup(tkkRunners, "AnneWhite");
     addUserToGroup(tkkRunners, "LauraGreen");
+}
+
+void MainWindow::createGroup()
+{
+    NewGroupDialog dlg(&groupNames);
+    if (dlg.exec() == QDialog::Accepted) {
+        QString groupName = dlg.groupName();
+        groupNames.append(groupName);
+        QTreeWidgetItem *group = addGroup(ui->treeWidgetGroups, groupName);
+        addUserToGroup(group, "You");
+    }
+}
+
+void MainWindow::inviteToGroup()
+{
+    QTreeWidgetItem *treeitem = ui->treeWidgetGroups->currentItem();
+    QString groupName = treeitem->text(0);
+    InviteToGroupDialog dlg(groupName);
+    if (dlg.exec() == QDialog::Accepted) {
+        QMessageBox mbox(QMessageBox::Information, "Invitations Sent",
+            QString("You have succesfully sent invitations to the selected users to join the group %0.").arg(groupName));
+        mbox.setInformativeText("The invited users will have to accept the invitation before they become members of the group.");
+        mbox.exec();
+    }
 }
 
 QTreeWidgetItem *MainWindow::addGroup(QTreeWidget *tree, QString groupName)
