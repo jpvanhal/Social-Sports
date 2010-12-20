@@ -125,7 +125,7 @@ void MainWindow::initHelp()
     this->addHelp("MY INVITATIONS", "MY INV", "%0 (%1) -- Returns your pending group invitations.");
     this->addHelp("MY GROUPS", "MY G", "%0 (%1) -- Returns a list of the group you belong to");
     this->addHelp("GROUP", "G", "%0 (%1) -- Is the command used before all commands related to groups: GROUP MEMBERS, GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE");
-    this->addHelp("GROUP MEMBERS", "G ME", "%0 <groupname> (%1) -- Returns a list of members in the given group. Example: GROUP MEMBERS TKKRunners");
+    this->addHelp("GROUP MEMBERS", "G MEM", "%0 <groupname> (%1) -- Returns a list of members in the given group. Example: GROUP MEMBERS TKKRunners");
     this->addHelp("GROUP CREATE", "G C", "%0 <groupname> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given. Example: GROUP CREATE TKKRunners FastRunner99 AnneWhite");
     this->addHelp("GROUP FITNESS", "G F", "%0 <groupname> (%1) -- Returns the average fitness values of a group. Example: GROUP FITNESS TKKRunners");
     this->addHelp("GROUP INVITE", "G INV", "%0 <groupname> [<username>, ...] (%1) -- Invites users to a group with the given name. Example: GROUP INVITE TKKRunners FastRunner99 AnneWhite");
@@ -281,25 +281,25 @@ QString MainWindow::doRace(QStringList args)
             if (args.length() == 1) {
                 return this->doRaceInfo(args[0]);
             } else {
-                return QString("You forgot to give a raceid. ").append(this->doHelp("RACE INFO"));
+                return QString("You forgot to give a race id. A list of available races: \n").append(this->doRaceList());
             }
         } else if (command == "JOIN" || command == "J") {
             if (args.length() == 2) {
                 return this->doRaceJoin(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname.  ").append(doHelp("RACE JOIN"));
+                return QString("You forgot to give a race id or group name.  ").append(doHelp("RACE JOIN"));
             }
         } else if (command == "LEAVE" || command == "LE") {
             if (args.length() == 2) {
                 return this->doRaceLeave(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname.  ").append(doHelp("RACE LEAVE"));
+                return QString("You forgot to give a race id or group name.  ").append(doHelp("RACE LEAVE"));
             }
         } else if (command == "PRERANK" || command == "P") {
             if (args.length() == 2) {
                 return this->doRacePrerank(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname. ").append(doHelp("RACE PRERANK"));
+                return QString("You forgot to give a race id or group name. ").append(doHelp("RACE PRERANK"));
             }
         }
     } else {
@@ -447,6 +447,9 @@ QString MainWindow::doGroupLeave(QString groupName)
         return QString("You are not a member of this group.");
     }
     this->theUser->leave(group);
+    if (group->getMembers().count() == 0) {
+        groups.remove(groupName.toUpper());
+    }
     return QString("You have left the group called '%0'.").arg(group->name());
 }
 
@@ -480,7 +483,7 @@ QString MainWindow::doGroup(QStringList args)
 {
     if (args.length() > 0) {
         QString command = args.takeFirst().toUpper();
-        if (command == "MEMBERS" || command == "ME") {
+        if (command == "MEMBERS" || command == "MEM") {
             if (args.length() != 1) {
                 return this->doHelp("GROUP MEMBERS");
             }
@@ -514,8 +517,7 @@ QString MainWindow::doGroup(QStringList args)
             return this->doGroupFitness(args[0]);
         }
     }
-    QString response = QString(this->MSG_COMMAND_NOT_RECOGNIZED).append("Did you mean: GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE, GROUP MEMBERS");
-    return response;
+    return "Here are the commands related to groups: GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE, GROUP MEMBERS. You can get more information about each command by typing HELP followed by the command name.";
 }
 
 QString MainWindow::doRegister(QString username)
@@ -568,10 +570,10 @@ QString MainWindow::doMy(QStringList args)
             if (userGroups.length() == 0) {
                 return QString("You have not joined or created any groups yet.");
             }
-            return QStringList(this->theUser->getGroups()).join(", ");
+            return "You are a member of the following groups: " + QStringList(this->theUser->getGroups()).join(", ");
         }
     }
-    return this->MSG_COMMAND_NOT_RECOGNIZED;
+    return "Here are the commands beginning with MY: MY FITNESS, MY GROUPS, MY INVITATIONS. You can get more information about each command by typing HELP followed by the command name.";
 }
 
 QString MainWindow::doMyInvitations()
