@@ -281,25 +281,25 @@ QString MainWindow::doRace(QStringList args)
             if (args.length() == 1) {
                 return this->doRaceInfo(args[0]);
             } else {
-                return QString("You forgot to give a raceid. ").append(this->doHelp("RACE INFO"));
+                return QString("You forgot to give a race id. A list of available races: \n").append(this->doRaceList());
             }
         } else if (command == "JOIN" || command == "J") {
             if (args.length() == 2) {
                 return this->doRaceJoin(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname.  ").append(doHelp("RACE JOIN"));
+                return QString("You forgot to give a race id or group name.  ").append(doHelp("RACE JOIN"));
             }
         } else if (command == "LEAVE" || command == "LE") {
             if (args.length() == 2) {
                 return this->doRaceLeave(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname.  ").append(doHelp("RACE LEAVE"));
+                return QString("You forgot to give a race id or group name.  ").append(doHelp("RACE LEAVE"));
             }
         } else if (command == "PRERANK" || command == "P") {
             if (args.length() == 2) {
                 return this->doRacePrerank(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname. ").append(doHelp("RACE PRERANK"));
+                return QString("You forgot to give a race id or group name. ").append(doHelp("RACE PRERANK"));
             }
         }
     } else {
