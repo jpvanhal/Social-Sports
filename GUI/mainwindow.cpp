@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     initNews();
     initFitness();
+    initGroups();
+    initInvitations();
 }
 
 MainWindow::~MainWindow()
@@ -52,18 +54,84 @@ void MainWindow::initNews()
 
 void MainWindow::initFitness()
 {
+    ui->treeWidgetFitnessGroups->setColumnCount(1);
+    ui->treeWidgetFitnessGroups->setIconSize(QSize(32, 32));
+
+    QTreeWidgetItem *tkkRunners = addGroup(ui->treeWidgetFitnessGroups, "TKKRunners");
+    addUserToGroup(tkkRunners, "You");
+    addUserToGroup(tkkRunners, "JamesJones");
+    addUserToGroup(tkkRunners, "FastRunner");
+    addUserToGroup(tkkRunners, "AnneWhite");
+    addUserToGroup(tkkRunners, "LauraGreen");
+
+    QTreeWidgetItem *nakedJoggers = addGroup(ui->treeWidgetFitnessGroups, "NakedJoggers");
+    addUserToGroup(nakedJoggers, "Mark");
+    addUserToGroup(nakedJoggers, "Jane");
+    addUserToGroup(nakedJoggers, "Peter");
+}
+
+void MainWindow::initInvitations()
+{
+    connect(ui->btnAcceptInvitation, SIGNAL(clicked()), SLOT(acceptInvitation()));
+    connect(ui->btnDeclineInvitation, SIGNAL(clicked()), SLOT(declineInvitation()));
+
     QStandardItemModel *model = new QStandardItemModel;
-    ui->listViewFitnessGroups->setIconSize(QSize(32, 32));
-    ui->listViewFitnessGroups->setModel(model);
-    ui->listViewFitnessGroups->setItemDelegate(new EventDelegate());
+    ui->listViewInvitations->setIconSize(QSize(32, 32));
+    ui->listViewInvitations->setModel(model);
+    ui->listViewInvitations->setItemDelegate(new EventDelegate());
 
-    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "Me"));
-    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "Mark"));
-    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "Jane"));
-    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "TKKRunners"));
-    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "NakedJoggers"));
+    QStandardItem *item = new QStandardItem(QIcon(":/gfx/avatar.jpg"), "NakedJoggers");
+    item->setData("Invited by Mark an hour ago", Qt::UserRole);
+    model->appendRow(item);
 
-    ui->listViewFitnessGroups->setCurrentIndex(model->index(0, 0));
+    connect(ui->listViewInvitations->selectionModel(),
+            SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+            SLOT(invitationItemSelectionChanged(QItemSelection,QItemSelection)));
+}
+
+void MainWindow::initGroups()
+{
+    connect(ui->treeWidgetGroups, SIGNAL(itemSelectionChanged()), SLOT(groupSelectionChanged()));
+    connect(ui->btnLeaveGroup, SIGNAL(clicked()), SLOT(leaveGroup()));
+
+    ui->treeWidgetGroups->setColumnCount(1);
+    ui->treeWidgetGroups->setIconSize(QSize(32, 32));
+
+    QTreeWidgetItem *tkkRunners = addGroup(ui->treeWidgetGroups, "TKKRunners");
+    addUserToGroup(tkkRunners, "You");
+    addUserToGroup(tkkRunners, "JamesJones");
+    addUserToGroup(tkkRunners, "FastRunner");
+    addUserToGroup(tkkRunners, "AnneWhite");
+    addUserToGroup(tkkRunners, "LauraGreen");
+}
+
+QTreeWidgetItem *MainWindow::addGroup(QTreeWidget *tree, QString groupName)
+{
+    QTreeWidgetItem *group = new QTreeWidgetItem(tree);
+    group->setText(0, groupName);
+    group->setIcon(0, QIcon(":/gfx/avatar.jpg"));
+    return group;
+}
+
+void MainWindow::addUserToGroup(QTreeWidgetItem *group, QString username)
+{
+    QTreeWidgetItem *user = new QTreeWidgetItem(group);
+    user->setText(0, username);
+    user->setIcon(0, QIcon(":/gfx/avatar.jpg"));
+}
+
+void MainWindow::groupSelectionChanged()
+{
+    QTreeWidgetItem *selection = ui->treeWidgetGroups->currentItem();
+    bool isGroup = (selection && selection->childCount() > 0);
+    ui->btnLeaveGroup->setEnabled(isGroup);
+    ui->btnInviteToGroup->setEnabled(isGroup);
+}
+
+void MainWindow::leaveGroup()
+{
+    int index = ui->treeWidgetGroups->currentIndex().row();
+    ui->treeWidgetGroups->takeTopLevelItem(index);
 }
 
 void MainWindow::addNewsItem(QString title, QString time)
@@ -136,4 +204,28 @@ void MainWindow::likeNewsItem()
 {
     theUserLikes = !theUserLikes;
     updateLikings();
+}
+
+void MainWindow::invitationItemSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
+{
+    bool isInvitationSelected = selected.count() > 0;
+    ui->btnAcceptInvitation->setEnabled(isInvitationSelected);
+    ui->btnDeclineInvitation->setEnabled(isInvitationSelected);
+}
+
+void MainWindow::acceptInvitation()
+{
+    QModelIndex index = ui->listViewInvitations->currentIndex();
+    ui->listViewInvitations->model()->removeRow(index.row());
+    QTreeWidgetItem *nakedJoggers = addGroup(ui->treeWidgetGroups, "NakedJoggers");
+    addUserToGroup(nakedJoggers, "You");
+    addUserToGroup(nakedJoggers, "Mark");
+    addUserToGroup(nakedJoggers, "Jane");
+    addUserToGroup(nakedJoggers, "Peter");
+}
+
+void MainWindow::declineInvitation()
+{
+    QModelIndex index = ui->listViewInvitations->currentIndex();
+    ui->listViewInvitations->model()->removeRow(index.row());
 }
