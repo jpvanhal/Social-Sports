@@ -20,6 +20,17 @@ MainWindow::MainWindow(QWidget *parent) :
     this->connect(ui->btnComment, SIGNAL(clicked()), SLOT(commentNewsItem()));
     this->connect(ui->btnLike, SIGNAL(clicked()), SLOT(likeNewsItem()));
 
+    initNews();
+    initFitness();
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::initNews()
+{
     QStandardItemModel *model = new QStandardItemModel;
     ui->listViewNews->setIconSize(QSize(32, 32));
     ui->listViewNews->setModel(model);
@@ -38,9 +49,18 @@ MainWindow::MainWindow(QWidget *parent) :
     newsItemActivated(model->index(0, 0));
 }
 
-MainWindow::~MainWindow()
+void MainWindow::initFitness()
 {
-    delete ui;
+    QStandardItemModel *model = new QStandardItemModel;
+    ui->listViewFitnessGroups->setIconSize(QSize(32, 32));
+    ui->listViewFitnessGroups->setModel(model);
+    ui->listViewFitnessGroups->setItemDelegate(new EventDelegate());
+
+    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "Me"));
+    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "Mark"));
+    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "Jane"));
+    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "TKKRunners"));
+    model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "NakedJoggers"));
 }
 
 void MainWindow::addNewsItem(QString title, QString time)

@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>gfx/avatar.jpg</file>
         <file>gfx/thumbs_up.png</file>
+        <file>gfx/graph.png</file>
     </qresource>
 </RCC>

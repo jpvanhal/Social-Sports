@@ -19,6 +19,8 @@ public:
 private:
     Ui::MainWindow *ui;
     bool theUserLikes;
+    void initNews();
+    void initFitness();
     void addNewsItemComment(QString name, QString comment, QString time);
     void clearNewsItemComments();
     void addNewsItem(QString title, QString time);
