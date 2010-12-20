@@ -1,0 +1,116 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Hookie</title>
+        
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">Hookie</div>
+            <div class="menu">
+                <div class="left">
+                    <a class="item" href="news.html">
+                        News
+                    </a>
+                    <a class="item" href="fitness.html">
+                        Fitness
+                    </a>
+                    <a class="item" href="groups.html"> 
+                        Groups
+                    </a>
+                    <a class="item selected" href="races.html">
+                        Races
+                    </a>
+                </div>
+                <div class="right">
+                    <span class="username">user.name</span>
+                    <a class="item" href="settings.html">Settings</a>
+                    <a class="item" href="help_registered.html">
+                        Help
+                    </a>
+                    <a class="item" href="index.html">
+                        Sign out
+                    </a>
+                </div>
+            </div>
+            <div class="content">
+				<p>The upcoming foot races are listed below. You can enroll to a race by checking the corresponding checkbox on the left.</p>
+				<table class="races">
+					<thead>
+						<tr>
+							<th>Enrolled?</th>
+							<th>Name</th>
+							<th>Location</th>
+							<th>Distance</th>
+							<th>Date</th>
+						</tr>
+					</thead>
+					<tbody>
+					    <tr>
+							<td><input type="checkbox"></td>
+							<td>Länsiväyläjuoksu (long)</td>
+							<td>Espoo</td>
+							<td>17.4 km</td>
+							<td>17.4.2011</td>
+					    <tr>
+							<td><input type="checkbox"></td>
+							<td>Länsiväyläjuoksu (short)</td>
+							<td>Espoo</td>
+							<td>6.5 km</td>
+							<td>17.4.2011</td>
+					    <tr>
+							<td><input type="checkbox"></td>
+							<td>Länsiväyläjuoksu (walk)</td>
+							<td>Espoo</td>
+							<td>6.2 km</td>
+							<td>17.4.2011</td>
+					    <tr>
+							<td><input type="checkbox"></td>
+							<td>Helsinki City Run</td>
+							<td>Helsinki</td>
+							<td>21.1 km</td>
+							<td>7.5.2011</td>
+					    <tr>
+							<td><input type="checkbox"></td>
+							<td>Naisten kymppi</td>
+							<td>Helsinki</td>
+							<td>10 km</td>
+							<td>22.5.2011</td>
+					    <tr>
+							<td><input type="checkbox"></td>
+							<td>Nakukymppi</td>
+							<td>Padasjoki</td>
+							<td>10 km</td>
+							<td>17.6.2011</td>
+					    <tr>
+							<td><input type="checkbox"></td>
+							<td>Paavo Nurmi Marathon</td>
+							<td>Turku</td>
+							<td>42.2 km</td>
+							<td>2.7.2011</td>
+					    <tr>
+							<td><input type="checkbox"></td>
+							<td>Helsinki City Marathon</td>
+							<td>Helsinki</td>
+							<td>42.2 km</td>
+							<td>20.8.2011</td>
+					</tbody>
+				</table>
+            </div>
+        </div>
+        <script src="jquery-1.4.4.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$('.races td:first-child').click(function() {
+				$checkbox = $(this).find('input');
+				if ($checkbox.attr('checked')) {
+					$checkbox.removeAttr('checked');
+				} else {
+					$checkbox.attr('checked', 'checked');
+				}
+			});
+		});
+		</script>
+    </body>
+</html>
