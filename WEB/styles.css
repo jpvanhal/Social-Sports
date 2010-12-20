@@ -116,6 +116,14 @@ html {
     float: right;
 }
 
+.content.news {
+    padding-top: 0px;
+    max-height: 540px;
+}
+.notifications.news {
+    height: 520px;
+    max-height: 520px;
+}
 
 .group_select {
     width: 500px;
@@ -161,15 +169,57 @@ html {
     width: 350px;
 }
 
+.more_info > p {
+    padding: 0px;
+    margin: 0px;
+}
 .more_info {
     position: relative;
     left: 320px;
-    bottom: 500px;
+    bottom: 520px;
     width: 350px;
-    height: 500px;
+    height: 520px;
     border: 1px solid black;
 }
-
+.more_info .short_desc {
+    height: 90px;
+}
+.more_info img.profile_picture {
+    float: left;
+}
+.more_info .notification_text {
+    font-weight: bold;
+    font-size: 110%;
+}
+.more_info .like img {
+    float: left;
+}
+.more_info .like {
+    border: 1px dotted black;
+    height: 50px;
+}
+.more_info .like div {
+    display: inline-block;
+    vertical-align: middle;
+    height: 50px;
+    padding-left: 5px;
+}
+.more_info .comments {
+    position: relative;
+    left: 10px;
+    background-color: #EEEEEE;
+    height: 140px;
+    width: 330px;
+    border: 1px solid black;
+}
+.more_info textarea {
+    position: relative;
+    left: 10px;
+}
+.more_info > button {
+    position: relative;
+    left: 10px;
+}
 .thumb {
     height: 30px;
     border: 1px outset black;
