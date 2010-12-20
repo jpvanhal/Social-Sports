@@ -67,7 +67,7 @@
                         <div class="notification_text">
                             Naked runners
                         </div>
-                        <button onclick="accept(1);">Accept invitation</button>
+                        <button>Accept invitation</button>
                     </div>
                 </div>
                 <div class="group_details box_description">Detailed information about selected group:</div>
@@ -137,27 +137,50 @@
         
         <script src="jquery-1.4.4.min.js"></script>
         <script type="text/javascript">
-            $(".notifications .item .checked").hide();
-            $("div.create_new_group").hide();
-            $("div.item:first-child .checked").show();
-            $(".notifications.users_groups .item").bind("click",
-                                          function(event) {                                           
-                                            $(".notifications .item .checked").hide();
-                                            $("div.create_new_group").hide();
-                                            $(this).find(".checked").show();
-                                            });
+			$(document).ready(function() {
+				function changeGroup() {
+					$(".notifications .item .checked").hide();
+					$("div.create_new_group").hide();
+					$(this).find(".checked").show();					
+				}
+				
+	            $(".notifications .item .checked").hide();
+	            $("div.create_new_group").hide();
+	            $("div.item:first-child .checked").show();
+	            $(".notifications.users_groups .item").click(changeGroup);
+				
+				/* Accept invitation */
+				$('.invitations .item button').click(function() {
+					var $button = $(this);
+					var $item = $button.parent();
+					var groupName = $item.find('.notification_text').text();
+					$item.detach();
+					
+					$groupItem = $('<div/>')
+						.addClass('item')
+						.click(changeGroup);
+					$groupItem.append($('<img class="profile_picture" src="group.png">'));
+					$groupItem.append(
+						$('<div/>')
+							.addClass('notification_text')
+							.text(groupName)
+					);
+					$groupItem.append(
+						$('<img class="checked" src="icon_check.png" style="display: none; ">')
+					);
+					$('.users_groups').append($groupItem);
+				});
             
-            function accept(nr) {
-                $("." + nr).hide();
-            }
-            function create_group() {
-                $(".details.group_details").hide();
-                $("div.create_new_group").show();
-            }
-            function make_group() {
-                $("div.create_new_group").hide();
-                $(".details.group_details").show();
-            }
+	            
+	            function create_group() {
+	                $(".details.group_details").hide();
+	                $("div.create_new_group").show();
+	            }
+	            function make_group() {
+	                $("div.create_new_group").hide();
+	                $(".details.group_details").show();
+	            }
+			});
         </script>
     </body>
 </html>
