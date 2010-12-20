@@ -39,14 +39,14 @@
                 <div class="box_description">Choose a group to view more details:</div>
                 <div class="notifications users_groups">
                     <div class="item">
-                        <img class="profile_picture" src="profile_male.jpeg" />
+                        <img class="profile_picture" src="group.png" />
                         <div class="notification_text">
                             Naked_joggers
                         </div>
                         <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        <img class="profile_picture" src="profile_male.jpeg" />
+                        <img class="profile_picture" src="group.png" />
                         <div class="notification_text">
                             Group1
                         </div>
@@ -63,7 +63,7 @@
                 <div class="box_description">You have received invitations to the following groups:</div>
                 <div class="invitations notifications">
                     <div class="item 1">
-                        <img class="profile_picture" src="profile_male.jpeg" />
+                        <img class="profile_picture" src="group.png" />
                         <div class="notification_text">
                             Naked runners
                         </div>
@@ -106,12 +106,16 @@
                             </div>
                         </div>
                         <div class="item">
-                            <img class="profile_picture" src="group.png" />
+                            <img class="profile_picture" src="profile_male.jpeg" />
                             <div class="notification_text">
                                 Mark
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="create_new_group">
+                    <label for="groupname">Name for new group:<label>
+                    <input id="groupname" type="text" />
                 </div>
             </div>
         </div>
@@ -119,6 +123,7 @@
         <script src="jquery-1.4.4.min.js"></script>
         <script type="text/javascript">
             $(".notifications .item .checked").hide();
+            $(".create_new_group").hide();
             $("div.item:first-child .checked").show();
             $(".notifications.users_groups .item").bind("click",
                                           function(event) {                                           
