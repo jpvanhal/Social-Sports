@@ -87,7 +87,7 @@ void MainWindow::initInvitations()
     ui->listViewInvitations->setModel(model);
     ui->listViewInvitations->setItemDelegate(new EventDelegate());
 
-    QStandardItem *item = new QStandardItem(QIcon(":/gfx/avatar.jpg"), "NakedJoggers");
+    QStandardItem *item = new QStandardItem(QIcon(":/gfx/group_avatar.png"), "NakedJoggers");
     item->setData("Invited by Mark an hour ago", Qt::UserRole);
     model->appendRow(item);
 
@@ -145,7 +145,7 @@ QTreeWidgetItem *MainWindow::addGroup(QTreeWidget *tree, QString groupName)
 {
     QTreeWidgetItem *group = new QTreeWidgetItem(tree);
     group->setText(0, groupName);
-    group->setIcon(0, QIcon(":/gfx/avatar.jpg"));
+    group->setIcon(0, QIcon(":/gfx/group_avatar.png"));
     return group;
 }
 

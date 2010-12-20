@@ -3,5 +3,6 @@
         <file>gfx/avatar.jpg</file>
         <file>gfx/thumbs_up.png</file>
         <file>gfx/graph.png</file>
+        <file>gfx/group_avatar.png</file>
     </qresource>
 </RCC>
