@@ -114,23 +114,23 @@ void MainWindow::initHelp()
     this->addHelp("HELP", "H", "%0 (%1)-- Returns a list of available commands.\n%0 <command> -- Returns help on the specified command.");
     this->addHelp("RACE", "RA", "%0 (%1) -- Is the command used before all commands related to races: RACE LIST, RACE INFO, RACE JOIN, RACE LEAVE, RACE PRERANK");
     this->addHelp("RACE LIST", "RA LI", "%0 (%1) -- Returns a list of upcoming foot races, most recent first.");
-    this->addHelp("RACE INFO", "RA INF", "%0 <raceid> (%1) -- Returns detailed information about the race with the given id.");
-    this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname> (%1) -- Enroll a group to a race.");
-    this->addHelp("RACE LEAVE", "RA LE", "%0 <raceid> <groupname> (%1) -- Cancel the group enrollment to a race.");
-    this->addHelp("RACE PRERANK", "RA P", "%0 <raceid> <groupname> (%1) -- Get group's current ranking among other groups participating to a race.");
-    this->addHelp("REGISTER", "RE", "%0 <username> (%1) -- Register to the service with the given username.");
+    this->addHelp("RACE INFO", "RA INF", "%0 <raceid> (%1) -- Returns detailed information about the race with the given id. Example: RACE INFO HCR11");
+    this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname> (%1) -- Enroll a group to a race. Example: RACE JOIN HCR11 TKKRunners");
+    this->addHelp("RACE LEAVE", "RA LE", "%0 <raceid> <groupname> (%1) -- Cancel the group enrollment to a race. Example: RACE LEAVE HCR11 TKKRunners");
+    this->addHelp("RACE PRERANK", "RA P", "%0 <raceid> <groupname> (%1) -- Get group's current ranking among other groups participating to a race. Example: RACE PRERANK HCR11 TKKRunners");
+    this->addHelp("REGISTER", "RE", "%0 <username> (%1) -- Register to the service with the given username. Example: REGISTER FastRunner99");
     this->addHelp("UNREGISTER", "U", "%0 (%1) -- Unregister from the service.");
     this->addHelp("MY", "MY", "%0 (%1) -- Is the command used before all commands related to yourself: MY FITNESS, MY INVITATIONS, MY GROUPS");
     this->addHelp("MY FITNESS", "MY F", "%0 (%1) -- Returns your current personal fitness values and feedback about your training.");
     this->addHelp("MY INVITATIONS", "MY INV", "%0 (%1) -- Returns your pending group invitations.");
     this->addHelp("MY GROUPS", "MY G", "%0 (%1) -- Returns a list of the group you belong to");
     this->addHelp("GROUP", "G", "%0 (%1) -- Is the command used before all commands related to groups: GROUP MEMBERS, GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE");
-    this->addHelp("GROUP MEMBERS", "G ME", "%0 <groupname> (%1) -- Returns a list of members in the given group.");
-    this->addHelp("GROUP CREATE", "G C", "%0 <groupname> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given.");
-    this->addHelp("GROUP FITNESS", "G F", "%0 <groupname> (%1) -- Returns the average fitness values of a group.");
-    this->addHelp("GROUP INVITE", "G INV", "%0 <groupname> [<username>, ...] (%1) -- Invites users to a group with the given name.");
-    this->addHelp("GROUP JOIN", "G J", "%0 <groupname> (%1) -- Join the group with the given name. You need an invitation to join the group.");
-    this->addHelp("GROUP LEAVE", "G LE", "%0 <groupname> (%1) -- Leave the group with the given name.");
+    this->addHelp("GROUP MEMBERS", "G ME", "%0 <groupname> (%1) -- Returns a list of members in the given group. Example: GROUP MEMBERS TKKRunners");
+    this->addHelp("GROUP CREATE", "G C", "%0 <groupname> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given. Example: GROUP CREATE TKKRunners FastRunner99 AnneWhite");
+    this->addHelp("GROUP FITNESS", "G F", "%0 <groupname> (%1) -- Returns the average fitness values of a group. Example: GROUP FITNESS TKKRunners");
+    this->addHelp("GROUP INVITE", "G INV", "%0 <groupname> [<username>, ...] (%1) -- Invites users to a group with the given name. Example: GROUP INVITE TKKRunners FastRunner99 AnneWhite");
+    this->addHelp("GROUP JOIN", "G J", "%0 <groupname> (%1) -- Join the group with the given name. You need an invitation to join the group. Example: GROUP JOIN TKKRunners");
+    this->addHelp("GROUP LEAVE", "G LE", "%0 <groupname> (%1) -- Leave the group with the given name. Example: GROUP LEAVE TKKRunners");
     this->addHelp("NEWS", "N", "%0 (%1) -- Returns a list of recent activity in your groups.");
 }
 
