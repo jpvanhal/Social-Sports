@@ -447,6 +447,9 @@ QString MainWindow::doGroupLeave(QString groupName)
         return QString("You are not a member of this group.");
     }
     this->theUser->leave(group);
+    if (group->getMembers().count() == 0) {
+        groups.remove(groupName.toUpper());
+    }
     return QString("You have left the group called '%0'.").arg(group->name());
 }
 
