@@ -45,7 +45,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::addNewsItem(QString title, QString time)
 {
-    QStandardItem *item = new QStandardItem(QIcon(":/icons/avatar.jpg"), title);
+    QStandardItem *item = new QStandardItem(QIcon(":/gfx/avatar.jpg"), title);
     item->setData(time, Qt::UserRole);
     QStandardItemModel *model = (QStandardItemModel *) ui->listViewNews->model();
     model->appendRow(item);

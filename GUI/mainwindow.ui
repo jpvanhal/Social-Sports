@@ -63,7 +63,7 @@
                  </size>
                 </property>
                 <property name="text">
-                 <string>&lt;img src=&quot;:/icons/avatar.jpg&quot;&gt;</string>
+                 <string>&lt;img src=&quot;:/gfx/avatar.jpg&quot;&gt;</string>
                 </property>
                </widget>
               </item>
@@ -193,7 +193,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris nec magna ligula
                    </size>
                   </property>
                   <property name="text">
-                   <string>&lt;img src=&quot;:/icons/thumbs_up.png&quot;&gt;</string>
+                   <string>&lt;img src=&quot;:/gfx/thumbs_up.png&quot;&gt;</string>
                   </property>
                  </widget>
                 </item>

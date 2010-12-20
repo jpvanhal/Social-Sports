@@ -7,7 +7,7 @@ EventWidget::EventWidget(QString title, QString subtitle, QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->labelAvatar->setText("<img src=':/icons/avatar.jpg' width=32 height=32>");
+    ui->labelAvatar->setText("<img src=':/gfx/avatar.jpg' width=32 height=32>");
     ui->labelTitle->setText(title);
     ui->labelSubtitle->setText(subtitle);
 }

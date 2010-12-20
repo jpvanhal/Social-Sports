@@ -31,4 +31,4 @@ FORMS    += \
     eventwidget.ui
 
 RESOURCES += \
-    icons.qrc
+    resources.qrc

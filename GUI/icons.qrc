@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>icons/avatar.jpg</file>
-        <file>icons/thumbs_up.png</file>
-    </qresource>
-</RCC>
