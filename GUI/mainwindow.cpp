@@ -15,10 +15,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    this->connect(ui->listViewNews, SIGNAL(clicked(QModelIndex)), SLOT(newsItemActivated(QModelIndex)));
-    this->connect(ui->listViewNews, SIGNAL(activated(QModelIndex)), SLOT(newsItemActivated(QModelIndex)));
-    this->connect(ui->btnComment, SIGNAL(clicked()), SLOT(commentNewsItem()));
-    this->connect(ui->btnLike, SIGNAL(clicked()), SLOT(likeNewsItem()));
+    connect(ui->btnComment, SIGNAL(clicked()), SLOT(commentNewsItem()));
+    connect(ui->btnLike, SIGNAL(clicked()), SLOT(likeNewsItem()));
 
     initNews();
     initFitness();
@@ -45,8 +43,11 @@ void MainWindow::initNews()
     ui->widgetComments->setLayout(commentLayout);
 
     clearNewsItemComments();
+    connect(ui->listViewNews->selectionModel(),
+            SIGNAL(selectionChanged(QItemSelection,QItemSelection)),
+            SLOT(newsItemSelectionChanged(QItemSelection, QItemSelection)));
+
     ui->listViewNews->setCurrentIndex(model->index(0, 0));
-    newsItemActivated(model->index(0, 0));
 }
 
 void MainWindow::initFitness()
@@ -61,6 +62,8 @@ void MainWindow::initFitness()
     model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "Jane"));
     model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "TKKRunners"));
     model->appendRow(new QStandardItem(QIcon(":/gfx/avatar.jpg"), "NakedJoggers"));
+
+    ui->listViewFitnessGroups->setCurrentIndex(model->index(0, 0));
 }
 
 void MainWindow::addNewsItem(QString title, QString time)
@@ -93,8 +96,9 @@ void MainWindow::clearNewsItemComments()
     commentLayout->addSpacerItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding));
 }
 
-void MainWindow::newsItemActivated(QModelIndex index)
+void MainWindow::newsItemSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected)
 {
+    QModelIndex index = selected.indexes().first();
     QStandardItemModel *model = (QStandardItemModel *) ui->listViewNews->model();
     QStandardItem *item = model->itemFromIndex(index);
 

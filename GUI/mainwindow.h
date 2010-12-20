@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QModelIndex>
+#include <QItemSelection>
 
 namespace Ui {
     class MainWindow;
@@ -27,7 +27,7 @@ private:
     void updateLikings();
 
 private slots:
-    void newsItemActivated(QModelIndex index);
+    void newsItemSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
     void commentNewsItem();
     void likeNewsItem();
 };
