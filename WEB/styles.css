@@ -234,3 +234,36 @@ html {
     border: 1px solid #FF0000;
     background-color: #fff8dc;
 }
+
+table {
+    border: 2px solid gray;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: lightgray;
+    border-bottom: 2px solid gray;
+}
+
+th {
+    text-align: left;
+}
+
+td, th {
+    padding: 0.2em 0.5em;
+}
+
+/* Enrolled? */
+.races td:first-child {
+    text-align: center;
+}
+
+/* Distance */
+.races td:first-child + td + td + td {
+    text-align: right;
+}
+
+/* Date */
+.races td:first-child + td + td + td + td{
+    text-align: right;
+}
