@@ -1,0 +1,24 @@
+Command Line Interface
+======================
+
+Compiling and running the CLI application:
+1. Install Qt Creator 2.0: http://qt.nokia.com
+2. Open CLI/CLI.pro in Qt Creator
+3. Select Build - Run from the menu.
+
+
+Graphical User Interface
+========================
+
+Compiling and running the GUI application:
+1. Install Qt Creator 2.0: http://qt.nokia.com
+2. Open GUI/GUI.pro in Qt Creator
+3. Select Build - Run from the menu.
+
+
+Web User Interface
+==================
+
+Running the Web UI:
+1. Open your favorite web browser.
+2. Navigate your browser to WEB/index.html
