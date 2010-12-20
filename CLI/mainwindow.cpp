@@ -125,7 +125,7 @@ void MainWindow::initHelp()
     this->addHelp("MY INVITATIONS", "MY INV", "%0 (%1) -- Returns your pending group invitations.");
     this->addHelp("MY GROUPS", "MY G", "%0 (%1) -- Returns a list of the group you belong to");
     this->addHelp("GROUP", "G", "%0 (%1) -- Is the command used before all commands related to groups: GROUP MEMBERS, GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE");
-    this->addHelp("GROUP MEMBERS", "G ME", "%0 <groupname> (%1) -- Returns a list of members in the given group. Example: GROUP MEMBERS TKKRunners");
+    this->addHelp("GROUP MEMBERS", "G MEM", "%0 <groupname> (%1) -- Returns a list of members in the given group. Example: GROUP MEMBERS TKKRunners");
     this->addHelp("GROUP CREATE", "G C", "%0 <groupname> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given. Example: GROUP CREATE TKKRunners FastRunner99 AnneWhite");
     this->addHelp("GROUP FITNESS", "G F", "%0 <groupname> (%1) -- Returns the average fitness values of a group. Example: GROUP FITNESS TKKRunners");
     this->addHelp("GROUP INVITE", "G INV", "%0 <groupname> [<username>, ...] (%1) -- Invites users to a group with the given name. Example: GROUP INVITE TKKRunners FastRunner99 AnneWhite");
@@ -483,7 +483,7 @@ QString MainWindow::doGroup(QStringList args)
 {
     if (args.length() > 0) {
         QString command = args.takeFirst().toUpper();
-        if (command == "MEMBERS" || command == "ME") {
+        if (command == "MEMBERS" || command == "MEM") {
             if (args.length() != 1) {
                 return this->doHelp("GROUP MEMBERS");
             }
