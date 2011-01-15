@@ -12,16 +12,28 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    eventdelegate.cpp
+    eventdelegate.cpp \
+    signindialog.cpp \
+    signupdialog.cpp \
+    eventwidget.cpp \
+    newgroupdialog.cpp \
+    invitetogroupdialog.cpp
 
 HEADERS  += mainwindow.h \
-    eventdelegate.h
+    eventdelegate.h \
+    signindialog.h \
+    signupdialog.h \
+    eventwidget.h \
+    newgroupdialog.h \
+    invitetogroupdialog.h
 
 FORMS    += \
-    Sign_in_window.ui \
-    new_user_registration.ui \
     mainwindow.ui \
-    create_group.ui
+    signindialog.ui \
+    signupdialog.ui \
+    eventwidget.ui \
+    newgroupdialog.ui \
+    invitetogroupdialog.ui
 
 RESOURCES += \
-    icons.qrc
+    resources.qrc

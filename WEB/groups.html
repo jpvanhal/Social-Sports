@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Hookie</title>
+        
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">Hookie</div>
+            <div class="menu">
+                <div class="left">
+                    <a class="item" href="news.html">
+                        News
+                    </a>
+                    <a class="item" href="fitness.html">
+                        Fitness
+                    </a>
+                    <a class="item selected" href="groups.html"> 
+                        Groups
+                    </a>
+                    <a class="item" href="races.html">
+                        Races
+                    </a>
+                </div>
+                <div class="right">
+                    <span class="username">user.name</span>
+                    <a class="item" href="settings.html">Settings</a>
+                    <a class="item" href="help_registered.html">
+                        Help
+                    </a>
+                    <a class="item" href="index.html">
+                        Sign out
+                    </a>
+                </div>
+            </div>
+            <div class="content groups">
+                <button class="create_new_group" onclick="create_group()">Create new group</button>
+                <div class="box_description">Choose a group to view more details:</div>
+                <div class="notifications users_groups">
+                    <div class="item">
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">
+                            Naked_joggers
+                        </div>
+                        <img class="checked" src="icon_check.png" />
+                    </div>
+                    <div class="item">
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">
+                            Group1
+                        </div>
+                        <img class="checked" src="icon_check.png" />
+                    </div>
+                    <div class="item">
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">
+                            Group2
+                        </div>
+                        <img class="checked" src="icon_check.png" />
+                    </div>
+                </div>
+                <div class="box_description">You have received invitations to the following groups:</div>
+                <div class="invitations notifications">
+                    <div class="item 1">
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">
+                            Naked runners
+                        </div>
+                        <button>Accept invitation</button>
+                    </div>
+                </div>
+                <div class="group_details box_description">Detailed information about selected group:</div>
+                <div class="details group_details">
+                    <div class="short_desc">
+                        <img class="profile_picture" src="group.png" />
+                        <div class="group_name">
+                            Naked joggers
+                        </div>
+                        <button>Invite users to join this group</button>
+                        <button>Leave this group</button>
+                    </div>
+                    <div class="details">
+                        <div class="description">
+                            Description of group:
+                        </div>
+                        <div>
+                        Lorem ipsum dolor sit amet,
+                        consectetur adipiscing elit.
+                        Mauris nec magna ligula.
+                        Sed facilisis leo non diam aliquam rhoncus volutpat
+                        ut libero.
+                        </div>
+                    </div>
+                    <div class="members notifications">
+                        <div class="item">
+                            <img class="profile_picture" src="profile_male.jpeg" />
+                            <div class="notification_text">
+                                Me
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img class="profile_picture" src="profile_male.jpeg" />
+                            <div class="notification_text">
+                                Jane
+                            </div>
+                        </div>
+                        <div class="item">
+                            <img class="profile_picture" src="profile_male.jpeg" />
+                            <div class="notification_text">
+                                Mark
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="create_new_group">
+                    <table>
+                        <tr>
+                            <td>
+                                <label for="groupname">Name for new group:</label>
+                            </td>
+                            <td>
+                                <input id="groupname" type="text" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <button type="button" onclick="make_group()">Create group</button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <script src="jquery-1.4.4.min.js"></script>
+        <script type="text/javascript">
+			$(document).ready(function() {
+				function changeGroup() {
+					$(".notifications .item .checked").hide();
+					$("div.create_new_group").hide();
+					$(this).find(".checked").show();					
+				}
+				
+	            $(".notifications .item .checked").hide();
+	            $("div.create_new_group").hide();
+	            $("div.item:first-child .checked").show();
+	            $(".notifications.users_groups .item").click(changeGroup);
+				
+				/* Accept invitation */
+				$('.invitations .item button').click(function() {
+					var $button = $(this);
+					var $item = $button.parent();
+					var groupName = $item.find('.notification_text').text();
+					$item.detach();
+					
+					$groupItem = $('<div/>')
+						.addClass('item')
+						.click(changeGroup);
+					$groupItem.append($('<img class="profile_picture" src="group.png">'));
+					$groupItem.append(
+						$('<div/>')
+							.addClass('notification_text')
+							.text(groupName)
+					);
+					$groupItem.append(
+						$('<img class="checked" src="icon_check.png" style="display: none; ">')
+					);
+					$('.users_groups').append($groupItem);
+				});
+            
+	            
+	            function create_group() {
+	                $(".details.group_details").hide();
+	                $("div.create_new_group").show();
+	            }
+	            function make_group() {
+	                $("div.create_new_group").hide();
+	                $(".details.group_details").show();
+	            }
+			});
+        </script>
+    </body>
+</html>

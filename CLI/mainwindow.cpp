@@ -114,23 +114,23 @@ void MainWindow::initHelp()
     this->addHelp("HELP", "H", "%0 (%1)-- Returns a list of available commands.\n%0 <command> -- Returns help on the specified command.");
     this->addHelp("RACE", "RA", "%0 (%1) -- Is the command used before all commands related to races: RACE LIST, RACE INFO, RACE JOIN, RACE LEAVE, RACE PRERANK");
     this->addHelp("RACE LIST", "RA LI", "%0 (%1) -- Returns a list of upcoming foot races, most recent first.");
-    this->addHelp("RACE INFO", "RA INF", "%0 <raceid> (%1) -- Returns detailed information about the race with the given id.");
-    this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname> (%1) -- Enroll a group to a race.");
-    this->addHelp("RACE LEAVE", "RA LE", "%0 <raceid> <groupname> (%1) -- Cancel the group enrollment to a race.");
-    this->addHelp("RACE PRERANK", "RA P", "%0 <raceid> <groupname> (%1) -- Get group's current ranking among other groups participating to a race.");
-    this->addHelp("REGISTER", "RE", "%0 <username> (%1) -- Register to the service with the given username.");
+    this->addHelp("RACE INFO", "RA INF", "%0 <raceid> (%1) -- Returns detailed information about the race with the given id. Example: RACE INFO HCR11");
+    this->addHelp("RACE JOIN", "RA J", "%0 <raceid> <groupname> (%1) -- Enroll a group to a race. Example: RACE JOIN HCR11 TKKRunners");
+    this->addHelp("RACE LEAVE", "RA LE", "%0 <raceid> <groupname> (%1) -- Cancel the group enrollment to a race. Example: RACE LEAVE HCR11 TKKRunners");
+    this->addHelp("RACE PRERANK", "RA P", "%0 <raceid> <groupname> (%1) -- Get group's current ranking among other groups participating to a race. Example: RACE PRERANK HCR11 TKKRunners");
+    this->addHelp("REGISTER", "RE", "%0 <username> (%1) -- Register to the service with the given username. Example: REGISTER FastRunner99");
     this->addHelp("UNREGISTER", "U", "%0 (%1) -- Unregister from the service.");
     this->addHelp("MY", "MY", "%0 (%1) -- Is the command used before all commands related to yourself: MY FITNESS, MY INVITATIONS, MY GROUPS");
     this->addHelp("MY FITNESS", "MY F", "%0 (%1) -- Returns your current personal fitness values and feedback about your training.");
     this->addHelp("MY INVITATIONS", "MY INV", "%0 (%1) -- Returns your pending group invitations.");
     this->addHelp("MY GROUPS", "MY G", "%0 (%1) -- Returns a list of the group you belong to");
     this->addHelp("GROUP", "G", "%0 (%1) -- Is the command used before all commands related to groups: GROUP MEMBERS, GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE");
-    this->addHelp("GROUP MEMBERS", "G ME", "%0 <groupname> (%1) -- Returns a list of members in the given group.");
-    this->addHelp("GROUP CREATE", "G C", "%0 <groupname> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given.");
-    this->addHelp("GROUP FITNESS", "G F", "%0 <groupname> (%1) -- Returns the average fitness values of a group.");
-    this->addHelp("GROUP INVITE", "G INV", "%0 <groupname> [<username>, ...] (%1) -- Invites users to a group with the given name.");
-    this->addHelp("GROUP JOIN", "G J", "%0 <groupname> (%1) -- Join the group with the given name. You need an invitation to join the group.");
-    this->addHelp("GROUP LEAVE", "G LE", "%0 <groupname> (%1) -- Leave the group with the given name.");
+    this->addHelp("GROUP MEMBERS", "G MEM", "%0 <groupname> (%1) -- Returns a list of members in the given group. Example: GROUP MEMBERS TKKRunners");
+    this->addHelp("GROUP CREATE", "G C", "%0 <groupname> [<username>, ...] (%1) -- Creates a group with the given name, and sends invitations to the users given. Example: GROUP CREATE TKKRunners FastRunner99 AnneWhite");
+    this->addHelp("GROUP FITNESS", "G F", "%0 <groupname> (%1) -- Returns the average fitness values of a group. Example: GROUP FITNESS TKKRunners");
+    this->addHelp("GROUP INVITE", "G INV", "%0 <groupname> [<username>, ...] (%1) -- Invites users to a group with the given name. Example: GROUP INVITE TKKRunners FastRunner99 AnneWhite");
+    this->addHelp("GROUP JOIN", "G J", "%0 <groupname> (%1) -- Join the group with the given name. You need an invitation to join the group. Example: GROUP JOIN TKKRunners");
+    this->addHelp("GROUP LEAVE", "G LE", "%0 <groupname> (%1) -- Leave the group with the given name. Example: GROUP LEAVE TKKRunners");
     this->addHelp("NEWS", "N", "%0 (%1) -- Returns a list of recent activity in your groups.");
 }
 
@@ -281,25 +281,25 @@ QString MainWindow::doRace(QStringList args)
             if (args.length() == 1) {
                 return this->doRaceInfo(args[0]);
             } else {
-                return QString("You forgot to give a raceid. ").append(this->doHelp("RACE INFO"));
+                return QString("You forgot to give a race id. A list of available races: \n").append(this->doRaceList());
             }
         } else if (command == "JOIN" || command == "J") {
             if (args.length() == 2) {
                 return this->doRaceJoin(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname.  ").append(doHelp("RACE JOIN"));
+                return QString("You forgot to give a race id or group name.  ").append(doHelp("RACE JOIN"));
             }
         } else if (command == "LEAVE" || command == "LE") {
             if (args.length() == 2) {
                 return this->doRaceLeave(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname.  ").append(doHelp("RACE LEAVE"));
+                return QString("You forgot to give a race id or group name.  ").append(doHelp("RACE LEAVE"));
             }
         } else if (command == "PRERANK" || command == "P") {
             if (args.length() == 2) {
                 return this->doRacePrerank(args[0], args[1]);
             } else {
-                return QString("You forgot to give a raceid or groupname. ").append(doHelp("RACE PRERANK"));
+                return QString("You forgot to give a race id or group name. ").append(doHelp("RACE PRERANK"));
             }
         }
     } else {
@@ -447,6 +447,9 @@ QString MainWindow::doGroupLeave(QString groupName)
         return QString("You are not a member of this group.");
     }
     this->theUser->leave(group);
+    if (group->getMembers().count() == 0) {
+        groups.remove(groupName.toUpper());
+    }
     return QString("You have left the group called '%0'.").arg(group->name());
 }
 
@@ -480,7 +483,7 @@ QString MainWindow::doGroup(QStringList args)
 {
     if (args.length() > 0) {
         QString command = args.takeFirst().toUpper();
-        if (command == "MEMBERS" || command == "ME") {
+        if (command == "MEMBERS" || command == "MEM") {
             if (args.length() != 1) {
                 return this->doHelp("GROUP MEMBERS");
             }
@@ -514,8 +517,7 @@ QString MainWindow::doGroup(QStringList args)
             return this->doGroupFitness(args[0]);
         }
     }
-    QString response = QString(this->MSG_COMMAND_NOT_RECOGNIZED).append("Did you mean: GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE, GROUP MEMBERS");
-    return response;
+    return "Here are the commands related to groups: GROUP CREATE, GROUP FITNESS, GROUP INVITE, GROUP JOIN, GROUP LEAVE, GROUP MEMBERS. You can get more information about each command by typing HELP followed by the command name.";
 }
 
 QString MainWindow::doRegister(QString username)
@@ -525,7 +527,7 @@ QString MainWindow::doRegister(QString username)
     } else {
         if (this->userExists(username)) {
             return QString("Registration failed. The username '%0' is already taken. Please try some other username.").arg(username);
-        }        
+        }
         this->theUser = this->createUser(username);
         this->ui->btnSimulateInvitation->setEnabled(true);
         return QString("You have succesfully registered to the service with username '%0'.").arg(username);
@@ -568,10 +570,10 @@ QString MainWindow::doMy(QStringList args)
             if (userGroups.length() == 0) {
                 return QString("You have not joined or created any groups yet.");
             }
-            return QStringList(this->theUser->getGroups()).join(", ");
+            return "You are a member of the following groups: " + QStringList(this->theUser->getGroups()).join(", ");
         }
     }
-    return this->MSG_COMMAND_NOT_RECOGNIZED;
+    return "Here are the commands beginning with MY: MY FITNESS, MY GROUPS, MY INVITATIONS. You can get more information about each command by typing HELP followed by the command name.";
 }
 
 QString MainWindow::doMyInvitations()
@@ -604,11 +606,11 @@ void MainWindow::receiveMessage(QString message)
 
 void MainWindow::sendCommand()
 {
-    QString command = this->ui->lineEditCommand->text();
+    QString originalCommand = this->ui->lineEditCommand->text();
     this->ui->lineEditCommand->clear();
 
-    QStringList args = command.trimmed().split(QRegExp("\\s+"));
-    command = args.takeFirst().toUpper();
+    QStringList args = originalCommand.trimmed().split(QRegExp("\\s+"));
+    QString command = args.takeFirst().toUpper();
 
     QString response;
 
@@ -637,7 +639,7 @@ void MainWindow::sendCommand()
     } else if (command == "NEWS" || command == "N") {
         response = doNews();
     } else {
-        response = QString("Your command was not recognized. ").append(doHelp(""));
+        response = QString("Your command '%0' was not recognized. ").arg(originalCommand).append(doHelp(""));
     }
 
     this->receiveMessage(response);

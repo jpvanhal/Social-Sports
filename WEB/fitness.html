@@ -16,15 +16,16 @@
                     <a class="item selected" href="fitness.html">
                         Fitness
                     </a>
-                    <a class="item" href=""> 
+                    <a class="item" href="groups.html"> 
                         Groups
                     </a>
-                    <a class="item" href="">
+                    <a class="item" href="races.html">
                         Races
                     </a>
                 </div>
                 <div class="right">
                     <span class="username">user.name</span>
+                    <a class="item" href="settings.html">Settings</a>
                     <a class="item" href="help_registered.html">
                         Help
                     </a>
@@ -48,54 +49,63 @@
                     </div>
                 </div>
                 <div class="box_description">Choose group to view their fitness:</div>
-                <div class="group_select">
-                    <div class="item" onclick="">
-                        Show my graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                <div class="notifications group_select">
+                    <div class="item">
+                        <img class="profile_picture" src="profile_male.jpeg" />
+                        <div class="notification_text">Show my graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        Show group1 graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                        <img class="profile_picture" src="profile_male.jpeg" />
+                        <div class="notification_text">Show Marks graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        Show group2 graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">Show group1 graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        Show group3 graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">Show group2 graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        Show group4 graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">Show group3 graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        Show group5 graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">Show group4 graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        Show group6 graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">Show group5 graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        Show group7 graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">Show group6 graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                     <div class="item">
-                        Show group8 graph
-                        <img class="checked" src="icon_check.png" alt="checked" />
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">Show group7 graph</div>
+                        <img class="checked" src="icon_check.png" />
                     </div>
                 </div>
             </div>
         </div>
         <script src="jquery-1.4.4.min.js"></script>
         <script type="text/javascript">
-            $(".group_select .item img").hide();
-            $("div.item:first-child img").show();
-            $(".group_select .item").bind("click",
+            $(".notifications .item .checked").hide();
+            $("div.item:first-child .checked").show();
+            $(".notifications .item").bind("click",
                                           function(event) {                                           
-                                            $(".group_select .item img").hide();
-                                            $(this).find("img").show();
+                                            $(".notifications .item .checked").hide();
+                                            $(this).find(".checked").show();
                                             })
         </script>
     </body>

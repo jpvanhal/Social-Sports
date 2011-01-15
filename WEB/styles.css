@@ -82,32 +82,13 @@ html {
 .box_description {
     margin-top: 10px;
 }
-.group_select {
-    width: 500px;
-    border: 1px solid black;
-    max-height: 200px;
-    overflow-y: scroll;
-}
-
-.group_select .item {
-    padding: 10px;
-    border: 1px dotted black;
-}
-.group_select .item:hover {
-    background: #EEEEEE;
-}
-.group_select .checked {
-    height: 23px;
-    position: relative;
-    top: 3px;
-}
 
 .notifications {
     width: 300px;
     height: 500px;
     border: 1px solid black;
     max-height: 500px;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 .notifications .item {
     height: 85px;
@@ -121,8 +102,8 @@ html {
     float: left;
     display: inline;
     margin-right: 5px;
-    max-height: 500px;
-    overflow-y: scroll;
+    max-height: 70px;
+    overflow-y: auto;
 }
 .notifications .item .notifications_text {
 }
@@ -134,20 +115,189 @@ html {
 .notifications .item .checked {
     float: right;
 }
-
+.more_info > p {
+    padding: 0px;
+    margin: 0px;
+}
 .more_info {
     position: relative;
     left: 320px;
-    bottom: 500px;
+    bottom: 520px;
     width: 350px;
-    height: 500px;
+    height: 520px;
     border: 1px solid black;
 }
+.more_info .short_desc {
+    height: 90px;
+}
+.more_info img.profile_picture {
+    float: left;
+}
+.more_info .notification_text {
+    font-weight: bold;
+    font-size: 110%;
+}
+.more_info .like img {
+    float: left;
+}
+.more_info .like {
+    border: 1px dotted black;
+    height: 50px;
+}
+.more_info .like div {
+    display: inline-block;
+    vertical-align: middle;
+    height: 50px;
+    padding-left: 5px;
+}
+.more_info .comments {
+    position: relative;
+    left: 10px;
+    background-color: #EEEEEE;
+    height: 140px;
+    width: 330px;
+    border: 1px solid black;
+}
+.more_info textarea {
+    position: relative;
+    left: 10px;
+}
+.more_info > button {
+    position: relative;
+    left: 10px;
+}
+.content.news {
+    padding-top: 0px;
+    max-height: 540px;
+}
+.notifications.news {
+    height: 520px;
+    max-height: 520px;
+}
 
+.group_select {
+    width: 500px;
+    border: 1px solid black;
+    max-height: 200px;
+}
+.group_select .item {
+    height: 45px;
+}
+.group_select .item img {
+    max-height: 40px;
+}
+
+.content.groups {
+    padding-top: 0px;
+}
+.users_groups {
+    margin-right: 30px;
+    width: 400px;
+    max-height: 300px;
+}
+.users_groups .item {
+    height: 45px;
+}
+.users_groups .item img {
+    max-height: 40px;
+}
+
+.invitations {
+    width: 400px;
+    height: 180px;
+}
+.invitations .item {
+    height: 45px;
+}
+.invitations .item img {
+    height: 40px;
+}
+.invitations .item button {
+    float: right;
+}
+.group_details {
+    position: relative;
+    bottom: 540px;
+    left: 420px;
+}
+.details.group_details {
+    height: 510px;
+    width: 400px;
+    border: 1px solid black;
+}
+.details.group_details .short_desc {
+    height: 90px;
+}
+.details.group_details .short_desc img {
+    float: left;
+    height: 80px;
+}
+.members.notifications {
+    overflow: visible;
+    border: 0px solid black;
+    width: 400px;
+}
+.members .item {
+    height: 45px;
+}
+.members .item img {
+    height: 40px;
+}
+button.create_new_group {
+    float: right;
+    position: relative;
+    top: 20px;
+    right: 30px;
+}
+div.create_new_group {
+    position: absolute;
+    top: 130px;
+    left: 500px;
+}
 .thumb {
     height: 30px;
     border: 1px outset black;
     position: relative;
     top: 10px;
     left: 10px;
+}
+
+.error {
+    margin-left: 4px;
+    padding: 3px;
+    border: 1px solid #FF0000;
+    background-color: #fff8dc;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: lightgray;
+    border-bottom: 1px solid black;
+}
+
+th {
+    text-align: left;
+}
+
+td, th {
+    padding: 0.2em 0.5em;
+}
+
+/* Enrolled? */
+.races td:first-child {
+    text-align: center;
+}
+
+/* Distance */
+.races td:first-child + td + td + td {
+    text-align: right;
+}
+
+/* Date */
+.races td:first-child + td + td + td + td{
+    text-align: right;
 }

@@ -2,7 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QModelIndex>
+#include <QItemSelection>
+#include <QTreeWidgetItem>
 
 namespace Ui {
     class MainWindow;
@@ -18,10 +19,30 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    QStringList groupNames;
+    bool theUserLikes;
+    void initNews();
+    void initFitness();
+    void initGroups();
+    void initInvitations();
+    void addNewsItemComment(QString name, QString comment, QString time);
+    void clearNewsItemComments();
     void addNewsItem(QString title, QString time);
+    void updateLikings();
+    QTreeWidgetItem *addGroup(QTreeWidget *tree, QString groupName);
+    void addUserToGroup(QTreeWidgetItem *group, QString username);
 
 private slots:
-    void newsItemActivated(QModelIndex index);
+    void groupSelectionChanged();
+    void newsItemSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
+    void commentNewsItem();
+    void likeNewsItem();
+    void createGroup();
+    void inviteToGroup();
+    void leaveGroup();
+    void acceptInvitation();
+    void declineInvitation();
+    void invitationItemSelectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 };
 
 #endif // MAINWINDOW_H

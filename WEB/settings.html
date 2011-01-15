@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <title>Hookie</title>
+        
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="header">Hookie</div>
+            <div class="menu">
+                <div class="left">
+                    <a class="item" href="news.html">
+                        News
+                    </a>
+                    <a class="item" href="fitness.html">
+                        Fitness
+                    </a>
+                    <a class="item" href="groups.html"> 
+                        Groups
+                    </a>
+                    <a class="item" href="races.html">
+                        Races
+                    </a>
+                </div>
+                <div class="right">
+                    <span class="username">user.name</span>
+                    <a class="item selected" href="settings.html">Settings</a>
+                    <a class="item" href="help_registered.html">
+                        Help
+                    </a>
+                    <a class="item" href="index.html">
+                        Sign out
+                    </a>
+                </div>
+            </div>
+            <div class="content">
+                <table>
+                    <tr>
+                        <td colspan="2">
+                            You can change your password with the form below
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="current_password">Write your current password:</label>
+                        </td>
+                        <td>
+                            <input id="current_password" type="password" name="current_password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="new_password">Write your new password:</label>
+                        </td>
+                        <td>
+                            <input id="new_password" type="password" name="new_password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="new_password2">Retype your new password:</label>
+                        </td>
+                        <td>
+                            <input id="new_password2" type="password" name="new_password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="change password" onclick="alert('Password changed')" />
+                        </td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            You can change your email with the form below
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="current_password2">Write your current password:</label>
+                        </td>
+                        <td>
+                            <input id="current_password2" type="password" name="current_password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="new_email">Write your new email:</label>
+                        </td>
+                        <td>
+                            <input id="new_email" type="text" value="old_email@domain.org" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <input type="submit" name="submit" value="change email" onclick="alert('To complete the change you should confirm the email by following a link sent to the given email address.')" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

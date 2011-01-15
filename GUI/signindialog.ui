@@ -1,46 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Hookie_SingIN</class>
- <widget class="QDialog" name="Hookie_SingIN">
+ <class>SignInDialog</class>
+ <widget class="QDialog" name="SignInDialog">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>263</width>
-    <height>370</height>
+    <width>316</width>
+    <height>229</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Sign In</string>
   </property>
   <property name="modal">
-   <bool>false</bool>
+   <bool>true</bool>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetDefaultConstraint</enum>
+   </property>
+   <item>
     <layout class="QGridLayout" name="gridLayout">
      <item row="0" column="0">
       <widget class="QLabel" name="label">
        <property name="text">
-        <string>Username</string>
+        <string>Username:</string>
        </property>
        <property name="buddy">
-        <cstring>usernamefield</cstring>
+        <cstring>textFieldUsername</cstring>
        </property>
       </widget>
      </item>
-     <item row="1" column="0">
-      <widget class="QLineEdit" name="usernamefield"/>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="textFieldUsername"/>
      </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>First time user?</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QPushButton" name="create_user">
+     <item row="1" column="1">
+      <widget class="QPushButton" name="btnSignUp">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -123,7 +119,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Create a new user..</string>
+        <string>New user? Sign up!</string>
        </property>
        <property name="autoDefault">
         <bool>true</bool>
@@ -133,21 +129,25 @@
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
+     <item row="2" column="0">
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Password</string>
+        <string>Password:</string>
        </property>
        <property name="buddy">
-        <cstring>passwordfield</cstring>
+        <cstring>textFieldPassword</cstring>
        </property>
       </widget>
      </item>
-     <item row="5" column="0">
-      <widget class="QLineEdit" name="passwordfield"/>
+     <item row="2" column="1">
+      <widget class="QLineEdit" name="textFieldPassword">
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+      </widget>
      </item>
-     <item row="6" column="0">
-      <widget class="QPushButton" name="forgot_password">
+     <item row="3" column="1">
+      <widget class="QPushButton" name="btnForgotPassword">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -240,81 +240,65 @@
        </property>
       </widget>
      </item>
-     <item row="7" column="0">
-      <widget class="QCheckBox" name="rememberme">
-       <property name="text">
-        <string>Remember me on this computer?</string>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkboxRememberMe">
+     <property name="text">
+      <string>Remember me on this computer?</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-      </widget>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
-     <item row="8" column="0">
-      <widget class="QPushButton" name="signinbutton">
+     <item>
+      <widget class="QPushButton" name="btnSignIn">
        <property name="text">
         <string>Sign In</string>
        </property>
+       <property name="default">
+        <bool>true</bool>
+       </property>
       </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>usernamefield</tabstop>
-  <tabstop>create_user</tabstop>
-  <tabstop>passwordfield</tabstop>
-  <tabstop>forgot_password</tabstop>
-  <tabstop>rememberme</tabstop>
-  <tabstop>signinbutton</tabstop>
+  <tabstop>textFieldUsername</tabstop>
+  <tabstop>btnSignUp</tabstop>
+  <tabstop>textFieldPassword</tabstop>
+  <tabstop>btnForgotPassword</tabstop>
+  <tabstop>checkboxRememberMe</tabstop>
+  <tabstop>btnSignIn</tabstop>
  </tabstops>
  <resources/>
- <connections>
-  <connection>
-   <sender>signinbutton</sender>
-   <signal>clicked()</signal>
-   <receiver>Hookie_SingIN</receiver>
-   <slot>exec()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>281</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>131</x>
-     <y>184</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>create_user</sender>
-   <signal>clicked()</signal>
-   <receiver>Hookie_SingIN</receiver>
-   <slot>exec()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>114</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>197</x>
-     <y>184</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>forgot_password</sender>
-   <signal>clicked()</signal>
-   <receiver>Hookie_SingIN</receiver>
-   <slot>exec()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>129</x>
-     <y>216</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>197</x>
-     <y>184</y>
-    </hint>
-   </hints>
-  </connection>
- </connections>
+ <connections/>
 </ui>

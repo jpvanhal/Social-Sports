@@ -10,21 +10,22 @@
             <div class="header">Hookie</div>
             <div class="menu">
                 <div class="left">
-                    <a class="item selected" href="">
+                    <a class="item selected" href="news.html">
                         News
                     </a>
                     <a class="item" href="fitness.html">
                         Fitness
                     </a>
-                    <a class="item" href=""> 
+                    <a class="item" href="groups.html"> 
                         Groups
                     </a>
-                    <a class="item" href="">
+                    <a class="item" href="races.html">
                         Races
                     </a>
                 </div>
                 <div class="right">
                     <span class="username">user.name</span>
+                    <a class="item" href="settings.html">Settings</a>
                     <a class="item" href="help_registered.html">
                         Help
                     </a>
@@ -33,8 +34,9 @@
                     </a>
                 </div>
             </div>
-            <div class="content">
-                <div class="notifications">
+            <div class="content news">
+                <div class="box_description">Recent notifications(click to view in detail):</div>
+                <div class="notifications news">
                     <div class="item">
                         <img class="profile_picture" src="profile_male.jpeg" />
                         <div class="notification_text">
@@ -55,19 +57,54 @@
                         </div>
                         <img class="checked" src="icon_check.png" />
                     </div>
+                    <div class="item">
+                        <img class="profile_picture" src="group.png" />
+                        <div class="notification_text">
+                            Group Naked_joggers was number one in Helsinki city run
+                        </div>
+                        <div class="time">
+                            1 day ago
+                        </div>
+                        <img class="checked" src="icon_check.png" />
+                    </div>
                 </div>
                 <div class="more_info">
-                    <img class="profile_picture" src="profile_male.jpeg" />
-                    <div class="notification_text">
-                        Mark jogged 10km in 1 hour
+                    <div class="short_desc">
+                        <img class="profile_picture" src="profile_male.jpeg" />
+                        <div class="notification_text">
+                            Mark jogged 10km in 1 hour
+                        </div>
+                        <div class="time">
+                            4 hours ago
+                        </div>
                     </div>
-                    <a href="">I like this...<img class="thumb" src="hand-thumbs-up.jpg" /></a>
-                    <div class="time">
-                        4 hours ago
+                    <div class="details">
+                        <div>
+                        More details about the update..
+                        </div>
+                        <br />
+                        <div>
+                        Lorem ipsum dolor sit amet,
+                        consectetur adipiscing elit.
+                        Mauris nec magna ligula.
+                        Sed facilisis leo non diam aliquam rhoncus volutpat
+                        ut libero.
+                        </div>
                     </div>
-                    <p>Comment on this notification:</p>
-                    <textarea cols="40" rows="10" ></textarea>
-                    <button type="button">Comment</button>
+                    <div class="like">
+                        <img src="thumbs_up.png" alt="Thumbs up" />
+                        <div class="who_likes">
+                            <p>Jane and Mark likes this.</p>
+                        </div>
+                        <button type="button" onclick="like()">Like</button>
+                    </div>
+                    <p>Comments:</p>
+                    <div id="commentbox" class="comments">
+                        Jane: Great job!
+                    </div>
+                    <p>Your comment:</p>
+                    <textarea id="comment" cols="44" rows="5" ></textarea>
+                    <button type="button" onclick="add_comment()">Comment</button>
                 </div>
             </div>
         </div>
@@ -81,6 +118,21 @@
                                             $(".notifications .item .checked").hide();
                                             $(this).find(".checked").show();
                                             })
+            function add_comment() {
+                var comment = $("#comment")[0].value;
+                if(comment === "") {
+                    return;
+                }
+                $("#commentbox")[0].innerHTML = $("#commentbox")[0].innerHTML + "<br />Me:" + comment;
+                $("#comment")[0].value = "";
+            }
+            var liked = true;
+            function like() {
+                if(liked) {
+                    $(".who_likes > p")[0].innerHTML = "Me, " + $(".who_likes > p")[0].innerHTML;
+                }
+                liked = false;
+            }
         </script>
     </body>
 </html>
