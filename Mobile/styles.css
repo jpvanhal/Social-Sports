@@ -5,3 +5,18 @@ html {
 .error {
     color: red;
 }
+
+.news {
+    padding: 0;
+}
+
+.news li {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+
+
+.news-date {
+    color: gray;
+}
