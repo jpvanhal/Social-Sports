@@ -12,13 +12,9 @@ body {
 }
 
 .news, .groups {
-    padding: 0;
 }
 
 .news li, .groups li {
-    display: block;
-    padding: 0;
-    margin: 0;
 }
 
 
