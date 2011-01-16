@@ -2,11 +2,6 @@ html {
     font-family: sans-serif;
 }
 
-body {
-    overflow: hidden;
-    border: 1px solid black;
-}
-
 img.small {
     width: 120px;
 }
