@@ -2,10 +2,6 @@ html {
     font-family: sans-serif;
 }
 
-img.small {
-    width: 120px;
-}
-
 .error {
     color: red;
 }
