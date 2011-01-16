@@ -20,3 +20,13 @@ html {
 .news-date {
     color: gray;
 }
+
+.race-info th {
+    text-align: left;
+}
+
+.notification {
+    border: thin solid black;
+    background-color: #99ff99;
+    padding: 0.5em;
+}
