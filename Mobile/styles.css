@@ -2,15 +2,20 @@ html {
     font-family: sans-serif;
 }
 
+body {
+    overflow: hidden;
+    border: 1px solid black;
+}
+
 .error {
     color: red;
 }
 
-.news {
+.news, .groups {
     padding: 0;
 }
 
-.news li {
+.news li, .groups li {
     display: block;
     padding: 0;
     margin: 0;
