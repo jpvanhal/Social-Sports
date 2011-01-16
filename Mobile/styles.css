@@ -11,16 +11,21 @@ body {
     color: red;
 }
 
-.news, .groups {
+.news, .groups, .group-invitations {
     padding: 0;
 }
 
-.news li, .groups li {
+.news li, .groups li, .group-invitations li {
     display: block;
     padding: 0;
     margin: 0;
 }
 
+.group-invitations li {
+    border: 1px solid gray;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
 
 .news-date {
     color: gray;
