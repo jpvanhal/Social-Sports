@@ -11,6 +11,7 @@ body {
     color: red;
 }
 
+<<<<<<< HEAD
 .news, .groups, .group-invitations {
     padding: 0;
 }
@@ -19,6 +20,12 @@ body {
     display: block;
     padding: 0;
     margin: 0;
+=======
+.news, .groups {
+}
+
+.news li, .groups li {
+>>>>>>> 211e7dd6fcc0ad46c618e014a5dd452a617e7a1a
 }
 
 .group-invitations li {
