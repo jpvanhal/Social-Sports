@@ -21,8 +21,8 @@ html {
     color: gray;
 }
 
-.race-info th {
-    text-align: left;
+.race-info dt {
+    font-weight: bold;
 }
 
 .notification {
