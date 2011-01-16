@@ -7,6 +7,10 @@ body {
     border: 1px solid black;
 }
 
+img.small {
+    width: 120px;
+}
+
 .error {
     color: red;
 }
