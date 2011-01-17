@@ -3,7 +3,9 @@ html {
 }
 
 .error {
-    color: red;
+    border: thin solid black;
+    background-color: #ff9999;
+    padding: 0.5em;
 }
 
 .news, .groups, .group-invitations {
@@ -22,11 +24,11 @@ html {
     padding-top: 5px;
 }
 
-.news-date {
+.news-date, .comment-date {
     color: gray;
 }
 
-.race-info dt {
+.race-info dt, .commenter {
     font-weight: bold;
 }
 
