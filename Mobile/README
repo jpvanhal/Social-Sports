@@ -1,0 +1,11 @@
+Mobile User Interface
+=====================
+
+Running the Mobile User Interface:
+1. Open a mobile web browser or emulator.
+2. Navigate the browser to login.html (There is no username/password checking.
+   You can enter anything you want.)
+
+Please note that some pages (login-failed.html, groups-declined.html) are not
+accessible by clicking the links in the UI as there is no business logic in the
+UI.  Just open these files manually in the browser.
